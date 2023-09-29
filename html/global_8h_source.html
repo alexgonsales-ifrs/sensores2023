@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>Projeto Sensores: Código-Fonte de global.h</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Projeto Sensores
+   
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- Gerado por Doxygen 1.7.6.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">global.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="global_8h.html">Vá para a documentação deste arquivo.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   global.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: ifrs</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 2 de Abril de 2014, 18:38</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef GLOBAL_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define GLOBAL_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#ifdef  __cplusplus</span>
+<a name="l00012"></a>00012 <span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {
+<a name="l00013"></a>00013 <span class="preprocessor">#endif</span>
+<a name="l00014"></a>00014 <span class="preprocessor"></span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="estados_8h.html">estados.h</a>&quot;</span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017     <span class="comment">// Valores de selecao do tempo de amostragem</span>
+<a name="l00018"></a>00018     <span class="comment">//#define     TEMPO_01_SEGUNDO    18/10</span>
+<a name="l00019"></a>00019     <span class="comment">//#define     TEMPO_05_SEGUNDO    9</span>
+<a name="l00020"></a><a class="code" href="global_8h.html#ace4deec54eb8e8875f957e9c121a6576">00020</a> <span class="preprocessor">#define     TEMPO_1_SEGUNDO     18</span>
+<a name="l00021"></a><a class="code" href="global_8h.html#ad4e13b05c1e8d2b03ea4a9ab7dda3efd">00021</a> <span class="preprocessor"></span><span class="preprocessor">#define     TEMPO_10_SEGUNDOS   180</span>
+<a name="l00022"></a><a class="code" href="global_8h.html#ac944f1da95d192019bda5a0d0a6f0d29">00022</a> <span class="preprocessor"></span><span class="preprocessor">#define     TEMPO_30_SEGUNDOS   540</span>
+<a name="l00023"></a><a class="code" href="global_8h.html#a9c7fcd3bb85f5ac9d6e336916093bcd1">00023</a> <span class="preprocessor"></span><span class="preprocessor">#define     TEMPO_1_MINUTO      1080</span>
+<a name="l00024"></a><a class="code" href="global_8h.html#a10ec51b6d14cf7509baf653a55bf48c1">00024</a> <span class="preprocessor"></span><span class="preprocessor">#define     TEMPO_10_MINUTOS    10800</span>
+<a name="l00025"></a><a class="code" href="global_8h.html#ad9ff97469457c2c864b5fefafe95d228">00025</a> <span class="preprocessor"></span><span class="preprocessor">#define     TEMPO_30_MINUTOS    32400</span>
+<a name="l00026"></a><a class="code" href="global_8h.html#a39fa7d492a6ef7ee0c45c57b51a730b3">00026</a> <span class="preprocessor"></span><span class="preprocessor">#define     TEMPO_1_HORA        64800</span>
+<a name="l00027"></a>00027 <span class="preprocessor"></span>
+<a name="l00028"></a><a class="code" href="global_8h.html#ae5b3f157e0b73523ecee4240b68b77b1">00028</a> <span class="preprocessor">#define VALOR_MAXIMO_AMOSTRA               0xffff</span>
+<a name="l00029"></a><a class="code" href="global_8h.html#aba01c8dc29fca452f9bc28d6e348a6bd">00029</a> <span class="preprocessor"></span><span class="preprocessor">#define VALOR_MINIMO_AMOSTRA               0</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span>    <span class="comment">// 1 SEGUNDO = (posicao 2 do vetor):</span>
+<a name="l00031"></a>00031     <span class="comment">//#define TEMPO_AMOSTRA_DEFAULT               2</span>
+<a name="l00032"></a>00032     <span class="comment">// 1 SEGUNDO = (posicao 2 do vetor):</span>
+<a name="l00033"></a><a class="code" href="global_8h.html#a268d68fcac9c8cc5c79002a09ec73720">00033</a> <span class="preprocessor">#define TEMPO_AMOSTRA_DEFAULT               0</span>
+<a name="l00034"></a>00034 <span class="preprocessor"></span>
+<a name="l00035"></a>00035     <span class="comment">// 1 SENSOR = (posicao 0 do vetor)</span>
+<a name="l00036"></a><a class="code" href="global_8h.html#a10e7e004ffeaac152b2ca5651c355ca8">00036</a> <span class="preprocessor">#define QUANT_SENSORES_DEFAULT              0</span>
+<a name="l00037"></a><a class="code" href="global_8h.html#ad6bf19f0e873b6f9b93bc44c5efdb0b1">00037</a> <span class="preprocessor"></span><span class="preprocessor">#define VALOR_CHAVE         93                  //94</span>
+<a name="l00038"></a>00038 <span class="preprocessor"></span>    
+<a name="l00039"></a>00039 
+<a name="l00040"></a><a class="code" href="global_8h.html#a4f92392e04f94eb58aac8061da80df88">00040</a>     <a class="code" href="estados_8h.html#a5a0141a5c34ffde5fa1b0c5a93956c30">Estados</a> <a class="code" href="global_8h.html#a4f92392e04f94eb58aac8061da80df88">gl_estado</a> = <a class="code" href="estados_8h.html#a5a0141a5c34ffde5fa1b0c5a93956c30a402b58fc7dd38c6fcedd7d16f23fdf7f">EST_INICIO</a>;
+<a name="l00041"></a>00041     <span class="comment">/*uint8_t gl_item_menu_principal = 0;</span>
+<a name="l00042"></a>00042 <span class="comment">    uint8_t gl_item_menu_ver_todos = 0;</span>
+<a name="l00043"></a>00043 <span class="comment">    uint16_t gl_item_menu_config_amostra = TEMPO_AMOSTRA_DEFAULT; //posicao 2 do vetor = 1 segundo (estao reservados 2 bytes de endereco)</span>
+<a name="l00044"></a>00044 <span class="comment">    uint8_t gl_item_menu_config_sensores = QUANT_SENSORES_DEFAULT;*/</span>
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046 <span class="preprocessor">#ifdef  __cplusplus</span>
+<a name="l00047"></a>00047 <span class="preprocessor"></span>}
+<a name="l00048"></a>00048 <span class="preprocessor">#endif</span>
+<a name="l00049"></a>00049 <span class="preprocessor"></span>
+<a name="l00050"></a>00050 <span class="preprocessor">#endif  </span><span class="comment">/* GLOBAL_H */</span>
+<a name="l00051"></a>00051 
+</pre></div></div><!-- contents -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de Dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Arquivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerações</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Valores enumerados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Definições e Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+
+<hr class="footer"/><address class="footer"><small>
+Gerado em Terça, 5 de Maio de 2015 13:57:43 para Projeto Sensores por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.7.6.1
+</small></address>
+
+</body>
+</html>

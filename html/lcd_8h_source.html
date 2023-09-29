@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>Projeto Sensores: Código-Fonte de lcd.h</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Projeto Sensores
+   
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- Gerado por Doxygen 1.7.6.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">lcd.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="lcd_8h.html">Vá para a documentação deste arquivo.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   lcd.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: ti</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 25 de Dezembro de 2013, 17:18</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef LCD_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define LCD_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#ifdef  __cplusplus</span>
+<a name="l00012"></a>00012 <span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {
+<a name="l00013"></a>00013 <span class="preprocessor">#endif</span>
+<a name="l00014"></a>00014 <span class="preprocessor"></span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="versao_8h.html">versao.h</a>&quot;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#ifdef _MODULO_NOVO_</span>
+<a name="l00018"></a><a class="code" href="lcd_8h.html#a4781e073871c6f27f89b9463ad3a4ed1">00018</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_RS              RC0</span>
+<a name="l00019"></a><a class="code" href="lcd_8h.html#acf7cebe67418cad2329ac4083b2da9c7">00019</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_RS_TRIS         TRISC0</span>
+<a name="l00020"></a><a class="code" href="lcd_8h.html#a6ec15b1e813d1f56d2eb644a127e5d49">00020</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_E               RC1</span>
+<a name="l00021"></a><a class="code" href="lcd_8h.html#ab6963b03d8260ac62056ec33e538bb2a">00021</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_E_TRIS          TRISC1</span>
+<a name="l00022"></a><a class="code" href="lcd_8h.html#ade7e247311032a474711416da480ed8b">00022</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_D4              RC2</span>
+<a name="l00023"></a><a class="code" href="lcd_8h.html#af55fd8a0ad86fa5e70d4899b8d87f904">00023</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_D4_TRIS         TRISC2</span>
+<a name="l00024"></a>00024 <span class="preprocessor"></span>
+<a name="l00025"></a><a class="code" href="lcd_8h.html#a5b91fe480c768d4f246f3890207bfbfc">00025</a> <span class="preprocessor">#define LCD_D5              RB2</span>
+<a name="l00026"></a><a class="code" href="lcd_8h.html#a1474ef588dda79dfbf6987e5fbcca402">00026</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_D5_TRIS         TRISB2</span>
+<a name="l00027"></a><a class="code" href="lcd_8h.html#a72e105fcda5fd1c07b5f391379a439d4">00027</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_D6              RB1</span>
+<a name="l00028"></a><a class="code" href="lcd_8h.html#aa0c4ad87049bbd0eb9548177f868529b">00028</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_D6_TRIS         TRISB1</span>
+<a name="l00029"></a><a class="code" href="lcd_8h.html#abd65075e01c7413419581aedee5bcc24">00029</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_D7              RB0</span>
+<a name="l00030"></a><a class="code" href="lcd_8h.html#a8aa42709f54b52388e5b8013eb625673">00030</a> <span class="preprocessor"></span><span class="preprocessor">#define LCD_D7_TRIS         TRISB0</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span>    <span class="comment">/*</span>
+<a name="l00032"></a>00032 <span class="comment">    #define LCD_D5              RC3</span>
+<a name="l00033"></a>00033 <span class="comment">    #define LCD_D5_TRIS         TRISC3</span>
+<a name="l00034"></a>00034 <span class="comment">    #define LCD_D6              RC4</span>
+<a name="l00035"></a>00035 <span class="comment">    #define LCD_D6_TRIS         TRISC4</span>
+<a name="l00036"></a>00036 <span class="comment">    #define LCD_D7              RC5</span>
+<a name="l00037"></a>00037 <span class="comment">    #define LCD_D7_TRIS         TRISC5</span>
+<a name="l00038"></a>00038 <span class="comment">     */</span>
+<a name="l00039"></a>00039 <span class="preprocessor">#else #ifdef _MODULO_ANTIGO_</span>
+<a name="l00040"></a>00040 <span class="preprocessor"></span><span class="preprocessor">#define LCD_RS              RB0</span>
+<a name="l00041"></a>00041 <span class="preprocessor"></span><span class="preprocessor">#define LCD_RS_TRIS         TRISB0</span>
+<a name="l00042"></a>00042 <span class="preprocessor"></span><span class="preprocessor">#define LCD_E               RB1</span>
+<a name="l00043"></a>00043 <span class="preprocessor"></span><span class="preprocessor">#define LCD_E_TRIS          TRISB1</span>
+<a name="l00044"></a>00044 <span class="preprocessor"></span><span class="preprocessor">#define LCD_D4              RB2</span>
+<a name="l00045"></a>00045 <span class="preprocessor"></span><span class="preprocessor">#define LCD_D4_TRIS         TRISB2</span>
+<a name="l00046"></a>00046 <span class="preprocessor"></span><span class="preprocessor">#define LCD_D5              RB3</span>
+<a name="l00047"></a>00047 <span class="preprocessor"></span><span class="preprocessor">#define LCD_D5_TRIS         TRISB3</span>
+<a name="l00048"></a>00048 <span class="preprocessor"></span><span class="preprocessor">#define LCD_D6              RB4</span>
+<a name="l00049"></a>00049 <span class="preprocessor"></span><span class="preprocessor">#define LCD_D6_TRIS         TRISB4</span>
+<a name="l00050"></a>00050 <span class="preprocessor"></span><span class="preprocessor">#define LCD_D7              RB5</span>
+<a name="l00051"></a>00051 <span class="preprocessor"></span><span class="preprocessor">#define LCD_D7_TRIS         TRISB5</span>
+<a name="l00052"></a>00052 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00053"></a>00053 <span class="preprocessor"></span>
+<a name="l00057"></a>00057     <span class="keywordtype">void</span> <a class="code" href="lcd_8c.html#ad235a86241458b1e7b8771688bfdaf9a">lcd_clear</a>(<span class="keywordtype">void</span>);
+<a name="l00058"></a>00058 
+<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="lcd_8c.html#ac02d12dea1d78cca9bc3977f34c9abda">lcd_goto</a>(uint8_t y, uint8_t x);
+<a name="l00065"></a>00065 
+<a name="l00069"></a>00069     <span class="keywordtype">void</span> <a class="code" href="lcd_8c.html#a6842775ba83d166f02b8fef8bb63b1e6">lcd_init</a>(<span class="keywordtype">void</span>);
+<a name="l00070"></a>00070 
+<a name="l00075"></a>00075     <span class="keywordtype">void</span> <a class="code" href="lcd_8c.html#af5f233f52895c4cf19d6bca46ef88e6c">lcd_puts</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str);
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077     <span class="comment">//typedef struct t_pos {</span>
+<a name="l00078"></a>00078 
+<a name="l00079"></a><a class="code" href="structS__pos.html">00079</a>     <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00080"></a><a class="code" href="structS__pos.html#a17f97f62d93bc8cfb4a2b5d273a2aa72">00080</a>         uint8_t <a class="code" href="structS__pos.html#a17f97f62d93bc8cfb4a2b5d273a2aa72">y</a>;
+<a name="l00081"></a><a class="code" href="structS__pos.html#a0f561e77fa0f040b637f4e04f6cd8078">00081</a>         uint8_t <a class="code" href="structS__pos.html#a0f561e77fa0f040b637f4e04f6cd8078">x</a>;
+<a name="l00082"></a>00082     } <a class="code" href="structS__pos.html">S_pos</a>;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     <span class="comment">//const S_pos LCD_POSICAO[TAM_MENU_QUANT_SENSORES] = {</span>
+<a name="l00085"></a><a class="code" href="lcd_8h.html#a261f4eec71fc02075269f0d3b0e35547">00085</a>     <span class="keyword">const</span> <a class="code" href="structS__pos.html">S_pos</a> <a class="code" href="lcd_8h.html#a261f4eec71fc02075269f0d3b0e35547">LCD_POSICAO</a>[] = {
+<a name="l00086"></a>00086         1, 0,
+<a name="l00087"></a>00087         1, 8,
+<a name="l00088"></a>00088         2, 0,
+<a name="l00089"></a>00089         2, 8
+<a name="l00090"></a>00090     };
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092     <span class="comment">/*versao 8 sensores</span>
+<a name="l00093"></a>00093 <span class="comment">    const S_pos LCD_POSICAO[TAM_MENU_QUANT_SENSORES] = {</span>
+<a name="l00094"></a>00094 <span class="comment">        1, 0,</span>
+<a name="l00095"></a>00095 <span class="comment">        1, 8,</span>
+<a name="l00096"></a>00096 <span class="comment">        2, 0,</span>
+<a name="l00097"></a>00097 <span class="comment">        2, 8,</span>
+<a name="l00098"></a>00098 <span class="comment">        1, 0,</span>
+<a name="l00099"></a>00099 <span class="comment">        1, 8,</span>
+<a name="l00100"></a>00100 <span class="comment">        2, 0,</span>
+<a name="l00101"></a>00101 <span class="comment">        2, 8</span>
+<a name="l00102"></a>00102 <span class="comment">    };</span>
+<a name="l00103"></a>00103 <span class="comment">     */</span>
+<a name="l00104"></a>00104 <span class="preprocessor">#ifdef  __cplusplus</span>
+<a name="l00105"></a>00105 <span class="preprocessor"></span>}
+<a name="l00106"></a>00106 <span class="preprocessor">#endif</span>
+<a name="l00107"></a>00107 <span class="preprocessor"></span>
+<a name="l00108"></a>00108 <span class="preprocessor">#endif  </span><span class="comment">/* LCD_H */</span>
+<a name="l00109"></a>00109 
+</pre></div></div><!-- contents -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de Dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Arquivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerações</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Valores enumerados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Definições e Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+
+<hr class="footer"/><address class="footer"><small>
+Gerado em Terça, 5 de Maio de 2015 13:57:44 para Projeto Sensores por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.7.6.1
+</small></address>
+
+</body>
+</html>

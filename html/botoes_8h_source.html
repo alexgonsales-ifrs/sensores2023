@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>Projeto Sensores: Código-Fonte de botoes.h</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Projeto Sensores
+   
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- Gerado por Doxygen 1.7.6.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">botoes.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="botoes_8h.html">Vá para a documentação deste arquivo.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   botoes.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: ti</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 30 de Dezembro de 2013, 11:33</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef BOTOES_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define BOTOES_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#ifdef  __cplusplus</span>
+<a name="l00012"></a>00012 <span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {
+<a name="l00013"></a>00013 <span class="preprocessor">#endif</span>
+<a name="l00014"></a>00014 <span class="preprocessor"></span><span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="versao_8h.html">versao.h</a>&quot;</span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017     <span class="comment">//valores de retorno dos botoes</span>
+<a name="l00018"></a>00018     <span class="comment">//nao usar zero, pois a funcao btns_testa retorna 0 por default</span>
+<a name="l00019"></a><a class="code" href="botoes_8h.html#a161c4ea8a4ec068ea7667c6ad9a572d6">00019</a> <span class="preprocessor">#define P_START     1</span>
+<a name="l00020"></a><a class="code" href="botoes_8h.html#aae0124c907b3faed57835f3db6cdb126">00020</a> <span class="preprocessor"></span><span class="preprocessor">#define P_STOP      2</span>
+<a name="l00021"></a><a class="code" href="botoes_8h.html#a2bcd916359186471a4db98bbaa9559c6">00021</a> <span class="preprocessor"></span><span class="preprocessor">#define P_UP        3</span>
+<a name="l00022"></a><a class="code" href="botoes_8h.html#a24405c8933a46e6783c65b17bb4644a7">00022</a> <span class="preprocessor"></span><span class="preprocessor">#define P_DOWN      4</span>
+<a name="l00023"></a>00023 <span class="preprocessor"></span>    <span class="comment">/****************************************/</span>
+<a name="l00024"></a>00024 <span class="preprocessor">#ifdef _MODULO_NOVO_</span>
+<a name="l00025"></a><a class="code" href="botoes_8h.html#a8209d7ddfd7db077349a29ca8456f6ab">00025</a> <span class="preprocessor"></span><span class="preprocessor">#define BT_START_SEL           RB4</span>
+<a name="l00026"></a><a class="code" href="botoes_8h.html#a9fa126c06a8e460b22f53bd75ca34218">00026</a> <span class="preprocessor"></span><span class="preprocessor">#define BT_START_SEL_TRIS      TRISB4</span>
+<a name="l00027"></a>00027 <span class="preprocessor"></span>
+<a name="l00028"></a><a class="code" href="botoes_8h.html#a5e4264e5f221e449fe8159b3420044e1">00028</a> <span class="preprocessor">#define BT_STOP_ESC            RB5</span>
+<a name="l00029"></a><a class="code" href="botoes_8h.html#ad796bbf8b93664d020483284a3880d8b">00029</a> <span class="preprocessor"></span><span class="preprocessor">#define BT_STOP_ESC_TRIS       TRISB5</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span>
+<a name="l00031"></a><a class="code" href="botoes_8h.html#a0cbea531ed2900ee3c01d49b98458ff3">00031</a> <span class="preprocessor">#define BT_UP                  RB6</span>
+<a name="l00032"></a><a class="code" href="botoes_8h.html#af9e8732a2cfe1e3bc0a85e62ee0261b0">00032</a> <span class="preprocessor"></span><span class="preprocessor">#define BT_UP_TRIS             TRISB6</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a><a class="code" href="botoes_8h.html#a8ab1dd7cd9fe847c7d4b99e32eef36ff">00034</a> <span class="preprocessor">#define BT_DOWN                RB7</span>
+<a name="l00035"></a><a class="code" href="botoes_8h.html#af0e8de87af60b4b22e0ea0b66882e1ca">00035</a> <span class="preprocessor"></span><span class="preprocessor">#define BT_DOWN_TRIS           TRISB7</span>
+<a name="l00036"></a>00036 <span class="preprocessor"></span><span class="preprocessor">#else #ifdef _MODULO_ANTIGO_</span>
+<a name="l00037"></a>00037 <span class="preprocessor"></span><span class="preprocessor">#define BT_START_SEL           RC3</span>
+<a name="l00038"></a>00038 <span class="preprocessor"></span><span class="preprocessor">#define BT_START_SEL_TRIS      TRISC3</span>
+<a name="l00039"></a>00039 <span class="preprocessor"></span>
+<a name="l00040"></a>00040 <span class="preprocessor">#define BT_STOP_ESC            RC2</span>
+<a name="l00041"></a>00041 <span class="preprocessor"></span><span class="preprocessor">#define BT_STOP_ESC_TRIS       TRISC2</span>
+<a name="l00042"></a>00042 <span class="preprocessor"></span>
+<a name="l00043"></a>00043 <span class="preprocessor">#define BT_UP                  RC1</span>
+<a name="l00044"></a>00044 <span class="preprocessor"></span><span class="preprocessor">#define BT_UP_TRIS             TRISC1</span>
+<a name="l00045"></a>00045 <span class="preprocessor"></span>
+<a name="l00046"></a>00046 <span class="preprocessor">#define BT_DOWN                RC0</span>
+<a name="l00047"></a>00047 <span class="preprocessor"></span><span class="preprocessor">#define BT_DOWN_TRIS           TRISC0</span>
+<a name="l00048"></a>00048 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00049"></a>00049 <span class="preprocessor"></span>
+<a name="l00054"></a>00054     <span class="keywordtype">void</span> <a class="code" href="botoes_8c.html#a6753ccd7bf04d623b0753401381f58c6">btns_init</a>(<span class="keywordtype">void</span>);
+<a name="l00055"></a>00055 
+<a name="l00060"></a>00060     uint8_t <a class="code" href="botoes_8c.html#ad4701ffbc00f9c34c9aaef09a9ad53e9">btns_testa</a>(<span class="keywordtype">void</span>);
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 <span class="preprocessor">#ifdef  __cplusplus</span>
+<a name="l00063"></a>00063 <span class="preprocessor"></span>}
+<a name="l00064"></a>00064 <span class="preprocessor">#endif</span>
+<a name="l00065"></a>00065 <span class="preprocessor"></span>
+<a name="l00066"></a>00066 <span class="preprocessor">#endif  </span><span class="comment">/* BOTOES_H */</span>
+<a name="l00067"></a>00067 
+</pre></div></div><!-- contents -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de Dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Arquivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerações</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Valores enumerados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Definições e Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+
+<hr class="footer"/><address class="footer"><small>
+Gerado em Terça, 5 de Maio de 2015 13:57:43 para Projeto Sensores por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.7.6.1
+</small></address>
+
+</body>
+</html>

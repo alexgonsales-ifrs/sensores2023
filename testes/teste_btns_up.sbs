@@ -1,0 +1,183 @@
+## SCL Builder Setup File: Do not edit!!
+
+## VERSION: MPLAB X
+## FORMAT:  v2.00.01
+## DEVICE:  PIC16F886
+
+## PINREGACTIONS
+ms
+No Repeat
+RB6
+--
+100
+0
+--
+200
+1
+--
+300
+0
+--
+400
+1
+--
+500
+0
+--
+600
+1
+--
+700
+0
+--
+800
+1
+--
+900
+0
+--
+1000
+1
+--
+1100
+0
+--
+1200
+1
+--
+1300
+0
+--
+1400
+1
+--
+1500
+0
+--
+1600
+1
+--
+1700
+0
+--
+1800
+1
+--
+1900
+0
+--
+2000
+1
+--
+&
+## ADVPINREGACTIONS
+RB7
+--
+&
+--
+COND1
+Any
+
+
+
+0
+cyc
+
+--
+&
+## CLOCK
+&
+## STIMULUSFILE
+&
+## RESPONSEFILE
+&
+## ASYNCH
+Pin
+RB4
+Pulse Low
+10 ms
+Btn Start/Select
+3
+--
+Pin
+RB5
+Pulse Low
+10 ms
+Btn Stop/Esc
+3
+--
+Pin
+RB6
+Pulse Low
+10 ms
+Btn Up
+3
+--
+Pin
+RB7
+Pulse Low
+10 ms
+Btn down
+3
+--
+Pin
+RB4
+Set Low
+
+
+-1
+--
+Pin
+RB4
+Set High
+
+
+-1
+--
+Pin
+RB5
+Set Low
+
+
+-1
+--
+Pin
+RB5
+Set High
+
+
+-1
+--
+Pin
+RB6
+Set Low
+
+
+-1
+--
+Pin
+RB6
+Set High
+
+
+-1
+--
+Pin
+RB7
+Set Low
+
+
+-1
+--
+Pin
+RB7
+Set High
+
+
+-1
+--
+&
+## ADVANCEDSCL
+
+0
+&

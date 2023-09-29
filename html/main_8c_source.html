@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>Projeto Sensores: Código-Fonte de main.c</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Projeto Sensores
+   
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- Gerado por Doxygen 1.7.6.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">main.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="main_8c.html">Vá para a documentação deste arquivo.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   main.c</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: ti</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 25 de Dezembro de 2013, 15:57</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;xc.h&gt;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="adcon_8h.html">adcon.h</a>&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="botoes_8h.html">botoes.h</a>&quot;</span>
+<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="eeprom_8h.html">eeprom.h</a>&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="global_8h.html">global.h</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="lcd_8h.html">lcd.h</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="rs232_8h.html">rs232.h</a>&quot;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="timer_8h.html">timer.h</a>&quot;</span>
+<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="versao_8h.html">versao.h</a>&quot;</span>
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="preprocessor">#pragma config CP = OFF, BOREN = OFF, WDTE = OFF, PWRTE = ON, FOSC = XT, LVP = OFF</span>
+<a name="l00021"></a>00021 <span class="preprocessor"></span>
+<a name="l00027"></a><a class="code" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">00027</a> <span class="keywordtype">int</span> <a class="code" href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a>(<span class="keywordtype">void</span>) {
+<a name="l00028"></a>00028 <span class="preprocessor">#ifdef _MODULO_ANTIGO_</span>
+<a name="l00029"></a>00029 <span class="preprocessor"></span>    uint8_t option;
+<a name="l00030"></a>00030 <span class="preprocessor">#endif</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span>    <a class="code" href="botoes_8c.html#a6753ccd7bf04d623b0753401381f58c6">btns_init</a>();
+<a name="l00032"></a>00032     <a class="code" href="lcd_8c.html#a6842775ba83d166f02b8fef8bb63b1e6">lcd_init</a>();
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034     <a class="code" href="lcd_8c.html#af5f233f52895c4cf19d6bca46ef88e6c">lcd_puts</a>(<span class="stringliteral">&quot;Inicio v1.42&quot;</span>);
+<a name="l00035"></a>00035 <span class="preprocessor">#ifdef _MODULO_NOVO_</span>
+<a name="l00036"></a>00036 <span class="preprocessor"></span>    <a class="code" href="lcd_8c.html#af5f233f52895c4cf19d6bca46ef88e6c">lcd_puts</a>(<span class="stringliteral">&quot;n&quot;</span>);
+<a name="l00037"></a>00037 <span class="preprocessor">#endif</span>
+<a name="l00038"></a>00038 <span class="preprocessor"></span><span class="preprocessor">#ifdef _MODULO_ANTIGO_</span>
+<a name="l00039"></a>00039 <span class="preprocessor"></span>    <a class="code" href="lcd_8c.html#af5f233f52895c4cf19d6bca46ef88e6c">lcd_puts</a>(<span class="stringliteral">&quot;a&quot;</span>);
+<a name="l00040"></a>00040 <span class="preprocessor">#endif</span>
+<a name="l00041"></a>00041 <span class="preprocessor"></span><span class="preprocessor">#ifdef _DEBUG_</span>
+<a name="l00042"></a>00042 <span class="preprocessor"></span>    <a class="code" href="lcd_8c.html#af5f233f52895c4cf19d6bca46ef88e6c">lcd_puts</a>(<span class="stringliteral">&quot;d&quot;</span>);
+<a name="l00043"></a>00043 <span class="preprocessor">#endif</span>
+<a name="l00044"></a>00044 <span class="preprocessor"></span>    <a class="code" href="lcd_8c.html#ac02d12dea1d78cca9bc3977f34c9abda">lcd_goto</a>(2, 0);
+<a name="l00045"></a>00045     <a class="code" href="lcd_8c.html#af5f233f52895c4cf19d6bca46ef88e6c">lcd_puts</a>(<span class="stringliteral">&quot;04/2015&quot;</span>);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     <span class="comment">// the Power-up Timer (72 ms duration) prevents EEPROM write:</span>
+<a name="l00048"></a>00048     <span class="comment">// 140ms = tempo maximo do power-up:</span>
+<a name="l00049"></a>00049     <span class="comment">//__delay_ms(140);</span>
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051     <span class="keywordflow">if</span> (eeprom_read(<a class="code" href="eeprom_8h.html#a993cfb211546570fc0692cfc9388da6a">END_CHAVE_INICIALIZACAO</a>) != <a class="code" href="global_8h.html#ad6bf19f0e873b6f9b93bc44c5efdb0b1">VALOR_CHAVE</a>) {
+<a name="l00052"></a>00052         eeprom_write(<a class="code" href="eeprom_8h.html#a3813739a581868a560e2d899683bc8ca">END_QTDE_VALORES</a>, 0);
+<a name="l00053"></a>00053         eeprom_write(<a class="code" href="eeprom_8h.html#a729566b60620b1d60018ec9432d8c324">END_QTDE_SENSORES</a>, <a class="code" href="global_8h.html#a10e7e004ffeaac152b2ca5651c355ca8">QUANT_SENSORES_DEFAULT</a>);
+<a name="l00054"></a>00054         <a class="code" href="eeprom_8c.html#acdcaa130b49a5fa7890c8663abda1c85">eeprom_gravar_word</a>(<a class="code" href="eeprom_8h.html#ae88f4e1953e948186650b6c00128fa7e">END_TX_AMOSTRA</a>, <a class="code" href="global_8h.html#a268d68fcac9c8cc5c79002a09ec73720">TEMPO_AMOSTRA_DEFAULT</a>);
+<a name="l00055"></a>00055         <a class="code" href="eeprom_8c.html#acdcaa130b49a5fa7890c8663abda1c85">eeprom_gravar_word</a>(<a class="code" href="eeprom_8h.html#a4f19cfab32278de03dc928bd8868ee29">END_AMOSTRA_MIN</a>, <a class="code" href="global_8h.html#ae5b3f157e0b73523ecee4240b68b77b1">VALOR_MAXIMO_AMOSTRA</a>);
+<a name="l00056"></a>00056         <a class="code" href="eeprom_8c.html#acdcaa130b49a5fa7890c8663abda1c85">eeprom_gravar_word</a>(<a class="code" href="eeprom_8h.html#aba28e32e2f929d238a6a7319bb842851">END_AMOSTRA_MAX</a>, <a class="code" href="global_8h.html#aba01c8dc29fca452f9bc28d6e348a6bd">VALOR_MINIMO_AMOSTRA</a>);
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058         <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="eeprom_8h.html#a205e1f3d7ffbb4cac713723875d346a4">QTD_MAX_AMOSTRAS</a> * 2; i++) {
+<a name="l00059"></a>00059             eeprom_write(i + <a class="code" href="eeprom_8h.html#ac10e09fdc1cbe2b3d5245f6342dc8457">END_INICIO_AMOSTRAS</a>, 0);
+<a name="l00060"></a>00060         }
+<a name="l00061"></a>00061         <span class="comment">//A chave de inicializacao tem que ser a ultima a ser gravada (OBRIGATORIAMENTE),</span>
+<a name="l00062"></a>00062         <span class="comment">//pois, parece que quando o hardware gravador termina de efetuar a gravacao,</span>
+<a name="l00063"></a>00063         <span class="comment">//o microcontrolador e ligado por um breve momento, enquanto ha energia eletrica</span>
+<a name="l00064"></a>00064         <span class="comment">//residual nos capacitores do gravador.</span>
+<a name="l00065"></a>00065         <span class="comment">//&lt;&lt;&lt;&lt;&lt;&lt;&lt; isto ainda precisa ser verificado &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+<a name="l00066"></a>00066         eeprom_write(<a class="code" href="eeprom_8h.html#a993cfb211546570fc0692cfc9388da6a">END_CHAVE_INICIALIZACAO</a>, <a class="code" href="global_8h.html#ad6bf19f0e873b6f9b93bc44c5efdb0b1">VALOR_CHAVE</a>);
+<a name="l00067"></a>00067     } <span class="keywordflow">else</span> {
+<a name="l00068"></a>00068 <span class="comment">//        gl_item_menu_config_amostra = eeprom_ler_word(END_TX_AMOSTRA);</span>
+<a name="l00069"></a>00069 <span class="comment">//        gl_item_menu_config_sensores = eeprom_read(END_QTDE_SENSORES);</span>
+<a name="l00070"></a>00070     }
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <a class="code" href="adcon_8c.html#a4032f7c02fdf7fb92b8ff8215ce2779e">adcon_init</a>();
+<a name="l00073"></a>00073     <a class="code" href="rs232_8c.html#adf181cab2d2cac42219758c4192454a0">rs232_init</a>();
+<a name="l00074"></a>00074     <a class="code" href="timer_8c.html#a99ccbea44caa7d91c17782c602f956ef">timer0_init</a>();
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076     <span class="comment">//timer2_init();</span>
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078     INTCONbits.GIE = 1; <span class="comment">//habilita interrupcoes globais</span>
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     <span class="keywordflow">while</span> (1) {
+<a name="l00081"></a>00081 <span class="preprocessor">#ifdef _MODULO_ANTIGO_</span>
+<a name="l00082"></a>00082 <span class="preprocessor"></span>        <span class="comment">//11 niveis de stack</span>
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084         option = <a class="code" href="botoes_8c.html#ad4701ffbc00f9c34c9aaef09a9ad53e9">btns_testa</a>();
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086         <span class="keywordflow">if</span> (option != 0) {
+<a name="l00087"></a>00087             btns_processa(option);
+<a name="l00088"></a>00088         }
+<a name="l00089"></a>00089 <span class="preprocessor">#endif</span>
+<a name="l00090"></a>00090 <span class="preprocessor"></span>    }
+<a name="l00091"></a>00091     <span class="keywordflow">return</span> (EXIT_SUCCESS);
+<a name="l00092"></a>00092 }
+<a name="l00093"></a>00093 
+</pre></div></div><!-- contents -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de Dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Arquivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerações</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Valores enumerados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Definições e Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+
+<hr class="footer"/><address class="footer"><small>
+Gerado em Terça, 5 de Maio de 2015 13:57:44 para Projeto Sensores por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.7.6.1
+</small></address>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>Projeto Sensores: Código-Fonte de lcd.c</title>
+
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+
+</head>
+<body>
+<div id="top"><!-- do not remove this div! -->
+
+
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  
+  
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Projeto Sensores
+   
+   </div>
+   
+  </td>
+  
+  
+  
+ </tr>
+ </tbody>
+</table>
+</div>
+
+<!-- Gerado por Doxygen 1.7.6.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">lcd.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="lcd_8c.html">Vá para a documentação deste arquivo.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &lt;stdint.h&gt;</span>
+<a name="l00002"></a>00002 <span class="preprocessor">#include &lt;xc.h&gt;</span>
+<a name="l00003"></a>00003 <span class="preprocessor">#include &quot;<a class="code" href="lcd_8h.html">lcd.h</a>&quot;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="versao_8h.html">versao.h</a>&quot;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="xtal_8h.html">xtal.h</a>&quot;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 <span class="keywordtype">void</span> <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(uint8_t c);
+<a name="l00008"></a>00008 
+<a name="l00013"></a><a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">00013</a> <span class="keywordtype">void</span> <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(uint8_t c) {
+<a name="l00014"></a>00014     <span class="keywordflow">if</span> (c &amp; 0b00000001) {
+<a name="l00015"></a>00015         <a class="code" href="lcd_8h.html#ade7e247311032a474711416da480ed8b">LCD_D4</a> = 1;
+<a name="l00016"></a>00016     }
+<a name="l00017"></a>00017     <span class="keywordflow">else</span> {
+<a name="l00018"></a>00018         <a class="code" href="lcd_8h.html#ade7e247311032a474711416da480ed8b">LCD_D4</a> = 0;
+<a name="l00019"></a>00019     }
+<a name="l00020"></a>00020     <span class="keywordflow">if</span> (c &amp; 0b00000010) {
+<a name="l00021"></a>00021         <a class="code" href="lcd_8h.html#a5b91fe480c768d4f246f3890207bfbfc">LCD_D5</a> = 1;
+<a name="l00022"></a>00022     }
+<a name="l00023"></a>00023     <span class="keywordflow">else</span> {
+<a name="l00024"></a>00024         <a class="code" href="lcd_8h.html#a5b91fe480c768d4f246f3890207bfbfc">LCD_D5</a> = 0;
+<a name="l00025"></a>00025     }
+<a name="l00026"></a>00026     <span class="keywordflow">if</span> (c &amp; 0b00000100) {
+<a name="l00027"></a>00027         <a class="code" href="lcd_8h.html#a72e105fcda5fd1c07b5f391379a439d4">LCD_D6</a> = 1;
+<a name="l00028"></a>00028     }
+<a name="l00029"></a>00029     <span class="keywordflow">else</span> {
+<a name="l00030"></a>00030         <a class="code" href="lcd_8h.html#a72e105fcda5fd1c07b5f391379a439d4">LCD_D6</a> = 0;
+<a name="l00031"></a>00031     }
+<a name="l00032"></a>00032     <span class="keywordflow">if</span> (c &amp; 0b00001000) {
+<a name="l00033"></a>00033         <a class="code" href="lcd_8h.html#abd65075e01c7413419581aedee5bcc24">LCD_D7</a> = 1;
+<a name="l00034"></a>00034     }
+<a name="l00035"></a>00035     <span class="keywordflow">else</span> {
+<a name="l00036"></a>00036         <a class="code" href="lcd_8h.html#abd65075e01c7413419581aedee5bcc24">LCD_D7</a> = 0;
+<a name="l00037"></a>00037     }
+<a name="l00038"></a>00038     __delay_us(40);
+<a name="l00039"></a>00039     <a class="code" href="lcd_8h.html#a6ec15b1e813d1f56d2eb644a127e5d49">LCD_E</a> = 1;
+<a name="l00040"></a>00040     <a class="code" href="lcd_8h.html#a6ec15b1e813d1f56d2eb644a127e5d49">LCD_E</a> = 0;
+<a name="l00041"></a>00041 }
+<a name="l00042"></a>00042 
+<a name="l00043"></a><a class="code" href="lcd_8h.html#ad235a86241458b1e7b8771688bfdaf9a">00043</a> <span class="keywordtype">void</span> <a class="code" href="lcd_8c.html#ad235a86241458b1e7b8771688bfdaf9a">lcd_clear</a>(<span class="keywordtype">void</span>) {
+<a name="l00044"></a>00044     <a class="code" href="lcd_8h.html#a4781e073871c6f27f89b9463ad3a4ed1">LCD_RS</a> = 0;
+<a name="l00045"></a>00045     <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(0);
+<a name="l00046"></a>00046     <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(1);
+<a name="l00047"></a>00047     __delay_ms(2);
+<a name="l00048"></a>00048 }
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="lcd_8h.html#ac02d12dea1d78cca9bc3977f34c9abda">00050</a> <span class="keywordtype">void</span> <a class="code" href="lcd_8c.html#ac02d12dea1d78cca9bc3977f34c9abda">lcd_goto</a>(uint8_t y, uint8_t x) {
+<a name="l00051"></a>00051     <a class="code" href="lcd_8h.html#a4781e073871c6f27f89b9463ad3a4ed1">LCD_RS</a> = 0;
+<a name="l00052"></a>00052     <span class="keywordflow">switch</span> (y) {
+<a name="l00053"></a>00053         <span class="keywordflow">case</span> 1:
+<a name="l00054"></a>00054             <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(8);
+<a name="l00055"></a>00055         <span class="keywordflow">break</span>;
+<a name="l00056"></a>00056         <span class="keywordflow">case</span> 2:
+<a name="l00057"></a>00057             <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(0xc);
+<a name="l00058"></a>00058         <span class="keywordflow">break</span>;
+<a name="l00059"></a>00059     }
+<a name="l00060"></a>00060     <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(x);
+<a name="l00061"></a>00061     __delay_us(40);
+<a name="l00062"></a>00062 }
+<a name="l00063"></a>00063 
+<a name="l00064"></a><a class="code" href="lcd_8h.html#af5f233f52895c4cf19d6bca46ef88e6c">00064</a> <span class="keywordtype">void</span> <a class="code" href="lcd_8c.html#af5f233f52895c4cf19d6bca46ef88e6c">lcd_puts</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str) {
+<a name="l00065"></a>00065     uint8_t cmd;
+<a name="l00066"></a>00066     <a class="code" href="lcd_8h.html#a4781e073871c6f27f89b9463ad3a4ed1">LCD_RS</a> = 1;
+<a name="l00067"></a>00067     <span class="keywordflow">while</span>(*str) {
+<a name="l00068"></a>00068         cmd = *str &gt;&gt; 4;
+<a name="l00069"></a>00069         <span class="comment">//lcd_write(*str &gt;&gt; 4);</span>
+<a name="l00070"></a>00070         <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(cmd);
+<a name="l00071"></a>00071         __delay_us(40);
+<a name="l00072"></a>00072         <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(*str);
+<a name="l00073"></a>00073         __delay_us(40);
+<a name="l00074"></a>00074         str++;
+<a name="l00075"></a>00075     }
+<a name="l00076"></a>00076 }
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="lcd_8h.html#a6842775ba83d166f02b8fef8bb63b1e6">00078</a> <span class="keywordtype">void</span> <a class="code" href="lcd_8c.html#a6842775ba83d166f02b8fef8bb63b1e6">lcd_init</a>(<span class="keywordtype">void</span>) {
+<a name="l00079"></a>00079     <a class="code" href="lcd_8h.html#acf7cebe67418cad2329ac4083b2da9c7">LCD_RS_TRIS</a> = <a class="code" href="lcd_8h.html#ab6963b03d8260ac62056ec33e538bb2a">LCD_E_TRIS</a> = <a class="code" href="lcd_8h.html#af55fd8a0ad86fa5e70d4899b8d87f904">LCD_D4_TRIS</a> = <a class="code" href="lcd_8h.html#a1474ef588dda79dfbf6987e5fbcca402">LCD_D5_TRIS</a> = <a class="code" href="lcd_8h.html#aa0c4ad87049bbd0eb9548177f868529b">LCD_D6_TRIS</a> = <a class="code" href="lcd_8h.html#a8aa42709f54b52388e5b8013eb625673">LCD_D7_TRIS</a> = 0;
+<a name="l00080"></a>00080     <a class="code" href="lcd_8h.html#a4781e073871c6f27f89b9463ad3a4ed1">LCD_RS</a> = <a class="code" href="lcd_8h.html#a6ec15b1e813d1f56d2eb644a127e5d49">LCD_E</a> = <a class="code" href="lcd_8h.html#ade7e247311032a474711416da480ed8b">LCD_D4</a> = <a class="code" href="lcd_8h.html#a5b91fe480c768d4f246f3890207bfbfc">LCD_D5</a> = <a class="code" href="lcd_8h.html#a72e105fcda5fd1c07b5f391379a439d4">LCD_D6</a> = <a class="code" href="lcd_8h.html#abd65075e01c7413419581aedee5bcc24">LCD_D7</a> = 0; <span class="comment">// display, 0 = saida</span>
+<a name="l00081"></a>00081     <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(2);
+<a name="l00082"></a>00082     <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(8);
+<a name="l00083"></a>00083     <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(0);
+<a name="l00084"></a>00084     <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(0);
+<a name="l00085"></a>00085     <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(0xc);
+<a name="l00086"></a>00086     <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(0);
+<a name="l00087"></a>00087     <a class="code" href="lcd_8c.html#ac73cff42518ae6a47908ba8488e05555">lcd_write</a>(6);
+<a name="l00088"></a>00088 }
+</pre></div></div><!-- contents -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estruturas de Dados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Arquivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funções</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variáveis</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerações</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Valores enumerados</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Definições e Macros</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+
+
+<hr class="footer"/><address class="footer"><small>
+Gerado em Terça, 5 de Maio de 2015 13:57:44 para Projeto Sensores por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.7.6.1
+</small></address>
+
+</body>
+</html>
