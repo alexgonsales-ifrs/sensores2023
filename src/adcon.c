@@ -1,3 +1,14 @@
+/*****************************************************************************
+ * File:   template1.c
+ * Author: alexdg
+ * Comments:
+ * 
+ * Revision history: 
+ * Created on 30 de Setembro de 2023, 11:04 *  
+ ****************************************************************************/
+
+//===== Includes =============================================================
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <xc.h>
@@ -13,6 +24,29 @@
 #ifdef _MQ_
 #include "mq6.h"
 #endif
+
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+
+//===== Constantes Públicas ==================================================
+
+//===== Variaveis Públicas ===================================================
+
+//Matém o valor da mínima leitura ocorrida. É inicializada com ADCON_VALOR_MAXIMO_LEITURA.
+uint16_t adcon_leitura_min = ADCON_VALOR_MAXIMO_LEITURA;
+
+//Matém o valor da maior leitura ocorrida. É inicializada com ADCON_VALOR_MINIMO_LEITURA.
+uint16_t adcon_leitura_max = ADCON_VALOR_MINIMO_LEITURA;
+
+//Mantém a quantidade de amostras que foram gravadas na EEPROM.
+uint8_t  adcon_quant_amostras_gravadas = 0;
+
+//============================================================================
+//===== Definições Privadas ==================================================
+//============================================================================
+
+//===== Constantes Privadas ==================================================
 
 //Quantidade de aquisições a serem feitas em um sensor para calcular a média 
 //e gerar o valor da leitura do sensor.
@@ -47,15 +81,8 @@ static const uint8_t canais[CFG_QUANT_SENSORES_MAX] = {
     4
 };
 
-/*const uint8_t canais[CFG_QUANT_SENSORES_MAX] = {
-    0,
-    1,
-    2,
-    4
-};
- */
 /*versao 8 sensores
-const uint8_t canais[TAM_MENU_QUANT_SENSORES] = {
+const uint8_t canais[CFG_QUANT_SENSORES_MAX] = {
     0,
     1,
     2,
@@ -67,15 +94,22 @@ const uint8_t canais[TAM_MENU_QUANT_SENSORES] = {
 };
 */
 
-uint16_t adcon_leitura_min = 0;
-uint16_t adcon_leitura_max = 0;
-uint8_t  adcon_quant_amostras_gravadas = 0; //Total de amostras gravadas na EEPROM.
+//===== Tipos Privados =======================================================
+
+//===== Variaveis Privadas ===================================================
 
 static uint16_t adcon_le_sensor(uint8_t num_sensor);
 
-/**
- * Funcao que inicializa o conversor analogico/digital. e chamada na funcao main().
- */
+//===== Declaração das Funções Privadas ======================================
+
+//============================================================================
+//===== Definição (implementação) das Funções Públicas =======================
+//============================================================================
+
+/*****************************************************************************
+ * Funcao que inicializa o conversor analogico/digital.
+ * É chamada na funcao main().
+ *****************************************************************************/
 void adcon_init(void) {
   TRISA = 0xff;
   #ifdef _PIC16F886_H_
@@ -94,11 +128,10 @@ void adcon_init(void) {
   ADCON0bits.ADON = 1; //< liga conversor A/D
 }//adcon_init()
 
-/**
+/******************************************************************************
  * Funcao chamada a partir da contagem do timer.
- * Faz uma amostragem, ou seja, le os valores dos sensores
- * e imprime no display.
- */
+ * Faz uma amostragem (lê os sensores) e imprime os valores no display.
+ *****************************************************************************/
 void adcon_amostra_print(void) {
   lcd_clear();
   
@@ -113,21 +146,20 @@ void adcon_amostra_print(void) {
   }//for
 }//adcon_amostra_print()
 
-/**
- * * Funcao chamada a partir da contagem do timer.
- * Faz uma amostragem, ou seja, le os valores dos sensores,
- * imprime no display e grava na EEPROM.
- * Pode atualizar e gravar também os valores de leitura MAX e MIN. 
-*/
+/******************************************************************************
+ * Funcao chamada a partir da contagem do timer.
+ * Faz uma amostragem (lê os sensores), imprime os valores no display e
+ * grava os valores na EEPROM.
+ * Atualiza a variável global adcon_quant_amostras_gravadas e grava-a na EEPROM.
+ * Pode atualizar as variáveis globais adcon_leitura_min e adcon_leitura_max,
+ * gravando-as também na EEPROM.
+ *****************************************************************************/
 void adcon_amostra_print_grava(void) {
   uint16_t t_int;
   uint16_t maior, menor;
   uint8_t qtd_leituras;
 
    qtd_leituras = adcon_quant_amostras_gravadas * cfg_quant_sensores_atual;
-  
-  maior = eeprom_le_word(EEPROM_END_LEITURA_MAX);
-  menor = eeprom_le_word(EEPROM_END_LEITURA_MIN);
 
   //<<<<<<<<<<<<<<
   //testar aqui se vai dar para gravar todos os valores
@@ -137,18 +169,20 @@ void adcon_amostra_print_grava(void) {
     for (uint8_t i = 0; i < cfg_quant_sensores_atual; i++) {
       t_int = adcon_le_sensor(i);
       if (t_int < menor) {
+        adcon_leitura_min = t_int;
         eeprom_grava_word(EEPROM_END_LEITURA_MIN, t_int);
       }
       if (t_int > maior) {
+        adcon_leitura_max = t_int;
         eeprom_grava_word(EEPROM_END_LEITURA_MAX, t_int);
       }
       eeprom_grava_word(EEPROM_END_INICIO_AMOSTRAS + (qtd_leituras * 2), t_int);
       qtd_leituras++;
       adcon_print(t_int, i);
-    } // for (uint8_t i = 0; i < qtd_sens; i++)
+    } // for
     adcon_quant_amostras_gravadas++;
     eeprom_write(EEPROM_END_QTDE_AMOSTRAS, adcon_quant_amostras_gravadas);
-  }//if (qtd_leituras < ADCON_QTD_MAX_LEITURAS) {
+  }//if (qtd_leituras < ADCON_QTD_MAX_LEITURAS)
   else {
     //Desabilita a interrupção do Timer0 para parar as leituras.
     INTCONbits.T0IE = 0;
@@ -156,14 +190,15 @@ void adcon_amostra_print_grava(void) {
   } //else
 } //adcon_amostra_print_grava()
 
-
-/**
- * Funcao que divide o valor_sensor por 10 e mostra no display o quociente e o resto, 
+/******************************************************************************
+ * Imprime no display o valor de um sensor.
+ * Imprime na posição num_sensor o valor valor_sensor.
+ * A funcao divide o valor_sensor por 10 e mostra no display o quociente e o resto, 
  * separando-os por um ponto para indicar o separador de decimal.
- * @param valor_sensor valor valor a ser mostrado no display.
+ * @param valor_sensor valor a ser mostrado no display.
  * @param num_sensor número do sensor (0, 1, 2, 3) que está sendo mostrado. 
  * A partir desse dado a função saberá em qual posição do display deverá mostrar o valor_sensor.
- */
+ *****************************************************************************/
 void adcon_print(uint16_t valor_sensor, uint8_t num_sensor) {
   //Desta maneira deu problemas no display:
   //char temp_str2[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
@@ -192,7 +227,11 @@ void adcon_print(uint16_t valor_sensor, uint8_t num_sensor) {
   lcd_puts(temp_str);
 }//adcon_print()
 
-/**
+//============================================================================
+//===== Definição (implementação) das Funções Privadas =======================
+//============================================================================
+
+/******************************************************************************
  * Funcao que faz a leitura de um sensor.
  * Essa leitura consiste em efetuar várias aquisições na porta analógica,
  * conforme indicado pela constante ADCON_QUANT_AQUISICOES_MEDIA_LEITURA e
@@ -200,32 +239,25 @@ void adcon_print(uint16_t valor_sensor, uint8_t num_sensor) {
  * da leitura do sensor.
  * @param num_sensor número do sensor a ser lido (0 a 3).
  * @return valor varlor lido do sensor (média das aquisições).
- */
+ *****************************************************************************/
 static uint16_t adcon_le_sensor(uint8_t num_sensor) {
-    /*
-    ADCON0bits.CHS = canais[cnl]; // selecao de canal
-    //tempo necessario (pior caso) apos troca de canal:
-    __delay_us(20);
+  //Contérá a soma de todas as aquisições, para calcular a média no final.
+  uint32_t acc = 0;
+  //Seleciona o canal analógico de onde será feita a leitura:
+  ADCON0bits.CHS = canais[num_sensor]; 
+  //Tem que esperar um tempo (pior caso) após trocar o canal:
+  __delay_us(20);  
+  
+  //Faz n aquisições conforme definido em ADCON_QUANT_AQUISICOES_MEDIA_LEITURA.
+  for (uint16_t n = 0; n < ADCON_QUANT_AQUISICOES_MEDIA_LEITURA; n++) {
     ADCON0bits.GO_nDONE = 1;
-    while (ADCON0bits.GO_nDONE); // espera terminar conversao
+    while (ADCON0bits.GO_nDONE); //aguarda o ADC terminar a conversao.
+      //Acumula o valor da aquisição.
+      acc += (uint32_t)((ADRESH << 8) + ADRESL); //10bits
+  }//for
 
-    return (ADRESH << 8) +ADRESL;
-     */
-    //const int n_valores = 30;
-
-    //uint16_t acc = 0;
-    uint32_t acc = 0;
-    ADCON0bits.CHS = canais[num_sensor]; // selecao de canal
-    __delay_us(20);
-    //tempo necessario (pior caso) apos troca de canal
-    for (uint16_t i = 0; i < ADCON_QUANT_AQUISICOES_MEDIA_LEITURA; i++) {
-
-        ADCON0bits.GO_nDONE = 1;
-        while (ADCON0bits.GO_nDONE); // espera terminar conversao
-        acc += (uint32_t)((ADRESH << 8) + ADRESL); //10bits
-    }//for
-
-    //acc (11 bits) para 10:
-    return (uint16_t)(acc / ADCON_QUANT_AQUISICOES_MEDIA_LEITURA);
-    //return (ADRESH << 8) +ADRESL;
+  //Calcula a média das aquisições:
+  return (uint16_t)(acc / ADCON_QUANT_AQUISICOES_MEDIA_LEITURA);
 }//adcon_ler_sensor()
+
+//===== Final do Arquivo =====================================================

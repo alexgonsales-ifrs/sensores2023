@@ -5,6 +5,31 @@
 #include "versao.h"
 #include "xtal.h" //usado por __delay_us())
 
+    typedef struct {
+        uint8_t linha;
+        uint8_t coluna;
+    } TLCDPosicao;
+    
+    const TLCDPosicao LCD_V_POSICOES[] = {
+        1, 0,
+        1, 8,
+        2, 0,
+        2, 8
+    };
+
+    /*versao 8 sensores
+    const S_pos LCD_POSICAO[TAM_MENU_QUANT_SENSORES] = {
+        1, 0,
+        1, 8,
+        2, 0,
+        2, 8,
+        1, 0,
+        1, 8,
+        2, 0,
+        2, 8
+    };
+     */
+
 static void lcd_write(uint8_t c);
 
 /**
@@ -66,7 +91,7 @@ void lcd_goto(uint8_t linha, uint8_t coluna) {
 * o sensor de número num_sensor.
 */
 void lcd_goto_sensor(uint8_t num_sensor) {
-  lcd_goto(LCD_POSICAO[num_sensor].linha, LCD_POSICAO[num_sensor].coluna);
+  lcd_goto(LCD_V_POSICOES[num_sensor].linha, LCD_V_POSICOES[num_sensor].coluna);
 }
 
 /**

@@ -55,30 +55,6 @@
 
           //typedef struct t_pos {
 
-    typedef struct {
-        uint8_t linha;
-        uint8_t coluna;
-    } S_pos;
-    
-          const S_pos LCD_POSICAO[] = {
-        1, 0,
-        1, 8,
-        2, 0,
-        2, 8
-    };
-
-    /*versao 8 sensores
-    const S_pos LCD_POSICAO[TAM_MENU_QUANT_SENSORES] = {
-        1, 0,
-        1, 8,
-        2, 0,
-        2, 8,
-        1, 0,
-        1, 8,
-        2, 0,
-        2, 8
-    };
-     */
 
     /**
      * Rotina para inicializar o display. E chamada na funcao main().

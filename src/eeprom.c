@@ -1,6 +1,11 @@
 #include <stdint.h>
 #include <xc.h>
 
+/**
+ *  
+ * @param end
+ * @return 
+ */
 uint16_t eeprom_le_word(uint8_t end) {
     uint16_t temp_int = 0;
     temp_int = eeprom_read(end+1);

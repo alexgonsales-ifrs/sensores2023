@@ -13,6 +13,7 @@ extern "C" {
 
   #include <stdint.h>
     
+  //Quantidade máxima possível de sensores.
   #define CFG_QUANT_SENSORES_MAX 4
     
   extern uint8_t cfg_quant_sensores_atual;

@@ -1,6 +1,6 @@
 /* 
  * File:   handler.h
- * Author: alex-adm
+ * Author: alexdg
  *
  * Created on 29 de Setembro de 2023, 11:54
  */

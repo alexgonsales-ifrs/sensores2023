@@ -1,6 +1,6 @@
 /* 
  * File:   menu.h
- * Author: 
+ * Author: alexdg
  * 
  * Define uma estrutura genérica para a implementação dos menus da interface do usuário.
  *  

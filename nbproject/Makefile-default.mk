@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=src/lcd.c src/adcon.c src/botoes.c src/eeprom.c src/estados.c src/handler.c src/main.c src/menu.c src/mq6.c src/rs232.c src/timer.c src/cfg_tempo_amostra.c src/cfg_quant_sensores.c
+SOURCEFILES_QUOTED_IF_SPACED=src/lcd.c src/adcon.c src/botoes.c src/eeprom.c src/estados.c src/handler.c src/main.c src/menu.c src/mq6.c src/rs232.c src/timer.c src/cfg_tempo_amostra.c src/cfg_quant_sensores.c src/template1.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/lcd.p1 ${OBJECTDIR}/src/adcon.p1 ${OBJECTDIR}/src/botoes.p1 ${OBJECTDIR}/src/eeprom.p1 ${OBJECTDIR}/src/estados.p1 ${OBJECTDIR}/src/handler.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/menu.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/rs232.p1 ${OBJECTDIR}/src/timer.p1 ${OBJECTDIR}/src/cfg_tempo_amostra.p1 ${OBJECTDIR}/src/cfg_quant_sensores.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/src/lcd.p1.d ${OBJECTDIR}/src/adcon.p1.d ${OBJECTDIR}/src/botoes.p1.d ${OBJECTDIR}/src/eeprom.p1.d ${OBJECTDIR}/src/estados.p1.d ${OBJECTDIR}/src/handler.p1.d ${OBJECTDIR}/src/main.p1.d ${OBJECTDIR}/src/menu.p1.d ${OBJECTDIR}/src/mq6.p1.d ${OBJECTDIR}/src/rs232.p1.d ${OBJECTDIR}/src/timer.p1.d ${OBJECTDIR}/src/cfg_tempo_amostra.p1.d ${OBJECTDIR}/src/cfg_quant_sensores.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/lcd.p1 ${OBJECTDIR}/src/adcon.p1 ${OBJECTDIR}/src/botoes.p1 ${OBJECTDIR}/src/eeprom.p1 ${OBJECTDIR}/src/estados.p1 ${OBJECTDIR}/src/handler.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/menu.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/rs232.p1 ${OBJECTDIR}/src/timer.p1 ${OBJECTDIR}/src/cfg_tempo_amostra.p1 ${OBJECTDIR}/src/cfg_quant_sensores.p1 ${OBJECTDIR}/src/template1.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/src/lcd.p1.d ${OBJECTDIR}/src/adcon.p1.d ${OBJECTDIR}/src/botoes.p1.d ${OBJECTDIR}/src/eeprom.p1.d ${OBJECTDIR}/src/estados.p1.d ${OBJECTDIR}/src/handler.p1.d ${OBJECTDIR}/src/main.p1.d ${OBJECTDIR}/src/menu.p1.d ${OBJECTDIR}/src/mq6.p1.d ${OBJECTDIR}/src/rs232.p1.d ${OBJECTDIR}/src/timer.p1.d ${OBJECTDIR}/src/cfg_tempo_amostra.p1.d ${OBJECTDIR}/src/cfg_quant_sensores.p1.d ${OBJECTDIR}/src/template1.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/src/lcd.p1 ${OBJECTDIR}/src/adcon.p1 ${OBJECTDIR}/src/botoes.p1 ${OBJECTDIR}/src/eeprom.p1 ${OBJECTDIR}/src/estados.p1 ${OBJECTDIR}/src/handler.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/menu.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/rs232.p1 ${OBJECTDIR}/src/timer.p1 ${OBJECTDIR}/src/cfg_tempo_amostra.p1 ${OBJECTDIR}/src/cfg_quant_sensores.p1
+OBJECTFILES=${OBJECTDIR}/src/lcd.p1 ${OBJECTDIR}/src/adcon.p1 ${OBJECTDIR}/src/botoes.p1 ${OBJECTDIR}/src/eeprom.p1 ${OBJECTDIR}/src/estados.p1 ${OBJECTDIR}/src/handler.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/menu.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/rs232.p1 ${OBJECTDIR}/src/timer.p1 ${OBJECTDIR}/src/cfg_tempo_amostra.p1 ${OBJECTDIR}/src/cfg_quant_sensores.p1 ${OBJECTDIR}/src/template1.p1
 
 # Source Files
-SOURCEFILES=src/lcd.c src/adcon.c src/botoes.c src/eeprom.c src/estados.c src/handler.c src/main.c src/menu.c src/mq6.c src/rs232.c src/timer.c src/cfg_tempo_amostra.c src/cfg_quant_sensores.c
+SOURCEFILES=src/lcd.c src/adcon.c src/botoes.c src/eeprom.c src/estados.c src/handler.c src/main.c src/menu.c src/mq6.c src/rs232.c src/timer.c src/cfg_tempo_amostra.c src/cfg_quant_sensores.c src/template1.c
 
 
 
@@ -192,6 +192,14 @@ ${OBJECTDIR}/src/cfg_quant_sensores.p1: src/cfg_quant_sensores.c  nbproject/Make
 	@-${MV} ${OBJECTDIR}/src/cfg_quant_sensores.d ${OBJECTDIR}/src/cfg_quant_sensores.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/cfg_quant_sensores.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/src/template1.p1: src/template1.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/template1.p1.d 
+	@${RM} ${OBJECTDIR}/src/template1.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/template1.p1 src/template1.c 
+	@-${MV} ${OBJECTDIR}/src/template1.d ${OBJECTDIR}/src/template1.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/template1.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/src/lcd.p1: src/lcd.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
@@ -296,6 +304,14 @@ ${OBJECTDIR}/src/cfg_quant_sensores.p1: src/cfg_quant_sensores.c  nbproject/Make
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/cfg_quant_sensores.p1 src/cfg_quant_sensores.c 
 	@-${MV} ${OBJECTDIR}/src/cfg_quant_sensores.d ${OBJECTDIR}/src/cfg_quant_sensores.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/cfg_quant_sensores.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/template1.p1: src/template1.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/template1.p1.d 
+	@${RM} ${OBJECTDIR}/src/template1.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/template1.p1 src/template1.c 
+	@-${MV} ${OBJECTDIR}/src/template1.d ${OBJECTDIR}/src/template1.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/template1.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

@@ -1,6 +1,6 @@
 /* 
  * File:   main.h
- * Author: 
+ * Author: alexdg
  *
  * Created on 29 de Setembro de 2023, 11:53
  */
