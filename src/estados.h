@@ -4,15 +4,15 @@
  *
  * Created on 14 de Abril de 2015, 18:44
  */
-
 #ifndef ESTADOS_H
 #define	ESTADOS_H
-
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
+    
 #include "botoes.h"
+    
+
 
   /* Todos os estados possíveis para a máquina de estados.
    Os Estados que contem MENU no nome representam o menu principal ou algum sub-menu.*/

@@ -4,15 +4,15 @@
  *
  * Created on 25 de Dezembro de 2013, 17:18
  */
-
-#ifndef LCD_H
-  #define	LCD_H
+ #ifndef LCD_H
+ #define	LCD_H
 
   #ifdef	__cplusplus
   extern "C" {
   #endif
 
-  #include "versao.h"
+
+ #include "versao.h"
 
   #ifdef _MODULO_NOVO_
     #define LCD_RS              RC0

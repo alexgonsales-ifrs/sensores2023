@@ -1,0 +1,4 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"4 src/cfg_tempo_amostra.c
+[; ;src/cfg_tempo_amostra.c: 4: uint8_t cfg_tempo_amostra_atual;
+[v _cfg_tempo_amostra_atual `uc ~T0 @X0 1 e ]

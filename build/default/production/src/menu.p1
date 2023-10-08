@@ -1,0 +1,200 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"21 src/menu.h
+[; ;src/menu.h: 21:   typedef struct {
+[s S1 `*Cuc 1 `ui 1 ]
+[n S1 . str_text i_value ]
+"29
+[; ;src/menu.h: 29:   typedef struct {
+[s S2 `uc 1 `uc 1 `uc 1 `*S1 1 ]
+[n S2 . index_active index_nav quant_itens itens ]
+"7 src/menu.c
+[; ;src/menu.c: 7: void menu_init(TMenu* menu, const TMenuItem* itens, uint8_t quant_itens) {
+[v _menu_init `(v ~T0 @X0 1 ef3`*S2`*CS1`uc ]
+{
+[e :U _menu_init ]
+[v _menu `*S2 ~T0 @X0 1 r1 ]
+[v _itens `*CS1 ~T0 @X0 1 r2 ]
+[v _quant_itens `uc ~T0 @X0 1 r3 ]
+[f ]
+"8
+[; ;src/menu.c: 8:   menu->index_active = 0;
+[e = . *U _menu 0 -> -> 0 `i `uc ]
+"9
+[; ;src/menu.c: 9:   menu->index_nav = 0;
+[e = . *U _menu 1 -> -> 0 `i `uc ]
+"10
+[; ;src/menu.c: 10:   menu->quant_itens = quant_itens;
+[e = . *U _menu 2 _quant_itens ]
+"11
+[; ;src/menu.c: 11:   menu->itens = itens;
+[e = . *U _menu 3 -> _itens `*S1 ]
+"12
+[; ;src/menu.c: 12: }
+[e :UE 3 ]
+}
+"15
+[; ;src/menu.c: 15: uint8_t menu_get_index_nav(TMenu* menu) {
+[v _menu_get_index_nav `(uc ~T0 @X0 1 ef1`*S2 ]
+{
+[e :U _menu_get_index_nav ]
+[v _menu `*S2 ~T0 @X0 1 r1 ]
+[f ]
+"16
+[; ;src/menu.c: 16:   return menu->index_nav;
+[e ) . *U _menu 1 ]
+[e $UE 4  ]
+"17
+[; ;src/menu.c: 17: }
+[e :UE 4 ]
+}
+"20
+[; ;src/menu.c: 20: uint16_t menu_get_value_active(TMenu* menu) {
+[v _menu_get_value_active `(ui ~T0 @X0 1 ef1`*S2 ]
+{
+[e :U _menu_get_value_active ]
+[v _menu `*S2 ~T0 @X0 1 r1 ]
+[f ]
+"21
+[; ;src/menu.c: 21:   return menu->itens[menu->index_active].i_value;
+[e ) . *U + . *U _menu 3 * -> . *U _menu 0 `ux -> -> # *U . *U _menu 3 `ui `ux 1 ]
+[e $UE 5  ]
+"22
+[; ;src/menu.c: 22: }
+[e :UE 5 ]
+}
+"26
+[; ;src/menu.c: 26: void menu_set_value_indexes(TMenu* menu, uint16_t value) {
+[v _menu_set_value_indexes `(v ~T0 @X0 1 ef2`*S2`ui ]
+{
+[e :U _menu_set_value_indexes ]
+[v _menu `*S2 ~T0 @X0 1 r1 ]
+[v _value `ui ~T0 @X0 1 r2 ]
+[f ]
+"27
+[; ;src/menu.c: 27:   menu->index_active = 1;
+[e = . *U _menu 0 -> -> 1 `i `uc ]
+"28
+[; ;src/menu.c: 28:   for (uint8_t i=0; i< menu->quant_itens; i++) {
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $U 10  ]
+[e :U 7 ]
+{
+"29
+[; ;src/menu.c: 29:     if (menu->itens[i].i_value == value) {
+[e $ ! == . *U + . *U _menu 3 * -> _i `ux -> -> # *U . *U _menu 3 `ui `ux 1 _value 11  ]
+{
+"30
+[; ;src/menu.c: 30:       menu->index_active = i;
+[e = . *U _menu 0 _i ]
+"31
+[; ;src/menu.c: 31:       menu->index_nav = i;
+[e = . *U _menu 1 _i ]
+"32
+[; ;src/menu.c: 32:       return;
+[e $UE 6  ]
+"33
+[; ;src/menu.c: 33:     }
+}
+[e :U 11 ]
+"34
+[; ;src/menu.c: 34:   }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e :U 10 ]
+[e $ < -> _i `i -> . *U _menu 2 `i 7  ]
+[e :U 8 ]
+}
+"35
+[; ;src/menu.c: 35: }
+[e :UE 6 ]
+}
+"39
+[; ;src/menu.c: 39: int8_t menu_inc_index(TMenu* menu) {
+[v _menu_inc_index `(c ~T0 @X0 1 ef1`*S2 ]
+{
+[e :U _menu_inc_index ]
+[v _menu `*S2 ~T0 @X0 1 r1 ]
+[f ]
+"40
+[; ;src/menu.c: 40:   if (menu->index_nav < menu->quant_itens - 1) {
+[e $ ! < -> . *U _menu 1 `i - -> . *U _menu 2 `i -> 1 `i 13  ]
+{
+"41
+[; ;src/menu.c: 41:     menu->index_nav++;
+[e ++ . *U _menu 1 -> -> 1 `i `uc ]
+"42
+[; ;src/menu.c: 42:     return (int8_t)(menu->index_nav);
+[e ) -> . *U _menu 1 `c ]
+[e $UE 12  ]
+"43
+[; ;src/menu.c: 43:   }
+}
+[e :U 13 ]
+"44
+[; ;src/menu.c: 44:   return -1;
+[e ) -> -U -> 1 `i `c ]
+[e $UE 12  ]
+"45
+[; ;src/menu.c: 45: }
+[e :UE 12 ]
+}
+"49
+[; ;src/menu.c: 49: int8_t menu_dec_index(TMenu* menu) {
+[v _menu_dec_index `(c ~T0 @X0 1 ef1`*S2 ]
+{
+[e :U _menu_dec_index ]
+[v _menu `*S2 ~T0 @X0 1 r1 ]
+[f ]
+"50
+[; ;src/menu.c: 50:   if (menu->index_nav >= 1) {
+[e $ ! >= -> . *U _menu 1 `i -> 1 `i 15  ]
+{
+"51
+[; ;src/menu.c: 51:     menu->index_nav--;
+[e -- . *U _menu 1 -> -> 1 `i `uc ]
+"52
+[; ;src/menu.c: 52:     return (int8_t)(menu->index_nav);
+[e ) -> . *U _menu 1 `c ]
+[e $UE 14  ]
+"53
+[; ;src/menu.c: 53:   }
+}
+[e :U 15 ]
+"54
+[; ;src/menu.c: 54:   return -1;
+[e ) -> -U -> 1 `i `c ]
+[e $UE 14  ]
+"55
+[; ;src/menu.c: 55: }
+[e :UE 14 ]
+}
+"59
+[; ;src/menu.c: 59: void menu_restore_index(TMenu* menu) {
+[v _menu_restore_index `(v ~T0 @X0 1 ef1`*S2 ]
+{
+[e :U _menu_restore_index ]
+[v _menu `*S2 ~T0 @X0 1 r1 ]
+[f ]
+"60
+[; ;src/menu.c: 60:   menu->index_nav = menu->index_active;
+[e = . *U _menu 1 . *U _menu 0 ]
+"61
+[; ;src/menu.c: 61: }
+[e :UE 16 ]
+}
+"65
+[; ;src/menu.c: 65: void menu_confirma_index(TMenu* menu) {
+[v _menu_confirma_index `(v ~T0 @X0 1 ef1`*S2 ]
+{
+[e :U _menu_confirma_index ]
+[v _menu `*S2 ~T0 @X0 1 r1 ]
+[f ]
+"66
+[; ;src/menu.c: 66:   menu->index_active = menu->index_nav;
+[e = . *U _menu 0 . *U _menu 1 ]
+"67
+[; ;src/menu.c: 67: }
+[e :UE 17 ]
+}

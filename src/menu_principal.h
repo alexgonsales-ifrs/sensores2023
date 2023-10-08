@@ -11,16 +11,16 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
-#include "versao.h"
-#include "menu.h"
-#include "cfg_tempo_amostra.h"
     
 #ifdef _ENVIA_DADOS_SERIAL_
   #define MENU_PRINCIPAL_TAM  8 // tamanho do menu inicial
 #else
   #define MENU_PRINCIPAL_TAM  7 // tamanho do menu inicial
 #endif
+
+#include "versao.h"
+#include "menu.h"
+#include "cfg_tempo_amostra.h"
 
   TMenu menu_principal;
   

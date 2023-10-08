@@ -24,14 +24,12 @@
  * Author: 
  * Comments:
  * Revision history: 
- */
+ */ 
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
 #ifndef TEMPLATE2_H
 #define	TEMPLATE2_H
-
-#include <xc.h> // include processor files - each processor file is guarded.  
 
 // TODO Insert appropriate #include <>
 
@@ -76,3 +74,4 @@ extern "C" {
 
 #endif	/* TEMPLATE2_H */
 
+#include <xc.h> // include processor files - each processor file is guarded.
