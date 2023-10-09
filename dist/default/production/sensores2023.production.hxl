@@ -1,19 +1,19 @@
 ### HEXMate logfile and output summary ###
 
 ### Command-line arguments ###
- C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_3.o
+ C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_3.o
  -Odist/default/production\sensores2023.production.hex
  -logfile=dist/default/production\sensores2023.production.hxl
  -addressing=2
 
 ### Memory Usage ###
  Input file ranges:
-  0h - 5h		(C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_3.o)
-  8h - FFDh		(C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_3.o)
-  1006h - 1FFFh		(C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_3.o)
-  2B8Ch - 2FFFh		(C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_3.o)
-  4000h - 4007h		(C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_3.o)
-  400Eh - 4011h		(C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_3.o)
+  0h - 5h		(C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_3.o)
+  8h - FFDh		(C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_3.o)
+  1006h - 1FFFh		(C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_3.o)
+  2B8Ch - 2FFFh		(C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_3.o)
+  4000h - 4007h		(C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_3.o)
+  400Eh - 4011h		(C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_3.o)
  Unused ranges:
   6h - 7h
   FFEh - 1005h
@@ -24,7 +24,7 @@
 ### Hex Memory Map ###
  Legend:
   -- = Unused memory
-  H1 = Input file             (C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_3.o)
+  H1 = Input file             (C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_3.o)
 ----------------------------------------------------------
          | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 ----------------------------------------------------------

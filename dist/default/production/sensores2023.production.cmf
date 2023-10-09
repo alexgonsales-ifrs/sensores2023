@@ -11,7 +11,7 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
+$C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
 idloc IDLOC 5 2000 2000 4 2 1
 reset_vec CODE 0 0 0 3 2 1
 end_init CODE 0 12 12 3 2 1
@@ -138,32 +138,32 @@ STRING 1800-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\sensores2023.production.o
-15 cinit CODE >3066:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15 cinit CODE >3069:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15 cinit CODE >3140:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-1A cinit CODE >3141:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-1B cinit CODE >3142:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-20 cinit CODE >3143:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-21 cinit CODE >3162:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-22 cinit CODE >3163:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-23 cinit CODE >3164:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-24 cinit CODE >3165:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-25 cinit CODE >3166:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-2A cinit CODE >3169:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-2B cinit CODE >3170:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-2C cinit CODE >3171:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-2D cinit CODE >3172:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-2E cinit CODE >3173:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-33 cinit CODE >3176:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-34 cinit CODE >3177:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-35 cinit CODE >3178:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-36 cinit CODE >3179:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-37 cinit CODE >3180:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-38 cinit CODE >3181:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-39 cinit CODE >3182:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-3A cinit CODE >3188:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-3A cinit CODE >3190:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-3B cinit CODE >3191:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
+15 cinit CODE >3066:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15 cinit CODE >3069:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15 cinit CODE >3140:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+1A cinit CODE >3141:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+1B cinit CODE >3142:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+20 cinit CODE >3143:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+21 cinit CODE >3162:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+22 cinit CODE >3163:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+23 cinit CODE >3164:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+24 cinit CODE >3165:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+25 cinit CODE >3166:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+2A cinit CODE >3169:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+2B cinit CODE >3170:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+2C cinit CODE >3171:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+2D cinit CODE >3172:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+2E cinit CODE >3173:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+33 cinit CODE >3176:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+34 cinit CODE >3177:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+35 cinit CODE >3178:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+36 cinit CODE >3179:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+37 cinit CODE >3180:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+38 cinit CODE >3181:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+39 cinit CODE >3182:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+3A cinit CODE >3188:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+3A cinit CODE >3190:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+3B cinit CODE >3191:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
 4 intentry CODE >17:C:\Users\5480\MPLABXProjects\sensores2023\src/handler.c
 1703 text52 CODE >29:C:\Users\5480\MPLABXProjects\sensores2023\src/botoes.c
 1703 text52 CODE >31:C:\Users\5480\MPLABXProjects\sensores2023\src/botoes.c
@@ -999,16 +999,16 @@ E57 text3 CODE >35:C:\Users\5480\MPLABXProjects\sensores2023\src/menu.c
 638 maintext CODE >155:C:\Users\5480\MPLABXProjects\sensores2023\src/main.c
 639 maintext CODE >157:C:\Users\5480\MPLABXProjects\sensores2023\src/main.c
 639 maintext CODE >166:C:\Users\5480\MPLABXProjects\sensores2023\src/main.c
-15D3 clrtext CODE >3149:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15D3 clrtext CODE >3150:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15D4 clrtext CODE >3151:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15D4 clrtext CODE >3152:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15D5 clrtext CODE >3153:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15D6 clrtext CODE >3154:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15D7 clrtext CODE >3155:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15D8 clrtext CODE >3156:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15D9 clrtext CODE >3157:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
-15DA clrtext CODE >3158:C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_1.s
+15D3 clrtext CODE >3149:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15D3 clrtext CODE >3150:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15D4 clrtext CODE >3151:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15D4 clrtext CODE >3152:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15D5 clrtext CODE >3153:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15D6 clrtext CODE >3154:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15D7 clrtext CODE >3155:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15D8 clrtext CODE >3156:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15D9 clrtext CODE >3157:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
+15DA clrtext CODE >3158:C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_1.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -1059,13 +1059,13 @@ _SYNC 4C4 0 ABS 0 - dist/default/production\sensores2023.production.o
 _TMR0 1 0 ABS 0 - dist/default/production\sensores2023.production.o
 _TXEN 4C5 0 ABS 0 - dist/default/production\sensores2023.production.o
 _WPUB 95 0 ABS 0 - dist/default/production\sensores2023.production.o
-___sp 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
+___sp 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
 _main 9E8 0 CODE 0 maintext dist/default/production\sensores2023.production.o
 handler@count_t0 65 0 BANK0 1 bssBANK0 dist/default/production\sensores2023.production.o
 btemp 7E 0 ABS 0 - dist/default/production\sensores2023.production.o
-___stack_hi 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
-___stack_lo 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
-start 24 0 CODE 0 init C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
+___stack_hi 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
+___stack_lo 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
+start 24 0 CODE 0 init C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
 menu_dec_index@menu 70 0 COMMON 1 cstackCOMMON dist/default/production\sensores2023.production.o
 __end_of_est_estado_menu_conf_quant_sensores 1AEA 0 CODE 0 text30 dist/default/production\sensores2023.production.o
 menu_set_value_indexes@value E1 0 BANK1 1 cstackBANK1 dist/default/production\sensores2023.production.o
@@ -1087,12 +1087,12 @@ __end_of_lcd_write 13CE 0 CODE 0 text8 dist/default/production\sensores2023.prod
 _eeprom_le_word 2E50 0 CODE 0 text49 dist/default/production\sensores2023.production.o
 __end_ofi1_lcd_goto 3000 0 CODE 0 text46 dist/default/production\sensores2023.production.o
 __end_ofi1_lcd_puts 14EC 0 CODE 0 text38 dist/default/production\sensores2023.production.o
-intlevel0 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
 __end_oflog@coeff 6E8 0 STRCODE 0 stringtext dist/default/production\sensores2023.production.o
 ___bmul@multiplicand 70 0 COMMON 1 cstackCOMMON dist/default/production\sensores2023.production.o
 handler@tempo_amostra DE 0 BANK1 1 cstackBANK1 dist/default/production\sensores2023.production.o
@@ -1144,8 +1144,8 @@ __end_of_canais 650 0 STRCODE 0 stringtext dist/default/production\sensores2023.
 eeprom_write@addr E2 0 BANK1 1 cstackBANK1 dist/default/production\sensores2023.production.o
 _adcon_amostra_print 2F4A 0 CODE 0 text22 dist/default/production\sensores2023.production.o
 __end_of_eeprom_grava_word 2D06 0 CODE 0 text10 dist/default/production\sensores2023.production.o
-___stackhi 0 0 ABS 0 - C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
-___stacklo 0 0 ABS 0 - C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
+___stackhi 0 0 ABS 0 - C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
+___stacklo 0 0 ABS 0 - C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
 ?_eeprom_le_word 71 0 COMMON 1 cstackCOMMON dist/default/production\sensores2023.production.o
 _dpowers 624 0 STRCODE 0 stringtext dist/default/production\sensores2023.production.o
 rs232_transmite@qtd_sens 74 0 COMMON 1 cstackCOMMON dist/default/production\sensores2023.production.o
@@ -1196,7 +1196,7 @@ lcd_goto@coluna E3 0 BANK1 1 cstackBANK1 dist/default/production\sensores2023.pr
 _menu_restore_index 2BCC 0 CODE 0 text31 dist/default/production\sensores2023.production.o
 adcon_print@valor_sensor 33 0 BANK0 1 cstackBANK0 dist/default/production\sensores2023.production.o
 __end_of_lcd_goto_sensor 600 0 CODE 0 text45 dist/default/production\sensores2023.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
+___int_sp 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -1298,7 +1298,7 @@ __Lintentry 8 0 CODE 0 intentry -
 est_estado_menu_conf_quant_sensores@botao 58 0 BANK0 1 cstackBANK0 dist/default/production\sensores2023.production.o
 __stringtab 600 0 STRCODE 0 stringtext dist/default/production\sensores2023.production.o
 eeprom_le_word@temp_int 76 0 COMMON 1 cstackCOMMON dist/default/production\sensores2023.production.o
-reset_vec 0 0 CODE 0 reset_vec C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
 __end_of_adcon_amostra_print_grava 2000 0 CODE 0 text21 dist/default/production\sensores2023.production.o
 _eeprom_write 10B0 0 CODE 0 text11 dist/default/production\sensores2023.production.o
 menu_init@itens E1 0 BANK1 1 cstackBANK1 dist/default/production\sensores2023.production.o
@@ -1451,8 +1451,8 @@ sprintf@sp 31 0 BANK0 1 cstackBANK0 dist/default/production\sensores2023.product
 __H__absolute__ 0 0 ABS 0 __absolute__ -
 i1lcd_goto@coluna 72 0 COMMON 1 cstackCOMMON dist/default/production\sensores2023.production.o
 __Lreset_vec 0 0 CODE 0 reset_vec -
-___heap_hi 0 0 ABS 0 - C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
-___heap_lo 0 0 ABS 0 - C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
+___heap_hi 0 0 ABS 0 - C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
+___heap_lo 0 0 ABS 0 - C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
 _est_estado_monitora FDC 0 CODE 0 text19 dist/default/production\sensores2023.production.o
 _menu_cfg_tempo_amostra_itens 6E8 0 STRCODE 0 stringtext dist/default/production\sensores2023.production.o
 __end_of__initialization 74 0 CODE 0 cinit dist/default/production\sensores2023.production.o
@@ -1513,8 +1513,8 @@ _STATUSbits 3 0 ABS 0 - dist/default/production\sensores2023.production.o
 est_maquina@botao 5E 0 BANK0 1 cstackBANK0 dist/default/production\sensores2023.production.o
 _menu_principal D9 0 BANK1 1 bssBANK1 dist/default/production\sensores2023.production.o
 _LCD_V_POSICOES 638 0 STRCODE 0 stringtext dist/default/production\sensores2023.production.o
-___int_stack_hi 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
-___int_stack_lo 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAshm0.\driver_tmp_23.o
+___int_stack_hi 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
+___int_stack_lo 0 0 STACK 2 stack C:\Users\5480\AppData\Local\Temp\xcAsf1g.\driver_tmp_23.o
 i1_lcd_goto 2FA4 0 CODE 0 text46 dist/default/production\sensores2023.production.o
 i1_lcd_puts 1456 0 CODE 0 text38 dist/default/production\sensores2023.production.o
 est_executa@qtd_sens 4D 0 BANK0 1 cstackBANK0 dist/default/production\sensores2023.production.o
