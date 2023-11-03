@@ -3,37 +3,51 @@
 
 #include "lcd.h"
 #include "versao.h"
-#include "xtal.h" //usado por __delay_us())
+#include "xtal.h"   //usado por __delay_us())
 
-    typedef struct {
-        uint8_t linha;
-        uint8_t coluna;
-    } TLCDPosicao;
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+
+  typedef struct {
+    uint8_t linha;
+    uint8_t coluna;
+  } TLCDPosicao;
     
-    const TLCDPosicao LCD_V_POSICOES[] = {
-        1, 0,
-        1, 8,
-        2, 0,
-        2, 8
-    };
+  const TLCDPosicao LCD_V_POSICOES[] = {
+    1, 0,
+    1, 8,
+    2, 0,
+    2, 8
+  };
 
-    /*versao 8 sensores
-    const S_pos LCD_POSICAO[TAM_MENU_QUANT_SENSORES] = {
-        1, 0,
-        1, 8,
-        2, 0,
-        2, 8,
-        1, 0,
-        1, 8,
-        2, 0,
-        2, 8
-    };
-     */
+  /*versao 8 sensores
+  const S_pos LCD_POSICAO[TAM_MENU_QUANT_SENSORES] = {
+    1, 0,
+    1, 8,
+    2, 0,
+    2, 8,
+    1, 0,
+    1, 8,
+    2, 0,
+    2, 8
+  };
+  */
 
+//============================================================================
+//===== Definições e Declaraçoes Privadas ====================================
+//============================================================================
+
+//===== Declaração das Funções Privadas ======================================
+  
 static void lcd_write(uint8_t c);
 
+//============================================================================
+//===== Definição (implementação) das Funções Públicas =======================
+//============================================================================
+
 /**
-* Rotina para inicializar o display. E chamada na funcao main().
+* Rotina para inicializar o display. É chamada na funcao main().
 */
 void lcd_init(void) {
     LCD_RS_TRIS = LCD_E_TRIS = LCD_D4_TRIS = LCD_D5_TRIS = LCD_D6_TRIS = LCD_D7_TRIS = 0;
@@ -46,7 +60,6 @@ void lcd_init(void) {
     lcd_write(0);
     lcd_write(6);
 }//lcd_init())
-
 
 /**
 * Limpa o display e aguarda 2ms.
@@ -73,17 +86,17 @@ void lcd_clear(void) {
  * 40 41 42 43 44 45 46 47 48 49 4A 4B 4C 4D 4E 4F
  */
 void lcd_goto(uint8_t linha, uint8_t coluna) {
-    LCD_RS = 0;
-    switch (linha) {
-        case 1:
-            lcd_write(0x08);
-            break;
-        case 2:
-            lcd_write(0x0C);
-            break;
-    }
-    lcd_write(coluna);
-    __delay_us(40);
+  LCD_RS = 0;
+  switch (linha) {
+    case 1:
+      lcd_write(0x08);
+      break;
+    case 2:
+      lcd_write(0x0C);
+    break;
+  }
+  lcd_write(coluna);
+  __delay_us(40);
 }//lcd_goto())
 
 /*
@@ -135,7 +148,6 @@ void lcd_puts(const char *str) {
           continue;
         }
         TXREG = cmd;
-        
       #endif
     #endif      
 
@@ -153,32 +165,36 @@ void lcd_puts(const char *str) {
 
 }//lcd_puts()
 
+//============================================================================
+//===== Definição (implementação) das Funções Privadas =======================
+//============================================================================
+
 /**
  * Envia o comando para o display separando cada bit
  * @param c comando a ser enviado
  */
 static void lcd_write(uint8_t c) {
-    if (c & 0b00000001) {
-        LCD_D4 = 1;
-    } else {
-        LCD_D4 = 0;
-    }
-    if (c & 0b00000010) {
-        LCD_D5 = 1;
-    } else {
-        LCD_D5 = 0;
-    }
-    if (c & 0b00000100) {
-        LCD_D6 = 1;
-    } else {
-        LCD_D6 = 0;
-    }
-    if (c & 0b00001000) {
-        LCD_D7 = 1;
-    } else {
-        LCD_D7 = 0;
-    }
-    __delay_us(40);
-    LCD_E = 1;
-    LCD_E = 0;
+  if (c & 0b00000001) {
+    LCD_D4 = 1;
+  } else {
+    LCD_D4 = 0;
+  }
+  if (c & 0b00000010) {
+    LCD_D5 = 1;
+  } else {
+    LCD_D5 = 0;
+  }
+  if (c & 0b00000100) {
+    LCD_D6 = 1;
+  } else {
+    LCD_D6 = 0;
+  }
+  if (c & 0b00001000) {
+    LCD_D7 = 1;
+  } else {
+    LCD_D7 = 0;
+  }
+  __delay_us(40);
+  LCD_E = 1;
+  LCD_E = 0;
 }//lcd_write())

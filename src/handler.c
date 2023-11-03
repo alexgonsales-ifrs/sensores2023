@@ -2,14 +2,13 @@
 #include <stdint.h>
 
 #include "handler.h"
-#include "adcon.h"
-#include "botoes.h"
-#include "eeprom.h"
-#include "rs232.h"
 #include "versao.h"
 
-#include "estados.h"
 #include "cfg_tempo_amostra.h"
+#include "adcon.h"
+#include "botoes.h"
+#include "estados.h"
+#include "servicos.h"
 
 /**
  * Funcao que trata as interrupções.
@@ -42,7 +41,7 @@ void __interrupt() handler(void) {
         //char tmp[];
         //sprintf(tmp, "%c bytes transmitidos", rs232_transmite());
         //lcd_puts(tmp);
-        rs232_transmite();
+        serv_rs232_envia_leituras_gravadas_eeprom();
 
         //RCIF e zerada quando se le o RCREG:
         //PIR1bits.RCIF = 0;
@@ -59,9 +58,9 @@ void __interrupt() handler(void) {
       if (count_t0 >= tempo_amostra) {
         //Ja passou a contagem do Timer0, então efetua uma amostra e zera a contagem.
         if (est_estado_atual == EST_ESTADO_MONITORA) {
-          adcon_amostra_print();
+          serv_adcon_amostra_print();
         } else if (est_estado_atual == EST_ESTADO_MONITORA_GRAVA) {
-          adcon_amostra_print_grava();
+          serv_adcon_amostra_print_grava();
         }
         count_t0 = 0;
       } 

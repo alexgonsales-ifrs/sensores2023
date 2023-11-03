@@ -8,7 +8,6 @@
       <itemPath>src/botoes.h</itemPath>
       <itemPath>src/eeprom.h</itemPath>
       <itemPath>src/estados.h</itemPath>
-      <itemPath>src/global.h</itemPath>
       <itemPath>src/lcd.h</itemPath>
       <itemPath>src/menu.h</itemPath>
       <itemPath>src/menu_principal.h</itemPath>
@@ -23,6 +22,7 @@
       <itemPath>src/handler.h</itemPath>
       <itemPath>src/template2.h</itemPath>
       <itemPath>src/template1.h</itemPath>
+      <itemPath>src/servicos.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -45,6 +45,7 @@
       <itemPath>src/cfg_tempo_amostra.c</itemPath>
       <itemPath>src/cfg_quant_sensores.c</itemPath>
       <itemPath>src/template1.c</itemPath>
+      <itemPath>src/servicos.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -65,8 +66,8 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>Simulator</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>2.45</languageToolchainVersion>
-        <platform>3</platform>
+        <languageToolchainVersion>2.41</languageToolchainVersion>
+        <platform>2</platform>
       </toolsSet>
       <packs>
         <pack name="PIC16Fxxx_DFP" vendor="Microchip" version="1.4.149"/>

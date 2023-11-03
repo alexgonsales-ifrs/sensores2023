@@ -1,9 +1,9 @@
-#include <stdint.h>
 #include <xc.h>
+#include <stdint.h>
+#include <stdio.h>
 
 #include "rs232.h"
-#include "eeprom.h"
-#include "cfg_quant_sensores.h"
+#include "versao.h"
 #include "xtal.h"
 
 void rs232_init(void) {
@@ -24,41 +24,30 @@ void rs232_init(void) {
   PIR1bits.RCIF = 0;
 }//rs232_init())
 
-uint8_t rs232_transmite(void) {
-    uint8_t qtd_val, x;
-    //uint16_t qtd_sens;
-    uint8_t qtd_sens, qtd_bytes;
-    uint8_t i = 0;
+/**
+ * Envia um dado (byte) pela RS232.
+ * @param dado o byte a ser enviado pela RS232.
+ */
+void rs232_envia_byte(uint8_t dado) {
+  TXREG = dado;
+  __delay_ms(5);
+}//rs232_envia_byte()
 
-    qtd_val = eeprom_read(EEPROM_END_QTDE_AMOSTRAS);
-    qtd_bytes = qtd_val * 2;
-
-    //solucao anterior:
-    /*
-    qtd_sens = (uint8_t) eeprom_read(END_QTDE_SENSORES);
-    TXREG = qtd_sens;
-    qtd_sens = qtd_sens >> 8;
-    __delay_us(100);
-    TXREG = qtd_sens;
-    __delay_us(100);
-    */
-
-    //o java trabalha com inteiros de 16 bits com sinal (little endian):
-    qtd_sens = eeprom_read(EEPROM_END_QTDE_SENSORES_ATUAL);
-    TXREG = qtd_sens;
-    //2400 bauds = (0,000416667 s) * (10 bits em cada transmissao serial) = 4.16 ms
+/**
+ * Envia um dado (byte) pela RS232 em formato ASCII (hexadecimal).
+ * Converte o byte para uma string que representa o dado em hexadecimal e 
+ * envia esses caracteres pela serial.
+  * @param dado o byte a ser enviado pela RS232.
+ */
+void rs232_envia_byte_hexa(uint8_t dado) {
+  char byte_hexa[4];
+  char* p_byte_hexa;
+  sprintf(byte_hexa, "%02X", dado);
+  p_byte_hexa = &byte_hexa[0];
+  while (*p_byte_hexa) {
+    TXREG = *p_byte_hexa;
+    p_byte_hexa++;
     __delay_ms(5);
-    TXREG = 0;
-    __delay_ms(5);
-    
-    for (; i < qtd_bytes; i = i + 2) {
-        x = eeprom_read(EEPROM_END_INICIO_AMOSTRAS + i + 1);
-        TXREG = x;
-        __delay_ms(5);
+  }  
+}//rs232_envia_byte_hexa()
 
-        x = eeprom_read(EEPROM_END_INICIO_AMOSTRAS + i);
-        TXREG = x;
-        __delay_ms(5);
-    }
-    return i;
-}//rs232_transmite()

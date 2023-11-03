@@ -1,5 +1,5 @@
 /* 
- * File:   menu.h
+ * File:   menu_principal.h
  * Author: ti
  *
  * Created on 30 de Dezembro de 2013, 23:59
@@ -33,7 +33,7 @@ extern "C" {
         "6)Tempo Amostra", 5,
         "7)Quant.Sensors", 6                 //não fechar virgula aqui
         #ifdef _ENVIA_DADOS_SERIAL_
-         ,"8)Enviar Dados" 7
+         ,"8)Enviar Dados", 7
         #endif
 
   };

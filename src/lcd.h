@@ -11,7 +11,6 @@
   extern "C" {
   #endif
 
-
  #include "versao.h"
 
   #ifdef _MODULO_NOVO_
@@ -52,9 +51,6 @@
       #define LCD_D7_TRIS         TRISB5
     #endif //_MODULO_ANTIGO_
   #endif //_MODULO_NOVO_
-
-          //typedef struct t_pos {
-
 
     /**
      * Rotina para inicializar o display. E chamada na funcao main().

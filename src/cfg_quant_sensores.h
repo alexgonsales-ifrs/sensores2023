@@ -15,9 +15,13 @@ extern "C" {
     
   //Quantidade máxima possível de sensores.
   #define CFG_QUANT_SENSORES_MAX 4
-    
+  
+  //É a quantidade de sensores atualmente configurada.
   extern uint8_t cfg_quant_sensores_atual;
-  extern uint8_t cfg_quant_sensores_amostrados;
+  
+  //É a quantidade de sensores que estava configurada a última vez que
+  //foi feito um monitoramento.
+  //extern uint8_t cfg_quant_sensores_amostrados;
   
 #ifdef	__cplusplus
 }

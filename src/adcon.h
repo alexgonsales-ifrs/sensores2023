@@ -34,13 +34,13 @@ extern "C" {
 
 //Quantidade máxima de leituras permitidas (gravadas na EEPROM). Cada leitura ocupa 2 bytes.
 //A quantidade de amostras dependerá da quantidade de sensores que está configurado.
-//QUANT_MAX_AMOSTRAS = QUANT_MAX_LEITURAS / QUANT_SENSORES
+//Quantidade máxima de amostras = QUANT_MAX_LEITURAS / QUANT_SENSORES
 #define ADCON_QTD_MAX_LEITURAS              120 
     
+//As constantes abaixo são utilizadas para inicialização das variáveis adcon_leitura_min e adcon_leitura_max.
 //São os valores mínimo e máximo possíveis na leitura de um sensor.
 //Apesar do conversor analógico/digital ter resolução de 10 bits, o que daria o valor máximo de 1023,
-//estamos utilizando 16 bits.
-//Estas constantes são utilizadas para inicialização das variáveis adcon_leitura_min e adcon_leitura_max.
+//estamos utilizando como valor máximo 65535 = 0xFFFF (máximo valor possível em 16 bits).
 #define ADCON_VALOR_MINIMO_LEITURA          0
 #define ADCON_VALOR_MAXIMO_LEITURA          0xFFFF
     
@@ -56,16 +56,25 @@ extern uint16_t adcon_leitura_min;
 //Matém o valor da maior leitura ocorrida. É inicializada com ADCON_VALOR_MINIMO_LEITURA.
 extern uint16_t adcon_leitura_max;
 
-//Mantém a quantidade de amostras que foram gravadas na EEPROM.
-extern uint8_t  adcon_quant_amostras_gravadas;
-    
-extern void adcon_init(void);
+//Mantém a quantidade de leituras que foram gravadas na EEPROM.
+extern uint8_t  adcon_quant_leituras_gravadas;
 
-extern void adcon_amostra_print(void);
+/**
+ * Funcao que inicializa o conversor analogico/digital.
+ * É chamada na funcao main().
+*/
+void adcon_init(void);
 
-extern void adcon_amostra_print_grava(void);
-
-extern void adcon_print(uint16_t valor_sensor, uint8_t num_sensor);
+/*
+ * Funcao que faz a leitura de um sensor.
+ * Essa leitura consiste em efetuar várias aquisições na porta analógica,
+ * conforme indicado pela constante ADCON_QUANT_AQUISICOES_MEDIA_LEITURA e
+ * efetuar a média dos valores dessas aquisições, resultando no valor
+ * da leitura do sensor.
+ * @param num_sensor número do sensor a ser lido (0 a 3).
+ * @return valor varlor lido do sensor (média das aquisições).
+ */
+uint16_t adcon_leitura_sensor(uint8_t num_sensor);
 
 #ifdef	__cplusplus
 }

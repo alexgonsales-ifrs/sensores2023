@@ -10,9 +10,7 @@
 extern "C" {
 #endif
     
-#include "botoes.h"
-    
-
+  #include "botoes.h"
 
   /* Todos os estados possíveis para a máquina de estados.
    Os Estados que contem MENU no nome representam o menu principal ou algum sub-menu.*/

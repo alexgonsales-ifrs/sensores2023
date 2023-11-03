@@ -27,7 +27,7 @@ extern "C" {
 
   //#define AMO_TAM_MENU_TEMPO_AMOSTRA   7 // tamanho do menu taxa de amostragem
 
-  extern uint8_t cfg_tempo_amostra_atual;
+  extern uint16_t cfg_tempo_amostra_atual;
   
 #ifdef	__cplusplus
 }

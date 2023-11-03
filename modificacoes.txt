@@ -1,0 +1,38 @@
+Modificações nesta versão:
+
+adcon:
+Variável adcon_quant_amostras_gravadas renomeada para adcon_quant_leituras_gravadas.
+Função adcon_le_sensor() renomeada para adcon_leitura_sensor().
+Função adcon_print() transformada em privada (static).
+Função modificada adcon_amostra_print_grava().
+
+cfg_quant_sensores: retirada variável cfg_quant_sensores_amostrados.
+
+cfg_tempo_amostra: tipo da variável cfg_tempo_amostra_atual modificada para uint16_t.
+
+eeprom.h:
+EEPROM_END_QTDE_AMOSTRAS modificado para EEPROM_END_QTDE_LEITURAS.
+Foi declarado extern nas funções para ficar de acordo com as convenções definidas.
+
+eeprom.c:
+Foi declarado static em algumas funções para ficar de acordo com as convenções definidas.
+
+estados:
+Variável est_ver_todos_index_amostra renomeada para est_mostra_todos_index_amostra.
+Função est_executa() renomeada para est_executa_acao_do().
+Função est_estado_ver_todos() renomeada para est_estado_mostra_todos().
+Função est_estado_menu_limpar() renomeada para est_estado_limpar().
+Modificações na função est_estado_mostra_todos().
+Modificações na função est_executa_acao_do(): estado EST_ESTADO_MOSTRA_TODOS.
+
+main.c: modificações para chamar as funções do módulo eeprom_util.
+
+rs232:
+Função rs232_transmite() renomeada para rs232_envia_leituras_gravadas_eeprom().
+Função rs232_envia_leituras_gravadas_eeprom() ajustada.
+
+Habilitada a funcionalidade para enviar dados pela serial (módulos modificados: estados, menu_principal, versao.h).
+versao.h: habilitada a macro _ENVIA_DADOS_SERIAL_.
+
+Criado o módulo servicos: algumas funções dos módulos adcon, rs232 e eeprom foram renomeadas (adicionado prefixo serv no nome da função) e passadas para este novo módulo.
+

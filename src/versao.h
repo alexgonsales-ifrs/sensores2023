@@ -20,15 +20,15 @@ extern "C" {
     
 //#define _MODULO_ANTIGO_ //PIC16F876A (não esquecer de configurar o modelo nas propriedades do projeto).
     
-//Habilita a função "Enviar Dados" que envia pela serial os dados que estão gravados na memória RAM.
+//Habilita a função "Enviar Dados" que envia pela serial os dados que estão gravados na memória EEPROM.
 //Esta diretiva se chamava _DEBUG_ e foi modificada para _ENVIA_DADOS_SERIAL_.
 //Antes de habilitar esta diretiva, verificar qual modelo de PIC está sendo usado para enviar dados pela serial.
-//#define _ENVIA_DADOS_SERIAL_
+#define _ENVIA_DADOS_SERIAL_
 
 //Esta diretiva é definida pelo compilador quando o projeto é executado em modo DEBUG.
 //É interessante também habilitá-la aqui quando o projeto for executado em modo DEBUG,
 //pois assim a IDE mostra o código que será compilado.
-//#define __DEBUG
+#define __DEBUG
     
 //Esta diretiva somente será usada quando o projeto estiver em modo __DEBUG.
 //Nessa caso, se esta diretiva estiver ativada, então os comandos de escrita no LCD

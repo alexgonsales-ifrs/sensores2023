@@ -19,7 +19,7 @@ endif
 endif
 
 # Environment
-MKDIR=gnumkdir -p
+MKDIR=mkdir -p
 RM=rm -f 
 MV=mv 
 CP=cp 
@@ -30,12 +30,12 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 IMAGE_TYPE=debug
 OUTPUT_SUFFIX=elf
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=${DISTDIR}/sensores2023.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 else
 IMAGE_TYPE=production
 OUTPUT_SUFFIX=hex
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=${DISTDIR}/sensores2023.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 endif
 
 ifeq ($(COMPARE_BUILD), true)
@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=src/lcd.c src/adcon.c src/botoes.c src/eeprom.c src/estados.c src/handler.c src/main.c src/menu.c src/mq6.c src/rs232.c src/timer.c src/cfg_tempo_amostra.c src/cfg_quant_sensores.c src/template1.c
+SOURCEFILES_QUOTED_IF_SPACED=src/lcd.c src/adcon.c src/botoes.c src/eeprom.c src/estados.c src/handler.c src/main.c src/menu.c src/mq6.c src/rs232.c src/timer.c src/cfg_tempo_amostra.c src/cfg_quant_sensores.c src/template1.c src/servicos.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/lcd.p1 ${OBJECTDIR}/src/adcon.p1 ${OBJECTDIR}/src/botoes.p1 ${OBJECTDIR}/src/eeprom.p1 ${OBJECTDIR}/src/estados.p1 ${OBJECTDIR}/src/handler.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/menu.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/rs232.p1 ${OBJECTDIR}/src/timer.p1 ${OBJECTDIR}/src/cfg_tempo_amostra.p1 ${OBJECTDIR}/src/cfg_quant_sensores.p1 ${OBJECTDIR}/src/template1.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/src/lcd.p1.d ${OBJECTDIR}/src/adcon.p1.d ${OBJECTDIR}/src/botoes.p1.d ${OBJECTDIR}/src/eeprom.p1.d ${OBJECTDIR}/src/estados.p1.d ${OBJECTDIR}/src/handler.p1.d ${OBJECTDIR}/src/main.p1.d ${OBJECTDIR}/src/menu.p1.d ${OBJECTDIR}/src/mq6.p1.d ${OBJECTDIR}/src/rs232.p1.d ${OBJECTDIR}/src/timer.p1.d ${OBJECTDIR}/src/cfg_tempo_amostra.p1.d ${OBJECTDIR}/src/cfg_quant_sensores.p1.d ${OBJECTDIR}/src/template1.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/lcd.p1 ${OBJECTDIR}/src/adcon.p1 ${OBJECTDIR}/src/botoes.p1 ${OBJECTDIR}/src/eeprom.p1 ${OBJECTDIR}/src/estados.p1 ${OBJECTDIR}/src/handler.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/menu.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/rs232.p1 ${OBJECTDIR}/src/timer.p1 ${OBJECTDIR}/src/cfg_tempo_amostra.p1 ${OBJECTDIR}/src/cfg_quant_sensores.p1 ${OBJECTDIR}/src/template1.p1 ${OBJECTDIR}/src/servicos.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/src/lcd.p1.d ${OBJECTDIR}/src/adcon.p1.d ${OBJECTDIR}/src/botoes.p1.d ${OBJECTDIR}/src/eeprom.p1.d ${OBJECTDIR}/src/estados.p1.d ${OBJECTDIR}/src/handler.p1.d ${OBJECTDIR}/src/main.p1.d ${OBJECTDIR}/src/menu.p1.d ${OBJECTDIR}/src/mq6.p1.d ${OBJECTDIR}/src/rs232.p1.d ${OBJECTDIR}/src/timer.p1.d ${OBJECTDIR}/src/cfg_tempo_amostra.p1.d ${OBJECTDIR}/src/cfg_quant_sensores.p1.d ${OBJECTDIR}/src/template1.p1.d ${OBJECTDIR}/src/servicos.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/src/lcd.p1 ${OBJECTDIR}/src/adcon.p1 ${OBJECTDIR}/src/botoes.p1 ${OBJECTDIR}/src/eeprom.p1 ${OBJECTDIR}/src/estados.p1 ${OBJECTDIR}/src/handler.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/menu.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/rs232.p1 ${OBJECTDIR}/src/timer.p1 ${OBJECTDIR}/src/cfg_tempo_amostra.p1 ${OBJECTDIR}/src/cfg_quant_sensores.p1 ${OBJECTDIR}/src/template1.p1
+OBJECTFILES=${OBJECTDIR}/src/lcd.p1 ${OBJECTDIR}/src/adcon.p1 ${OBJECTDIR}/src/botoes.p1 ${OBJECTDIR}/src/eeprom.p1 ${OBJECTDIR}/src/estados.p1 ${OBJECTDIR}/src/handler.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/menu.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/rs232.p1 ${OBJECTDIR}/src/timer.p1 ${OBJECTDIR}/src/cfg_tempo_amostra.p1 ${OBJECTDIR}/src/cfg_quant_sensores.p1 ${OBJECTDIR}/src/template1.p1 ${OBJECTDIR}/src/servicos.p1
 
 # Source Files
-SOURCEFILES=src/lcd.c src/adcon.c src/botoes.c src/eeprom.c src/estados.c src/handler.c src/main.c src/menu.c src/mq6.c src/rs232.c src/timer.c src/cfg_tempo_amostra.c src/cfg_quant_sensores.c src/template1.c
+SOURCEFILES=src/lcd.c src/adcon.c src/botoes.c src/eeprom.c src/estados.c src/handler.c src/main.c src/menu.c src/mq6.c src/rs232.c src/timer.c src/cfg_tempo_amostra.c src/cfg_quant_sensores.c src/template1.c src/servicos.c
 
 
 
@@ -82,7 +82,7 @@ FIXDEPS=fixDeps
 ifneq ($(INFORMATION_MESSAGE), )
 	@echo $(INFORMATION_MESSAGE)
 endif
-	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/sensores2023.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=16F886
 # ------------------------------------------------------------------------------------
@@ -200,6 +200,14 @@ ${OBJECTDIR}/src/template1.p1: src/template1.c  nbproject/Makefile-${CND_CONF}.m
 	@-${MV} ${OBJECTDIR}/src/template1.d ${OBJECTDIR}/src/template1.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/template1.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/src/servicos.p1: src/servicos.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/servicos.p1.d 
+	@${RM} ${OBJECTDIR}/src/servicos.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/servicos.p1 src/servicos.c 
+	@-${MV} ${OBJECTDIR}/src/servicos.d ${OBJECTDIR}/src/servicos.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/servicos.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/src/lcd.p1: src/lcd.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
@@ -313,6 +321,14 @@ ${OBJECTDIR}/src/template1.p1: src/template1.c  nbproject/Makefile-${CND_CONF}.m
 	@-${MV} ${OBJECTDIR}/src/template1.d ${OBJECTDIR}/src/template1.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/template1.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/src/servicos.p1: src/servicos.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/servicos.p1.d 
+	@${RM} ${OBJECTDIR}/src/servicos.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/servicos.p1 src/servicos.c 
+	@-${MV} ${OBJECTDIR}/src/servicos.d ${OBJECTDIR}/src/servicos.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/servicos.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 endif
 
 # ------------------------------------------------------------------------------------
@@ -330,15 +346,15 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${DISTDIR}/sensores2023.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
+${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
 	@${MKDIR} ${DISTDIR} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -Wl,-Map=${DISTDIR}/sensores2023.${IMAGE_TYPE}.map  -D__DEBUG=1  -mdebugger=none  -DXPRJ_default=$(CND_CONF)  -Wl,--defsym=__MPLAB_BUILD=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits -mc90lib -std=c99 -gdwarf-3 -mstack=compiled:auto:auto        $(COMPARISON_BUILD) -Wl,--memorysummary,${DISTDIR}/memoryfile.xml -o ${DISTDIR}/sensores2023.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
-	@${RM} ${DISTDIR}/sensores2023.${IMAGE_TYPE}.hex 
+	${MP_CC} $(MP_EXTRA_LD_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -Wl,-Map=${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.map  -D__DEBUG=1  -mdebugger=none  -DXPRJ_default=$(CND_CONF)  -Wl,--defsym=__MPLAB_BUILD=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits -mc90lib -std=c99 -gdwarf-3 -mstack=compiled:auto:auto        $(COMPARISON_BUILD) -Wl,--memorysummary,${DISTDIR}/memoryfile.xml -o ${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
+	@${RM} ${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.hex 
 	
 else
-${DISTDIR}/sensores2023.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
+${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} ${DISTDIR} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -Wl,-Map=${DISTDIR}/sensores2023.${IMAGE_TYPE}.map  -DXPRJ_default=$(CND_CONF)  -Wl,--defsym=__MPLAB_BUILD=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits -mc90lib -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     $(COMPARISON_BUILD) -Wl,--memorysummary,${DISTDIR}/memoryfile.xml -o ${DISTDIR}/sensores2023.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
+	${MP_CC} $(MP_EXTRA_LD_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -Wl,-Map=${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.map  -DXPRJ_default=$(CND_CONF)  -Wl,--defsym=__MPLAB_BUILD=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O0 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits -mc90lib -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     $(COMPARISON_BUILD) -Wl,--memorysummary,${DISTDIR}/memoryfile.xml -o ${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
 	
 endif
 
