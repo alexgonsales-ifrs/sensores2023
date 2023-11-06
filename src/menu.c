@@ -8,7 +8,7 @@ void menu_init(TMenu* menu, const TMenuItem* itens, uint8_t quant_itens) {
   menu->index_active    = 0;
   menu->index_nav      = 0;
   menu->quant_itens    = quant_itens;
-  menu->itens = itens;
+  menu->itens = (TMenuItem*)(itens);
 }//menu_init(())
 
 /* Retorna o indice do item de menu que está sendo mostrado (navegado). */

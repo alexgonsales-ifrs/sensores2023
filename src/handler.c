@@ -4,48 +4,36 @@
 #include "handler.h"
 #include "versao.h"
 
-#include "cfg_tempo_amostra.h"
-#include "adcon.h"
 #include "botoes.h"
 #include "estados.h"
-#include "servicos.h"
+#include "serv_adcon.h"
+//#include "serv_rs232.h"
+#include "prot_rs232.h"
 
 /**
  * Funcao que trata as interrupções.
  */
 void __interrupt() handler(void) {
   TBotao botao;
-  static uint16_t count_t0 = 0;
-  uint16_t tempo_amostra;
-
-  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  //Ver com Tiago ou Felipe por que comentaram este código.
-  //Nao precisa desabilitar a interrupcao Global???
-
-  //INTCONbits.GIE = 0; //desabilita interrupcao global
+  static uint16_t static_count_t0 = 0;
+  
+  //Nao precisa desabilitar a interrupcao Global.
+  //Ela é desabilitada automaticamente quando inicia a rotina d tratamento da interrupção e 
+  //habilitada automaticamente quando a rotina de tratamento de interrupção é concluida.
     
   //Testa para ver qual o tipo de interrupção que ocorreu:
 
   //==================== Testa interrupção Porta Serial ===============
   if (PIE1bits.RCIE) {
     if (PIR1bits.RCIF) {
+      prot_rs232_executa();
+      /*
       if (RCREG == 0x41) { //letra 'A'
-        //if (RCREG == 'A') { //letra 'A'
-        //lcd_clear();
-        //static int clr = 0;
-        //if (clr == 0) {
-        //    lcd_clear();
-        //    clr = 1;
-        //}
-
-        //char tmp[];
-        //sprintf(tmp, "%c bytes transmitidos", rs232_transmite());
-        //lcd_puts(tmp);
         serv_rs232_envia_leituras_gravadas_eeprom();
-
-        //RCIF e zerada quando se le o RCREG:
+        //RCIF é somente leitura. É zerada quando se le o RCREG:
         //PIR1bits.RCIF = 0;
       }
+      */
     }
   }//if (PIE1bits.RCIE) - interrupção Porta Serial.
 
@@ -53,21 +41,20 @@ void __interrupt() handler(void) {
   if (INTCONbits.T0IE) {
     if (INTCONbits.T0IF) {
       //Verifica no timer0 se já passou a contagem de tempo para efetuar uma amostra.
-      //tempo_amostra = menu_get_quant(&amo_menu_tempo_amostra);
-      tempo_amostra = cfg_tempo_amostra_atual;
-      if (count_t0 >= tempo_amostra) {
+      if (serv_adcon_testa_timer_tempo_amostra(static_count_t0)) {
         //Ja passou a contagem do Timer0, então efetua uma amostra e zera a contagem.
         if (est_estado_atual == EST_ESTADO_MONITORA) {
           serv_adcon_amostra_print();
         } else if (est_estado_atual == EST_ESTADO_MONITORA_GRAVA) {
           serv_adcon_amostra_print_grava();
         }
-        count_t0 = 0;
+        static_count_t0 = 0;
       } 
       else {
-        count_t0++;
+        static_count_t0++;
       }//else
       TMR0 = 39; //para dar overflow antes de 256 ints
+      //T0IF tem que ser zerado em software.
       INTCONbits.T0IF = 0;
     }//if (INTCONbits.T0IF)
   }//if (INTCONbits.T0IE) interrupção Timer0

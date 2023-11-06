@@ -17,10 +17,9 @@
 #include "lcd.h"
 #include "rs232.h"
 #include "timer.h"
-#include "cfg_quant_sensores.h"
-#include "cfg_tempo_amostra.h"
 #include "menu_principal.h"
-#include "servicos.h"
+#include "serv_eeprom.h"
+#include "estados.h"
 
 #ifdef _MODULO_NOVO_
   #pragma config CP = OFF, BOREN = OFF, WDTE = OFF, PWRTE = ON, FOSC = XT, LVP = OFF
@@ -37,10 +36,10 @@
 #ifdef __DEBUG
 //Esta macro é implementada somente em modo __DEBUG 
 //para que a saída do printf() seja na UART do simulador.
-void putch(char data) {
+void putch(char dado) {
   while( ! PIR1bits.TXIF)          // wait until the transmitter is ready
     continue;
-  TXREG = data;                     // send one character
+  TXREG = dado;                     // send one character
 }
 #endif
 
@@ -82,8 +81,9 @@ int main(void) {
   timer0_init();
   btns_init();
 
-  TXSTAbits.TXEN = 1; // enable transmitter
-  RCSTAbits.SPEN = 1; 
+  //Alexdg: retirado em 2023-11-03, pois já está no rs232_init().)
+  //TXSTAbits.TXEN = 1; // enable transmitter
+  //RCSTAbits.SPEN = 1; 
   
   // the Power-up Timer (72 ms duration) prevents EEPROM write:
   // 140ms = tempo maximo do power-up:
@@ -105,8 +105,8 @@ int main(void) {
   menu_init(&menu_cfg_quant_sensores, menu_cfg_quant_sensores_itens, MENU_CFG_QUANT_SENSORES_TAM);
   menu_init(&menu_cfg_tempo_amostra, menu_cfg_tempo_amostra_itens, MENU_CFG_TEMPO_AMOSTRA_TAM);
   
-  menu_set_value_indexes(&menu_cfg_quant_sensores, cfg_quant_sensores_atual);
-  menu_set_value_indexes(&menu_cfg_tempo_amostra,  cfg_tempo_amostra_atual);
+  menu_set_value_indexes(&menu_cfg_quant_sensores, adcon_cfg_quant_sensores_atual);
+  menu_set_value_indexes(&menu_cfg_tempo_amostra,  adcon_cfg_tempo_amostra_atual);
   
   lcd_goto(2, 0);
   lcd_puts("Pronto!    ");
@@ -117,9 +117,8 @@ int main(void) {
     #ifdef _MODULO_ANTIGO_
       TBotao option;
       //11 niveis de stack
-      option = btns_testa();
+      option = btns_testa_antigo();
       if (option != 0) {
-        //btns_processa(option);
         est_maquina(option);
       }
     #endif

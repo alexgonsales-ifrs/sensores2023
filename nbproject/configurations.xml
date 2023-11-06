@@ -16,13 +16,14 @@
       <itemPath>src/timer.h</itemPath>
       <itemPath>src/versao.h</itemPath>
       <itemPath>src/adcon.h</itemPath>
-      <itemPath>src/cfg_tempo_amostra.h</itemPath>
-      <itemPath>src/cfg_quant_sensores.h</itemPath>
       <itemPath>src/main.h</itemPath>
       <itemPath>src/handler.h</itemPath>
       <itemPath>src/template2.h</itemPath>
       <itemPath>src/template1.h</itemPath>
-      <itemPath>src/servicos.h</itemPath>
+      <itemPath>src/serv_rs232.h</itemPath>
+      <itemPath>src/serv_adcon.h</itemPath>
+      <itemPath>src/serv_eeprom.h</itemPath>
+      <itemPath>src/prot_rs232.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -42,10 +43,12 @@
       <itemPath>src/mq6.c</itemPath>
       <itemPath>src/rs232.c</itemPath>
       <itemPath>src/timer.c</itemPath>
-      <itemPath>src/cfg_tempo_amostra.c</itemPath>
-      <itemPath>src/cfg_quant_sensores.c</itemPath>
       <itemPath>src/template1.c</itemPath>
-      <itemPath>src/servicos.c</itemPath>
+      <itemPath>src/serv_rs232.c</itemPath>
+      <itemPath>src/serv_adcon.c</itemPath>
+      <itemPath>src/serv_eeprom.c</itemPath>
+      <itemPath>src/menu_principal.c</itemPath>
+      <itemPath>src/prot_rs232.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -61,7 +64,7 @@
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC16F886</targetDevice>
+        <targetDevice>PIC16F876A</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>Simulator</platformTool>

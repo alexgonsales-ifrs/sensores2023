@@ -1,4 +1,0 @@
-Version 4.0 HI-TECH Software Intermediate Code
-"4 src/cfg_quant_sensores.c
-[; ;src/cfg_quant_sensores.c: 4: uint8_t cfg_quant_sensores_atual;
-[v _cfg_quant_sensores_atual `uc ~T0 @X0 1 e ]

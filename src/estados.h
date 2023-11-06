@@ -23,10 +23,9 @@ extern "C" {
         EST_ESTADO_MOSTRA_MAX_MIN,
         EST_ESTADO_LIMPAR,
         EST_ESTADO_MENU_CONF_TEMPO_AMOSTRA,
-        #ifdef _ENVIA_DADOS_SERIAL_
+        EST_ESTADO_MENU_CONF_QUANT_SENSORES,
         EST_ESTADO_ENVIAR_DADOS,
-        #endif
-        EST_ESTADO_MENU_CONF_QUANT_SENSORES
+        EST_ESTADO_PROTOCOLO_RS232   //Equipamento está recebendo comando pela RS232 ou enviando dados.
   } TEstado;
   
   //Variável global que matem o estado atual da máquina de estados.  

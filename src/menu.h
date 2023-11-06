@@ -20,7 +20,7 @@ extern "C" {
    * utilizado em alguma parte do sistema. */
   typedef struct {
     const char *str_text;
-    uint16_t   i_value;  
+    uint16_t   i_value;
   } TMenuItem;
   
   /* TMenu representa um menu com seus itens (TMenuItem) e as variáveis de controle

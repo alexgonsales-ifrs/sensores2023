@@ -7,21 +7,30 @@
 #include "xtal.h"
 
 void rs232_init(void) {
-  #ifdef _PIC16F886_H_
+
+
+#ifdef _PIC16F886_H_
     BRG16 = 0;
   #endif
-  TRISC6 = 0; //tx = saida
-  TRISC7 = 1; //rx = entrada
-  TXEN = 1;
-  SYNC = 0;
-  SPEN = 1;
-  CREN = 1;
-  PIE1bits.RCIE = 1;
-  INTCONbits.PEIE = 1;   
+
+  TRISC6 = 0; //TX = saida
+  TRISC7 = 1; //RX = entrada
+  
   BRGH = 0;
   SPBRG = 25; //2400 BPS
+
+  //Configuração:
+  SYNC = 0; //Assíncrona.
+  SPEN = 1; //Serial Port Enable: configures RX/DT and TX/CK pins as serial port pins.
+  TXEN = 1; //Transmit enabled.
+  CREN = 1; //Continuous Receive Enable bit. 1=Enables receiver.
   TX9 = 0;
-  PIR1bits.RCIF = 0;
+  
+  INTCONbits.PEIE = 1; //Peripheral interrupt enable bit
+  
+  PIE1bits.RCIE = 1;   //Receive interrupt enable bit. Habilita interrupção RX.
+  
+  PIR1bits.RCIF = 0;  //Receive interrupt flag.
 }//rs232_init())
 
 /**

@@ -13,7 +13,7 @@
 
  #include "versao.h"
 
-  #ifdef _MODULO_NOVO_
+#if defined(_MODULO_NOVO_)
     #define LCD_RS              RC0
     #define LCD_RS_TRIS         TRISC0
     #define LCD_E               RC1
@@ -35,8 +35,7 @@
     #define LCD_D7              RC5
     #define LCD_D7_TRIS         TRISC5
      */
-  #else
-    #ifdef _MODULO_ANTIGO_
+#elif defined(_MODULO_ANTIGO_)
       #define LCD_RS              RB0
       #define LCD_RS_TRIS         TRISB0
       #define LCD_E               RB1
@@ -49,8 +48,7 @@
       #define LCD_D6_TRIS         TRISB4
       #define LCD_D7              RB5
       #define LCD_D7_TRIS         TRISB5
-    #endif //_MODULO_ANTIGO_
-  #endif //_MODULO_NOVO_
+#endif
 
     /**
      * Rotina para inicializar o display. E chamada na funcao main().

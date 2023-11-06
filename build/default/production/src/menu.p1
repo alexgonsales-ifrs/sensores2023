@@ -26,7 +26,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;src/menu.c: 10:   menu->quant_itens = quant_itens;
 [e = . *U _menu 2 _quant_itens ]
 "11
-[; ;src/menu.c: 11:   menu->itens = itens;
+[; ;src/menu.c: 11:   menu->itens = (TMenuItem*)(itens);
 [e = . *U _menu 3 -> _itens `*S1 ]
 "12
 [; ;src/menu.c: 12: }

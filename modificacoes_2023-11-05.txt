@@ -1,0 +1,12 @@
+Modificações nesta versão:
+
+Diversas modificações.
+
+Habilitado _MODULO_ANTIGO_.
+>>> Gravar no hardware ANTIGO e verificar se funciona <<<
+
+Criados os módulos serv_adcon, serv_eeprom, serv_rs232.
+Removido o módulo servicos e funções passadas para os módulos serv_adcon, serv_eeprom, serv_rs232.
+
+Criado o módulo prot_rs232.
+

@@ -17,7 +17,6 @@
 #include "adcon.h"
 #include "xtal.h"
 #include "versao.h"
-#include "cfg_quant_sensores.h"
 
 #ifdef _MQ_
 #include "mq6.h"
@@ -32,13 +31,19 @@
 //===== Variaveis Públicas ===================================================
 
 //Matém o valor da mínima leitura ocorrida. É inicializada com ADCON_VALOR_MAXIMO_LEITURA.
-uint16_t adcon_leitura_min = ADCON_VALOR_MAXIMO_LEITURA;
+uint16_t adcon_leitura_min;
 
 //Matém o valor da maior leitura ocorrida. É inicializada com ADCON_VALOR_MINIMO_LEITURA.
-uint16_t adcon_leitura_max = ADCON_VALOR_MINIMO_LEITURA;
+uint16_t adcon_leitura_max;
 
 //Mantém a quantidade de leituras que foram gravadas na EEPROM.
-uint8_t  adcon_quant_leituras_gravadas = 0;
+uint8_t  adcon_quant_leituras_gravadas;
+
+//Temo entre amostras atualmente configurado.
+uint16_t adcon_cfg_tempo_amostra_atual;
+
+//Quantidade de sensores atualmente configurada.
+uint8_t adcon_cfg_quant_sensores_atual;
 
 //============================================================================
 //===== Definições Privadas ==================================================
@@ -72,7 +77,7 @@ Canal - Pino - Sensor
 */
 
 //Canais em que estão cada um dos 4 sensores:
-static const uint8_t canais[CFG_QUANT_SENSORES_MAX] = {
+static const uint8_t canais[ADCON_CFG_QUANT_SENSORES_MAX] = {
     0,
     1,
     2,

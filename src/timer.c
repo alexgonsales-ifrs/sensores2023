@@ -1,7 +1,9 @@
-//#include <xc.h>
+#include <xc.h>
 //#include <htc.h>
 
-#include <pic16f886.h>
+//#include <pic16f886.h>
+//#include <proc/pic16f876a.h>
+
 #include "timer.h"
 
 void timer0_init(void) {
@@ -23,10 +25,22 @@ void timer0_init(void) {
     OPTION_REGbits.T0CS = 0; // timer = Fosc/4
     OPTION_REGbits.PSA = 0; // prescaler -> timer0 em vez de wdt
     OPTION_REGbits.PS = 0b111; // prescaler 1:256
+    
+    //T0CS = 0; // timer = Fosc/4
+    //PSA = 0; // prescaler -> timer0 em vez de wdt
+    //PS = 0b111; // prescaler 1:256
 
-    INTCONbits.T0IF = 0; //limpa flag interrupcao do timer 0
+    
+    //T0CS_bit = 0; // timer = Fosc/4
+    //PSA_bit = 0; // prescaler -> timer0 em vez de wdt
+    //PS = 0b111; // prescaler 1:256
 
-    INTCONbits.T0IE = 0; //desabilita interrupcao do timer 0
+    //INTCONbits.T0IF = 0; //limpa flag interrupcao do timer 0
+    //INTCONbits.T0IE = 0; //desabilita interrupcao do timer 0
+    
+    T0IF = 0; //limpa flag interrupcao do timer 0
+    T0IE = 0; //desabilita interrupcao do timer 0
+
 }//timer0_init()
 
 //void timer2_init(void) {

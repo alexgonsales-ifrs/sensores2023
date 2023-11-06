@@ -27,7 +27,6 @@ void btns_init(void) {
 }//btns_init()
 
 TBotao btns_testa(void) {
-    //__delay_ms(200);
     if(BTN_START_PIN == 0) {
         return BTN_START;
     }
@@ -44,3 +43,60 @@ TBotao btns_testa(void) {
     return 0;
 }//btns_testa()
 
+#ifdef _MODULO_ANTIGO_
+TBotao btns_testa_antigo(void) {
+    static short int press_start = 0, press_stop = 0, press_up = 0;
+    static short int press_down = 0, press_menu=0;
+
+    /********* BOTAO START/SELECT **************/
+    if (press_start == 1)
+          if(BTN_START_PIN == 0) {
+              __delay_ms(10);
+              press_start = 0;
+              return BTN_START;
+          }
+    if(BTN_START_PIN == 1) {
+        __delay_ms(10);
+        press_start = 1;
+    }
+
+    /**** BOTAO STOP/ESC *************/
+    if (press_stop == 1)
+        if(BTN_STOP_PIN == 0) {
+            __delay_ms(10);
+            press_stop = 0;
+            return BTN_STOP;
+        }
+    if (BTN_STOP_PIN == 1) {
+        __delay_ms(10);
+        press_stop = 1;
+    }
+
+    /**** BOTAO UP *************/
+    if (press_up == 1)
+        if(BTN_UP_PIN == 0) {
+            __delay_ms(10);
+            press_up = 0;
+            return BTN_UP;
+        }
+    if (BTN_UP_PIN == 1) {
+        __delay_ms(10);
+        press_up = 1;
+    }
+
+     /**** BOTAO DOWN *************/
+    if (press_down == 1)
+        if(BTN_DOWN_PIN == 0) {
+            __delay_ms(10);
+            press_down = 0;
+            return BTN_DOWN;
+        }
+    if (BTN_DOWN_PIN == 1) {
+        __delay_ms(10);
+        press_down = 1;
+    }
+    
+    /*************************************/    
+    return 0;
+}//btns_testa_antigo()
+#endif
