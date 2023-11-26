@@ -1797,7 +1797,7 @@ extern void serv_adcon_set_tempo_amostra_atual(uint16_t tempo_amostra);
 
 # 1 "src/prot_rs232.h" 1
 # 15 "src/prot_rs232.h"
-extern void prot_rs232_executa();
+extern void prot_rs232_executa(void);
 # 12 "src/handler.c" 2
 
 

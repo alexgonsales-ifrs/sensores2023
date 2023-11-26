@@ -60,3 +60,12 @@ void rs232_envia_byte_hexa(uint8_t dado) {
   }  
 }//rs232_envia_byte_hexa()
 
+void rs232_envia_string(char* str) {
+  uint8_t i =0;
+  while (str[i]) {
+  TXREG = str[i];
+  __delay_ms(5);
+  i++;    
+  }
+}
+

@@ -40,6 +40,37 @@ void serv_adcon_amostra_print(void) {
     uint16_t x = adcon_leitura_sensor(i);
     #ifdef _LM35_
       serv_adcon_print_leitura(x, i);
+    
+    /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  uint16_t valor_sensor = x;
+  uint8_t num_sensor = i;
+  char temp_str[9] = {0};
+  #ifdef _LM35_
+    div_t temp_div;
+    temp_div =  div((int16_t)valor_sensor, 10);
+    //alexdg 2023-09-29: Para diminuir as dependências, esta linha foi simplificada,
+    //assim este módulo não depende mais do módulo "menu_principal.h"
+    //sprintf(temp_str, "%d=%d.%d", menu_cfg_quant_sensores.itens[num_sensor].i_value, temp_div.quot, temp_div.rem);
+    sprintf(temp_str, "%d=%d.%d", num_sensor+1, temp_div.quot, temp_div.rem);
+  #endif
+  #ifdef _MQ_
+    //uint16_t ppm = potencia(t_int);
+    //uint16_t ppm;
+    //double yk;
+    //yk = (mq_gl_r0 / (t_int * K));
+    ppm = (uint16_t) pow(yk, INV_N);
+    //mq_mostra(ppm, 0);
+    //mq_mostra(t_int, 0);
+    //lcd_clear();
+    sprintf(temp_str, "ppm=%u", ppm);
+  #endif
+  lcd_goto_sensor(num_sensor);
+  lcd_puts(temp_str);
+     */
+    
+    
+    
+    
     #endif
     #ifdef _MQ_
       mq_mostra(x, i);
@@ -100,14 +131,16 @@ void serv_adcon_amostra_print_grava(void) {
 void serv_adcon_print_leitura(uint16_t valor_sensor, uint8_t num_sensor) {
   //Desta maneira deu problemas no display:
   //char temp_str2[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
-  char temp_str[9] = {0};
+  char temp_str[17] = {0};
   #ifdef _LM35_
     div_t temp_div;
     temp_div =  div((int16_t)valor_sensor, 10);
     //alexdg 2023-09-29: Para diminuir as dependências, esta linha foi simplificada,
     //assim este módulo não depende mais do módulo "menu_principal.h"
     //sprintf(temp_str, "%d=%d.%d", menu_cfg_quant_sensores.itens[num_sensor].i_value, temp_div.quot, temp_div.rem);
-    sprintf(temp_str, "%d=%d.%d", num_sensor+1, temp_div.quot, temp_div.rem);
+    
+    sprintf(temp_str, "%d", num_sensor+1); //<<<<<<<<<<<<<<<<<<<<<<<<<<
+    //sprintf(temp_str, "%d=%d.%d", num_sensor+1, temp_div.quot, temp_div.rem);
   #endif
   #ifdef _MQ_
     //uint16_t ppm = potencia(t_int);

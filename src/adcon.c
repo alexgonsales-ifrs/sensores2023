@@ -112,7 +112,7 @@ const uint8_t canais[CFG_QUANT_SENSORES_MAX] = {
  * É chamada na funcao main().
  *****************************************************************************/
 void adcon_init(void) {
-  TRISA = 0xff;
+  TRISA = 0xFF; //Configura a porta A como entrada.
   #ifdef _PIC16F886_H_
     ANSEL = 0b00011111; /// configura porta como analogica
     //(AN7:5) nao implementadas no PIC16F886
@@ -120,13 +120,25 @@ void adcon_init(void) {
     // 1 = pino Vref- ; 0 = Vss
     ADCON1bits.VCFG0 = 1; // Referencia positivo
     // 1 = pino Vref+ ; 0 = Vdd
+    
+    //ADCON0bits.ADCS = 1; // frequencia de conversao: FOSC/8 (recomendado para 4MHz)
+    //ADCON1bits.ADFM = 1; // resultado justificado a direita
+    //ADCON0bits.ADON = 1; //< liga conversor A/D
+
   #endif
+
   #ifdef _PIC16F876A_H_
-    ADCON1bits.PCFG = 0b0001; //< configurado para q o pino seja a referencia de tensao
+    ADCON1bits.PCFG = 0b0001; //< configurado para q AN3 seja o pindo de referencia de tensao.
+    //2023-11-07
+    //001 = frequencia de conversao: FOSC/8 (recomendado para 4MHz)
+    ADCON1bits.ADCS2 = 0;
+    ADCON0bits.ADCS1 = 0;
+    ADCON0bits.ADCS0 = 1;
+  
+    ADCON1bits.ADFM = 1; // resultado justificado a direita
+    ADCON0bits.ADON = 1; //< liga conversor A/D (poderia ligar mais tarde, só no momento da aquisição).
   #endif
-  ADCON0bits.ADCS = 1; // frequencia de conversao: FOSC/8 (recomendado para 4MHz)
-  ADCON1bits.ADFM = 1; // resultado justificado a direita
-  ADCON0bits.ADON = 1; //< liga conversor A/D
+  
 }//adcon_init()
 
 uint16_t adcon_leitura_sensor(uint8_t num_sensor) {

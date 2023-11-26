@@ -33,6 +33,8 @@ extern void rs232_envia_byte(uint8_t dado);
  */
 extern void rs232_envia_byte_hexa(uint8_t dado);
 
+extern void rs232_envia_string(char* str);
+
 
 #ifdef	__cplusplus
 }

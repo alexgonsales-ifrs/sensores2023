@@ -441,8 +441,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 104 ]
 [e :U 103 ]
 "94
-[; ;src/botoes.c: 94:     if (BTN_DOWN == 1) {
-[e $ ! == -> . `E797 4 `i -> 1 `i 105  ]
+[; ;src/botoes.c: 94:     if (RC0 == 1) {
+[e $ ! == -> _RC0 `i -> 1 `i 105  ]
 {
 "95
 [; ;src/botoes.c: 95:         _delay((unsigned long)((10)*(4000000/4000.0)));

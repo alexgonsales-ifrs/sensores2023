@@ -1800,7 +1800,7 @@ TBotao btns_testa_antigo(void) {
             press_down = 0;
             return BTN_DOWN;
         }
-    if (BTN_DOWN == 1) {
+    if (RC0 == 1) {
         _delay((unsigned long)((10)*(4000000/4000.0)));
         press_down = 1;
     }

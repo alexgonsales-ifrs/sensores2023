@@ -1,0 +1,2 @@
+Um merge de modificações do Laboratório de Hardware (IFRS) para tentar encontrar o bug das funcionalidades "monitora" e "monitora e grava". Ainda precisa ser corrigido.
+

@@ -2121,7 +2121,7 @@ int main(void) {
 
 
 
-  lcd_puts("2023-11-02 - v1.61-");
+  lcd_puts("20231106-v1.62");
 
 
 
@@ -2168,7 +2168,7 @@ int main(void) {
   menu_set_value_indexes(&menu_cfg_tempo_amostra, adcon_cfg_tempo_amostra_atual);
 
   lcd_goto(2, 0);
-  lcd_puts("Pronto!    ");
+  lcd_puts("Pronto!         ");
 
   INTCONbits.GIE = 1;
 

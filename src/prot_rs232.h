@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-extern void prot_rs232_executa();
+extern void prot_rs232_executa(void);
 
 
 #ifdef	__cplusplus

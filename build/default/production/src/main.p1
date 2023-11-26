@@ -372,7 +372,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;src/main.c: 57:   lcd_init();
 [e ( _lcd_init ..  ]
 "65
-[; ;src/main.c: 65:   lcd_puts("2023-11-02 - v1.61-");
+[; ;src/main.c: 65:   lcd_puts("20231106-v1.62");
 [e ( _lcd_puts (1 :s 20C ]
 "70
 [; ;src/main.c: 70:     lcd_puts("A");
@@ -442,7 +442,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;src/main.c: 111:   lcd_goto(2, 0);
 [e ( _lcd_goto (2 , -> -> 2 `i `uc -> -> 0 `i `uc ]
 "112
-[; ;src/main.c: 112:   lcd_puts("Pronto!    ");
+[; ;src/main.c: 112:   lcd_puts("Pronto!         ");
 [e ( _lcd_puts (1 :s 24C ]
 "114
 [; ;src/main.c: 114:   INTCONbits.GIE = 1;
@@ -503,6 +503,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 [a 19C 49 32 104 111 114 97 0 ]
 [a 22C 83 0 ]
 [a 21C 65 0 ]
+[a 20C 50 48 50 51 49 49 48 54 45 118 49 46 54 50 0 ]
 [a 23C 73 110 105 99 105 97 110 100 111 46 46 46 0 ]
-[a 20C 50 48 50 51 45 49 49 45 48 50 32 45 32 118 49 46 54 49 45 0 ]
-[a 24C 80 114 111 110 116 111 33 32 32 32 32 0 ]
+[a 24C 80 114 111 110 116 111 33 32 32 32 32 32 32 32 32 32 0 ]

@@ -28,8 +28,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;/opt/microchip/mplabx/v6.15/packs/Microchip/PIC16Fxxx_DFP/1.4.149/xc8/pic/include/proc/pic16f876a.h: 454: extern volatile PIR1bits_t PIR1bits __attribute__((address(0x00C)));
 [v _PIR1bits `VS16 ~T0 @X0 0 e@12 ]
 "15 src/prot_rs232.h
-[; ;src/prot_rs232.h: 15: extern void prot_rs232_executa();
-[v _prot_rs232_executa `(v ~T0 @X0 0 e? ]
+[; ;src/prot_rs232.h: 15: extern void prot_rs232_executa(void);
+[v _prot_rs232_executa `(v ~T0 @X0 0 ef ]
 "366 /opt/microchip/mplabx/v6.15/packs/Microchip/PIC16Fxxx_DFP/1.4.149/xc8/pic/include/proc/pic16f876a.h
 [; ;/opt/microchip/mplabx/v6.15/packs/Microchip/PIC16Fxxx_DFP/1.4.149/xc8/pic/include/proc/pic16f876a.h: 366:     struct {
 [s S14 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
