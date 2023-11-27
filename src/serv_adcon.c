@@ -139,8 +139,8 @@ void serv_adcon_print_leitura(uint16_t valor_sensor, uint8_t num_sensor) {
     //assim este módulo não depende mais do módulo "menu_principal.h"
     //sprintf(temp_str, "%d=%d.%d", menu_cfg_quant_sensores.itens[num_sensor].i_value, temp_div.quot, temp_div.rem);
     
-    sprintf(temp_str, "%d", num_sensor+1); //<<<<<<<<<<<<<<<<<<<<<<<<<<
-    //sprintf(temp_str, "%d=%d.%d", num_sensor+1, temp_div.quot, temp_div.rem);
+    //sprintf(temp_str, "%d", num_sensor+1); //<<<<<<<<<<<<<<<<<<<<<<<<<<
+    sprintf(temp_str, "%d=%d.%d", num_sensor+1, temp_div.quot, temp_div.rem);
   #endif
   #ifdef _MQ_
     //uint16_t ppm = potencia(t_int);

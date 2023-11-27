@@ -211,10 +211,16 @@ static void est_estado_menu_principal(TBotao botao) {
           break;
 
         case 5: //"Tempo Amostra"
+          //2023-11-27
+          //Atualiza o índice do menu conforme o valor de adcon_cfg_quant_sensores_atual.
+          menu_set_value_indexes(&menu_cfg_tempo_amostra, adcon_cfg_tempo_amostra_atual);
           est_executa_acao_do(EST_ESTADO_MENU_CONF_TEMPO_AMOSTRA);
           break;
 
         case 6: //"Quant Sensores"
+          //2023-11-27
+          //Atualiza o índice do menu conforme o valor de adcon_cfg_quant_sensores_atual.
+          menu_set_value_indexes(&menu_cfg_quant_sensores, adcon_cfg_quant_sensores_atual);
           est_executa_acao_do(EST_ESTADO_MENU_CONF_QUANT_SENSORES);
           break;
           
@@ -339,13 +345,11 @@ static void est_estado_menu_conf_tempo_amostra(TBotao botao) {
 static void est_estado_menu_conf_quant_sensores(TBotao botao) {
     switch (botao) {
       case BTN_UP:
-        //vetor que guarda a quantidade de sensores inicia em 1:
         if (menu_dec_index(&menu_cfg_quant_sensores) >= 0) {
           est_executa_acao_do(EST_ESTADO_MENU_CONF_QUANT_SENSORES);
         }
         break;
       case BTN_DOWN:
-        //vetor que guarda a quantidade de sensores inicia em 1:
         if ( menu_inc_index(&menu_cfg_quant_sensores) >= 0 ) {
           est_executa_acao_do(EST_ESTADO_MENU_CONF_QUANT_SENSORES);
         }
@@ -423,14 +427,14 @@ static void est_executa_acao_do(TEstado novo_estado) {
       break; //EST_LIMPAR
       
     case EST_ESTADO_MENU_CONF_TEMPO_AMOSTRA:
-      //Entra no menu Conf. Tempo Amostra.
+      //Atualiza o menu.
       indice_menu = menu_get_index_nav(&menu_cfg_tempo_amostra);
       lcd_clear();
       lcd_puts(menu_cfg_tempo_amostra.itens[indice_menu].str_text);
       break; //EST_MENU_CONF_TEMPO_AMOSTRA
 
     case EST_ESTADO_MENU_CONF_QUANT_SENSORES:
-      //Entra no menu Conf. Quant. de Sensores.
+      //Atualiza o menu.
       lcd_clear();
       indice_menu = menu_get_index_nav(&menu_cfg_quant_sensores);
       lcd_puts(menu_cfg_quant_sensores.itens[indice_menu].str_text);

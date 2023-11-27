@@ -9,6 +9,7 @@
 #include "rs232.h"
 #include "adcon.h"
 #include "eeprom.h"
+#include "serv_adcon.h"
 
 /*****************************************************************************
  * File:   prot_rs232.c
@@ -178,9 +179,13 @@ void prot_rs232_executa(void) {
         rx = RCREG;
         rx = rx - 48; //48 é o código ASCII do caractere zero.
         //Grava quant_sensores na EEPROM.
-        eeprom_write(EEPROM_END_QTDE_SENSORES_ATUAL, rx);
+        serv_adcon_set_quant_sensores_atual(rx);
+        //adcon_cfg_quant_sensores_atual = rx;
+        //eeprom_write(EEPROM_END_QTDE_SENSORES_ATUAL, rx);
         //Responde
-        rs232_envia_string("Z\n");       
+        sprintf(tmp, "S=%d\n", rx);
+        rs232_envia_string("Z\n");
+        rs232_envia_string(tmp);
       }//if 'H'
       
       //Grava Tempo Amostra.
@@ -202,7 +207,12 @@ void prot_rs232_executa(void) {
         rx = RCREG;
         tempo_amostra = tempo_amostra +       (rx - 48);
         __delay_ms(50);
-        eeprom_grava_word(EEPROM_END_TEMPO_AMOSTRAGEM, tempo_amostra);
+        serv_adcon_set_tempo_amostra_atual(tempo_amostra);
+        sprintf(tmp, "T=%d\n", tempo_amostra);
+        rs232_envia_string("Z\n");        
+        rs232_envia_string(tmp);
+        //adcon_cfg_tempo_amostra_atual = tempo_amostra;
+        //eeprom_grava_word(EEPROM_END_TEMPO_AMOSTRAGEM, tempo_amostra);
       }//if 'J'
       
   }//if
