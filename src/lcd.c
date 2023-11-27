@@ -105,8 +105,30 @@ void lcd_goto(uint8_t linha, uint8_t coluna) {
 * o sensor de número num_sensor.
 */
 void lcd_goto_sensor(uint8_t num_sensor) {
-  lcd_goto(LCD_V_POSICOES[num_sensor].linha, LCD_V_POSICOES[num_sensor].coluna);
-}
+  //2023-11-26: modificado para diminuir a call stack.
+  //Mudança: RAM=312 Program=7388 para RAM=312 Program=7430.
+  
+  //2023-11-26: retirado este.
+  //lcd_goto(LCD_V_POSICOES[num_sensor].linha, LCD_V_POSICOES[num_sensor].coluna);
+
+  //2023-11-26: adicionado isto.
+  uint8_t linha, coluna;
+  linha  = LCD_V_POSICOES[num_sensor].linha;
+  coluna = LCD_V_POSICOES[num_sensor].coluna;
+  LCD_RS = 0;
+  switch (linha) {
+    case 1:
+      lcd_write(0x08);
+      break;
+    case 2:
+      lcd_write(0x0C);
+    break;
+  }
+  lcd_write(coluna);
+  __delay_us(40);
+  
+  
+}//lcd_goto_sensor())
 
 /**
  * Envia uma string para o LCD. Se estiver em modo __DEBUG, envia também para a UART.

@@ -111,16 +111,19 @@ int main(void) {
   lcd_goto(2, 0);
   lcd_puts("Pronto!         ");
 
-  INTCONbits.GIE = 1; //habilita interrupcoes globais    
+  INTCONbits.GIE = 1; //habilita interrupcoes globais.
             
   while (1) {
     #ifdef _MODULO_ANTIGO_
       TBotao option;
-      //11 niveis de stack
+      //Este microcontrolador tem 8 níveis de stack mas este código pode alcançar até 12 niveis.
+      INTCONbits.GIE = 0; //Desabilita interrupcoes globais para não causar stack "overflow".
       option = btns_testa_antigo();
       if (option != 0) {
         est_maquina(option);
       }
+      INTCONbits.GIE = 1; //Habilita interrupcoes globais.
+      __delay_us(20);
     #endif
   }//while (1))
   return (EXIT_SUCCESS);

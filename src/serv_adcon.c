@@ -222,7 +222,12 @@ void serv_adcon_print_max_min(void) {
  * não estiver na faixa válida.
  */
 uint8_t serv_adcon_testa_indice_amostra_valido(uint8_t indice) {
-  if (indice >=0 && indice <= adcon_quant_leituras_gravadas / adcon_cfg_quant_sensores_atual) {
+  //Fiz casting para 16bits para remover lbdiv do assembly mas não removeu.
+  //Antes:  RAM=312 Program=7430
+  //Depois: RAM=312 Program=7442
+  //uint16_t ui16 = (uint16_t) ( (uint16_t)adcon_quant_leituras_gravadas) / ((uint16_t)adcon_cfg_quant_sensores_atual);
+  //if (indice >=0 && indice <= ui16 ) {
+  if (indice >=0 && indice <= (adcon_quant_leituras_gravadas) / adcon_cfg_quant_sensores_atual) {
     return 1;
   }
   else {

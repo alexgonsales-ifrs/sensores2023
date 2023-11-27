@@ -1,0 +1,2 @@
+Modificações para reduzir o tamanho do call stack.
+
