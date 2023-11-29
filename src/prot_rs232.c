@@ -49,22 +49,36 @@
 void prot_rs232_executa(void) {
   char tmp[8];
   //Melhorar esta lógica para funcionar em qualquer ESTADO.
-  
+  uint8_t estado_diferente_monitora;
+  estado_diferente_monitora =  (est_estado_atual != EST_ESTADO_MONITORA &&
+                                est_estado_atual != EST_ESTADO_MONITORA_GRAVA &&
+                                est_estado_atual != EST_ESTADO_ENVIAR_DADOS);
   uint8_t rx;
+  
+  //Le o caractere da serial.
   rx = RCREG;
   
-  if (est_estado_atual != EST_ESTADO_MONITORA &&
-      est_estado_atual != EST_ESTADO_MONITORA_GRAVA &&
-      est_estado_atual != EST_ESTADO_ENVIAR_DADOS) {
-    
-      //Monitora (comando antigo).
-      if (rx == 0x41) { //letra 'A'
-        serv_rs232_envia_leituras_gravadas_eeprom();
-      }//if 'A'
+  //Verifica qual o comando recebido:
+  
+  //Comando Enviar Dados (comando antigo)?
+  if (rx == 0x41) { //letra 'A'
+    serv_rs232_envia_leituras_gravadas_eeprom();
+  }//if 'A'
       
-      //Monitora.
-      else if (rx == 'B') {
-        rs232_envia_string("Z\n");
+  //Comando Monitora?
+  else if (rx == 'B') {
+    if (estado_diferente_monitora) {
+      //Envia "Z"
+      rs232_envia_string("Z\n");
+      
+      //Envia "S=s", onde s é a quantidade de sensores configurados.
+      sprintf(tmp, "S=%d\n", adcon_cfg_quant_sensores_atual);
+      rs232_envia_string(tmp);
+      
+      //Envia "T=t" onde t é o tempo de amostra configurado.
+      sprintf(tmp, "T=%d\n", adcon_cfg_tempo_amostra_atual);
+      rs232_envia_string(tmp);
+
         //TXREG = 'Z';
         //__delay_ms(5);
         //TXREG = 0x0D; //CR
@@ -72,8 +86,6 @@ void prot_rs232_executa(void) {
         //TXREG = 0x0A; //LF
         //__delay_ms(5);
         
-        sprintf(tmp, "S=%d\n", adcon_cfg_quant_sensores_atual);
-        rs232_envia_string(tmp);
         /*
         //S=2
         TXREG = 'S';
@@ -88,8 +100,6 @@ void prot_rs232_executa(void) {
         __delay_ms(5);
          */
 
-        sprintf(tmp, "T=%d\n", adcon_cfg_tempo_amostra_atual);
-        rs232_envia_string(tmp);
         /*
         TXREG = 'T';
         __delay_ms(5);
@@ -108,14 +118,20 @@ void prot_rs232_executa(void) {
         __delay_ms(5);
          */
 
-        //Entra no estado Monitora.
-        est_estado_atual = EST_ESTADO_MONITORA;
-        //Habilita monitora.
-        INTCONbits.T0IE = 1;
-      }//if 'B'
+      //Entra no estado Monitora.
+      est_estado_atual = EST_ESTADO_MONITORA;
+      //Habilita monitora.
+      INTCONbits.T0IE = 1;
+    }//if estado_diferente_monitora
+    else {
+      //Envia "E=1".
+      rs232_envia_string("E=1\n");
+    }
+  }//if 'B'
       
-      //Monitora e Grava.
-      else if (rx == 'C') {
+  //Monitora e Grava?
+  else if (rx == 'C') {
+    if (estado_diferente_monitora) {
         rs232_envia_string("Z\n");
         
         sprintf(tmp, "S=%d\n", adcon_cfg_quant_sensores_atual);
@@ -128,10 +144,30 @@ void prot_rs232_executa(void) {
         est_estado_atual = EST_ESTADO_MONITORA_GRAVA;
         //Habilita monitora.
         INTCONbits.T0IE = 1;
-      }//if 'C'
+    }//if estado_diferente_monitora
+    else {
+      //Envia "E=1".
+      rs232_envia_string("E=1\n");
+    }
+  }//if 'C'
+  
+  //Parar monitoramento?
+  else if (rx == 'D') {
+    if (est_estado_atual == EST_ESTADO_MONITORA ||
+       est_estado_atual == EST_ESTADO_MONITORA_GRAVA) {
+
+      rs232_envia_string("Z\n");
+      //Para monitoramento.
+      est_estado_atual = EST_ESTADO_MENU_PRINCIPAL;
+      //Desabilita monitora.
+      INTCONbits.T0IE = 0;
+    }//if estado_atual
+  }//if D
+
       
-      //Download. Equipamento envia dados armazenados na EEPROM.
-      else if (rx == 'E') {
+  //Download? Equipamento envia dados armazenados na EEPROM.
+  else if (rx == 'E') {
+    if (estado_diferente_monitora) {
         rs232_envia_string("Z\n");
         
         sprintf(tmp, "S=%d\n", adcon_cfg_quant_sensores_atual);
@@ -145,21 +181,30 @@ void prot_rs232_executa(void) {
 
         //Envia leituras armazenadas na EEPROM.
         serv_rs232_envia_leituras_gravadas_eeprom();
-      }//if 'E'
+    }//if estado_diferente_monitora
+    else {
+      //Envia "E=1".
+      rs232_envia_string("E=1\n");
+    }
+  }//if 'E'
 
-      //LE_QUANT_SENSORES.
-      else if (rx == 'F') {
+  //LE_QUANT_SENSORES?
+  else if (rx == 'F') {
+    if (estado_diferente_monitora) {
         rs232_envia_string("Z\n");
         
         sprintf(tmp, "S=%d\n", adcon_cfg_quant_sensores_atual);
         rs232_envia_string(tmp);
-
-        //Envia Quant. Sensores.
-        //rs232_envia_byte(adcon_cfg_quant_sensores_atual);
-      }//if 'F'
+    }//if estado_diferente_monitora
+    else {
+      //Envia "E=1".
+      rs232_envia_string("E=1\n");
+    }
+  }//if 'F'
       
-      //LE_TEMPO_AMOSTRA
-      else if (rx == 'G') {
+  //LE_TEMPO_AMOSTRA?
+  else if (rx == 'G') {
+    if (estado_diferente_monitora) {
         //Envia Tempo Amostra.
         rs232_envia_string("Z\n");
         
@@ -170,10 +215,16 @@ void prot_rs232_executa(void) {
         //rs232_envia_byte((uint8_t)(adcon_cfg_tempo_amostra_atual >> 8));
         //Envia byte menos significativo.
         //rs232_envia_byte((uint8_t)adcon_cfg_tempo_amostra_atual);
-      }//if 'G'
+    }//if estado_diferente_monitora
+    else {
+      //Envia "E=1".
+      rs232_envia_string("E=1\n");
+    }
+  }//if 'G'
       
-      //Grava Quant Sensores.
-      else if (rx == 'H') {
+  //Grava Quant Sensores.
+  else if (rx == 'H') {
+    if (estado_diferente_monitora) {
         while (!RCIF); //<<< loop para aguardar o próximo caractere.
         //Le a quant_sensores.
         rx = RCREG;
@@ -186,10 +237,16 @@ void prot_rs232_executa(void) {
         sprintf(tmp, "S=%d\n", rx);
         rs232_envia_string("Z\n");
         rs232_envia_string(tmp);
-      }//if 'H'
+    }//if estado_diferente_monitora
+    else {
+      //Envia "E=1".
+      rs232_envia_string("E=1\n");
+    }
+  }//if 'H'
       
-      //Grava Tempo Amostra.
-      else if (rx == 'J') {
+  //Grava Tempo Amostra.
+  else if (rx == 'J') {
+    if (estado_diferente_monitora) {
         //Precisa ler 4 caracteres (dígitos) para montar tempo_amostra:
         uint16_t tempo_amostra = 0;
         while (!RCIF); //<<< loop para aguardar o próximo caractere.
@@ -213,22 +270,12 @@ void prot_rs232_executa(void) {
         rs232_envia_string(tmp);
         //adcon_cfg_tempo_amostra_atual = tempo_amostra;
         //eeprom_grava_word(EEPROM_END_TEMPO_AMOSTRAGEM, tempo_amostra);
-      }//if 'J'
-      
-  }//if
-
-  if (est_estado_atual == EST_ESTADO_MONITORA ||
-      est_estado_atual == EST_ESTADO_MONITORA_GRAVA) {
-    
-    //Para monitoramento.
-    if (rx == 'D') {
-      rs232_envia_string("Z\n");
-      //Para monitoramento.
-      est_estado_atual = EST_ESTADO_MENU_PRINCIPAL;
-      //Desabilita monitora.
-      INTCONbits.T0IE = 0;
+    }//if estado_diferente_monitora
+    else {
+      //Envia "E=1".
+      rs232_envia_string("E=1\n");
     }
-  }//if
+  }//if 'J'
   
 }//prot_rs232_executa()
 
