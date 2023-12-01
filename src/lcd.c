@@ -137,15 +137,20 @@ void lcd_goto_sensor(uint8_t num_sensor) {
 void lcd_puts(const char *str) {
   uint8_t cmd; //comando a ser enviado ao LCD.
   LCD_RS = 1;
+  char c;
+  char *p_char;
+  
+  p_char = str;
 
-  while (*str) {
+  while (*p_char) {
     //Desloca 4 bits para a direita para enviar os 4 bits mais significativos do caractere.
-    cmd = *str >> 4;
+    c = *p_char;
+    cmd = c >> 4;
     lcd_write(cmd);
     __delay_us(40);
         
     //Envia os 4 bits menos sigificativos do caractere.
-    lcd_write(*str);
+    lcd_write(*p_char);
     __delay_us(40);
 
     //Se o MPLABx IDE estiver em modo __DEBUG então envia o print do LCD também para a UART,
@@ -166,7 +171,8 @@ void lcd_puts(const char *str) {
         cmd = (*str) & 0b00001111;
         TXREG = cmd;
       #else
-        cmd = *str;
+        cmd = *p_char;
+        //while (! PIR1bits.TXIF) {
         while (!TXIF) {
           continue;
         }
@@ -174,7 +180,7 @@ void lcd_puts(const char *str) {
       #endif
     #endif      
 
-    str++;
+    p_char++;
         
   }//while
   

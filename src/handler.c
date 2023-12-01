@@ -10,6 +10,10 @@
 //#include "serv_rs232.h"
 #include "prot_rs232.h"
 
+//uint8_t hand_rcif;
+
+//static uint8_t hand_adcon_monitora;
+
 /**
  * Funcao que trata as interrupções.
  */
@@ -26,7 +30,9 @@ void __interrupt() handler(void) {
   //==================== Testa interrupção Porta Serial ===============
   if (PIE1bits.RCIE) {
     if (PIR1bits.RCIF) {
+      //hand_rcif = 1;
       prot_rs232_executa();
+      
       /*
       if (RCREG == 0x41) { //letra 'A'
         serv_rs232_envia_leituras_gravadas_eeprom();
@@ -40,22 +46,39 @@ void __interrupt() handler(void) {
   //================== Testa interrupção do Timer0 ========================
   if (INTCONbits.T0IE) {
     if (INTCONbits.T0IF) {
-      //Verifica no timer0 se já passou a contagem de tempo para efetuar uma amostra.
-      if (serv_adcon_testa_timer_tempo_amostra(static_count_t0)) {
-        //Ja passou a contagem do Timer0, então efetua uma amostra e zera a contagem.
-        if (est_estado_atual == EST_ESTADO_MONITORA) {
-          serv_adcon_amostra_print();
-        } else if (est_estado_atual == EST_ESTADO_MONITORA_GRAVA) {
-          serv_adcon_amostra_print_grava();
-        }
-        static_count_t0 = 0;
-      } 
-      else {
-        static_count_t0++;
-      }//else
+      
+      //Se recem ligou o equipamento, então chama est_maquina() para fazer inicializações.
+      if (est_estado_atual == EST_ESTADO_INICIAL) {
+        est_maquina(BTN_NULL);
+      }
+
+      //Trata interface dos botões.
+      TBotao option = btns_testa_antigo();
+      if (option != 0) {
+        est_maquina(option);
+      }
+      
+      //Trata leitura sensores.
+      else if (  (est_estado_atual == EST_ESTADO_MONITORA) || serv_adcon_monitora_grava && (est_estado_atual == EST_ESTADO_MONITORA_GRAVA)  ) {
+        //Verifica no timer0 se já passou a contagem de tempo para efetuar uma amostra.
+        if (serv_adcon_testa_timer_tempo_amostra(static_count_t0)) {
+          //Ja passou a contagem do Timer0, então efetua uma amostra e zera a contagem.
+          if (est_estado_atual == EST_ESTADO_MONITORA) {
+            serv_adcon_amostra_print();
+          } else if (est_estado_atual == EST_ESTADO_MONITORA_GRAVA) {
+            serv_adcon_amostra_print_grava();
+          }
+          static_count_t0 = 0;
+        } 
+        else {
+          static_count_t0++;
+        }//else
+      }//if est_estado_atual
+      
       TMR0 = 39; //para dar overflow antes de 256 ints
       //T0IF tem que ser zerado em software.
       INTCONbits.T0IF = 0;
+      
     }//if (INTCONbits.T0IF)
   }//if (INTCONbits.T0IE) interrupção Timer0
   

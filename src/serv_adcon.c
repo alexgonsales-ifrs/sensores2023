@@ -8,6 +8,12 @@
 #include "adcon.h"
 #include "eeprom.h"
 #include "lcd.h"
+#include "rs232.h"
+
+//Indica se está em uma sessão de monitora_grava.
+//Quando a EEPROM estiver cheia, esta variável será colocada em zero (0),
+//assim, quem estiver efetuando o monitoramento deve checar esta variável.
+uint8_t serv_adcon_monitora_grava;
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -36,10 +42,27 @@
 void serv_adcon_amostra_print(void) {
   lcd_clear();
   
-  for (uint8_t i = 0; i < adcon_cfg_quant_sensores_atual; i++) {
-    uint16_t x = adcon_leitura_sensor(i);
+  for (uint8_t index_sensor = 0; index_sensor < adcon_cfg_quant_sensores_atual; index_sensor++) {
+    //Efetua leitura do sensor.
+    uint16_t valor_sensor = adcon_leitura_sensor(index_sensor);
+    
     #ifdef _LM35_
-      serv_adcon_print_leitura(x, i);
+    //Imprime valor no display:
+    //serv_adcon_print_leitura(valor_sensor, index_sensor);
+    //MACRO: serv_adcon_print_leitura(valor_sensor,index_sensor)
+    char temp_str[17] = {0};
+    #ifdef _LM35_
+      div_t temp_div;
+      temp_div =  div((int16_t)valor_sensor, 10);
+      sprintf(temp_str, "%d=%d.%d", index_sensor+1, temp_div.quot, temp_div.rem);
+    #endif
+    lcd_goto_sensor(index_sensor);
+    lcd_puts(temp_str);
+    //FIM MACRO.
+    
+    //Envia serial.
+    sprintf(temp_str, "%d.%d,", temp_div.quot, temp_div.rem);
+    rs232_envia_string(temp_str);
     
     /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   uint16_t valor_sensor = x;
@@ -76,10 +99,23 @@ void serv_adcon_amostra_print(void) {
       mq_mostra(x, i);
     #endif
   }//for
+  
+  rs232_envia_string("\n");
+  
 }//serv_adcon_amostra_print()
 
-void serv_adcon_amostra_print_grava(void) {
-  uint16_t t_int;
+ /**
+ * Funcao chamada a partir da contagem do timer.
+ * Faz uma amostragem (lê os sensores), imprime os valores no display e
+ * grava os valores na EEPROM.
+ * Atualiza a variável global adcon_quant_amostras_gravadas e grava-a na EEPROM.
+ * Pode atualizar as variáveis globais adcon_leitura_min e adcon_leitura_max,
+ * gravando-as também na EEPROM.
+ * @return Retorna a quantidade de valores que foram lidos ou 0 caso não tenha espaço na EEPROM para gravar. 
+ * Se não houver espaço na EEPROM, quem chamou esta função será responsável por interromper o monitoramento.
+ */
+uint8_t serv_adcon_amostra_print_grava(void) {
+  uint16_t valor_sensor;
   uint16_t maior, menor;
   uint8_t  qtd_leituras;
   uint16_t valores_leitura[ADCON_CFG_QUANT_SENSORES_MAX];
@@ -89,20 +125,44 @@ void serv_adcon_amostra_print_grava(void) {
    qtd_leituras = adcon_quant_leituras_gravadas;
    
   lcd_clear();
-  if (qtd_leituras < ADCON_QTD_MAX_LEITURAS) {
+  
+  //Verifica se tem espaço na EEPROM para armazenar as leituras.
+  //Se tiver, então faz as leituras e armazena na EEPROM.
+  
+  if (qtd_leituras <= (ADCON_QTD_MAX_LEITURAS-adcon_cfg_quant_sensores_atual) ) {
     //Faz a leitura de todos os sensores e grava na EEPROM:
-    for (uint8_t i = 0; i < adcon_cfg_quant_sensores_atual; i++) {
-      t_int = adcon_leitura_sensor(i);
-      if (t_int < menor) {
-        menor = t_int;
+    uint8_t index_sensor=0;
+    for (index_sensor = 0; index_sensor < adcon_cfg_quant_sensores_atual; index_sensor++) {
+      valor_sensor = adcon_leitura_sensor(index_sensor);
+      if (valor_sensor < menor) {
+        menor = valor_sensor;
       }
-      if (t_int > maior) {
-        maior = t_int;
+      if (valor_sensor > maior) {
+        maior = valor_sensor;
       }
-      valores_leitura[i] = t_int;
+      valores_leitura[index_sensor] = valor_sensor;
       qtd_leituras++;
-      serv_adcon_print_leitura(t_int, i);
+      
+      //Imprime valor no display:
+      //serv_adcon_print_leitura(valor_sensor, index_sensor);
+      //MACRO: serv_adcon_print_leitura(valor_sensor,index_sensor)
+      char temp_str[17] = {0};
+      #ifdef _LM35_
+        div_t temp_div;
+        temp_div =  div((int16_t)valor_sensor, 10);
+        sprintf(temp_str, "%d=%d.%d", index_sensor+1, temp_div.quot, temp_div.rem);
+      #endif
+      lcd_goto_sensor(index_sensor);
+      lcd_puts(temp_str);
+      //FIM MACRO.
+      
+      //Envia serial.
+      sprintf(temp_str, "%d.%d,", temp_div.quot, temp_div.rem);
+      rs232_envia_string(temp_str);
+
     } // for
+    
+    rs232_envia_string("\n");
     
     //Grava valores lidos na EEPROM.
     for (uint8_t i = 0; i < adcon_cfg_quant_sensores_atual; i++) {
@@ -120,14 +180,25 @@ void serv_adcon_amostra_print_grava(void) {
       eeprom_grava_word(EEPROM_END_LEITURA_MAX, adcon_leitura_max);    
     }
     
+    //Retorna a quantidade de valores lidos, ou seja, o valor de index_sensor estará acrescido de 1 quando sair do laço for.
+    return index_sensor;
+    
   }//if (qtd_leituras < ADCON_QTD_MAX_LEITURAS)
+  
   else {
+    //Não tem espaço na EEPROM.
     //Desabilita a interrupção do Timer0 para parar as leituras.
-    INTCONbits.T0IE = 0;
-    lcd_puts("Memoria Cheia");
+    //Retorna 0 (zero) para indicar que nenhum valor foi lido pois 
+    //não havia espaço para gravar na EEPROM.
+    //INTCONbits.T0IE = 0; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    serv_adcon_monitora_grava = 0;
+    lcd_puts("Mem.Cheia");
+    return 0;
   } //else
+  
 } //serv_adcon_amostra_print_grava()
 
+/*
 void serv_adcon_print_leitura(uint16_t valor_sensor, uint8_t num_sensor) {
   //Desta maneira deu problemas no display:
   //char temp_str2[8] = {0, 0, 0, 0, 0, 0, 0, 0 };
@@ -141,6 +212,7 @@ void serv_adcon_print_leitura(uint16_t valor_sensor, uint8_t num_sensor) {
     
     //sprintf(temp_str, "%d", num_sensor+1); //<<<<<<<<<<<<<<<<<<<<<<<<<<
     sprintf(temp_str, "%d=%d.%d", num_sensor+1, temp_div.quot, temp_div.rem);
+    //printf("%s", temp_str);
   #endif
   #ifdef _MQ_
     //uint16_t ppm = potencia(t_int);
@@ -157,6 +229,7 @@ void serv_adcon_print_leitura(uint16_t valor_sensor, uint8_t num_sensor) {
   
   lcd_puts(temp_str);
 }//serv_adcon_print_leitura()
+*/
 
 /**
  * Mostra no LCD os valores de uma amostra da EEPROM. O parâmetro indice_amostra
@@ -166,8 +239,7 @@ void serv_adcon_print_leitura(uint16_t valor_sensor, uint8_t num_sensor) {
  */
 void serv_adcon_print_amostra_eeprom(uint8_t indice_amostra) {
   uint8_t endereco;
-  uint16_t leitura_temperatura;
-  char tmp[17] = {0}; //warning do compilador
+  uint16_t valor_sensor;
   
   lcd_clear();
   
@@ -183,12 +255,25 @@ void serv_adcon_print_amostra_eeprom(uint8_t indice_amostra) {
   else {
     endereco = EEPROM_END_INICIO_AMOSTRAS + (indice_amostra * adcon_cfg_quant_sensores_atual * 2);
     //Mostrar no LCD os valores de uma amostra (todos os sensores) gravada na EEPROM:
-    for (uint8_t i = 0; i < adcon_cfg_quant_sensores_atual; i++) {
-      leitura_temperatura = eeprom_le_word(endereco);
-      sprintf(tmp, "%d=%d.%d", i + 1, leitura_temperatura / 10, leitura_temperatura % 10);
-      lcd_goto_sensor(i);
-      lcd_puts(tmp);
-     endereco = endereco + 2; //cada leitura ocupa 2 bytes.
+    for (uint8_t index_sensor = 0; index_sensor < adcon_cfg_quant_sensores_atual; index_sensor++) {
+      valor_sensor = eeprom_le_word(endereco);
+      
+      //Imprime valor no display:
+      //serv_adcon_print_leitura(valor_sensor, index_sensor);
+      //MACRO: serv_adcon_print_leitura(valor_sensor,index_sensor)
+      char temp_str[17] = {0};
+      #ifdef _LM35_
+        div_t temp_div;
+        temp_div =  div((int16_t)valor_sensor, 10);
+        sprintf(temp_str, "%d=%d.%d", index_sensor+1, temp_div.quot, temp_div.rem);
+      #endif
+      lcd_goto_sensor(index_sensor);
+      lcd_puts(temp_str);
+      //FIM MACRO.
+      
+      //sprintf(temp_str, "%d=%d.%d", index_sensor+1, valor_sensor / 10, valor_sensor % 10);
+      
+      endereco = endereco + 2; //cada leitura ocupa 2 bytes.
     }//for
   }//else
   
@@ -227,7 +312,7 @@ uint8_t serv_adcon_testa_indice_amostra_valido(uint8_t indice) {
   //Depois: RAM=312 Program=7442
   //uint16_t ui16 = (uint16_t) ( (uint16_t)adcon_quant_leituras_gravadas) / ((uint16_t)adcon_cfg_quant_sensores_atual);
   //if (indice >=0 && indice <= ui16 ) {
-  if (indice >=0 && indice <= (adcon_quant_leituras_gravadas) / adcon_cfg_quant_sensores_atual) {
+  if ( (indice >=0) && ( indice < (adcon_quant_leituras_gravadas/adcon_cfg_quant_sensores_atual - 1) ) ) {
     return 1;
   }
   else {

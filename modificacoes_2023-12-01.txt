@@ -1,0 +1,4 @@
+- Modificação na implementação da máquina de estados.
+- Modificação na estrutura geral: todo código passado para o handler, assim eliminou a duplicação de código que o compilador fazia para as funções não reentrantes. Ocupação da memória de programa diminui de 98% para 75%.
+- Ajustes gerais.
+

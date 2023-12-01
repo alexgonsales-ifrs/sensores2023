@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-
+extern uint8_t hand_rcif;
 
 
 #ifdef	__cplusplus

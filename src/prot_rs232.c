@@ -1,4 +1,5 @@
 #include <xc.h> //
+#include <stdio.h> //sprintf
 #include "xtal.h"
 
 #include "string.h"
@@ -64,7 +65,7 @@ void prot_rs232_executa(void) {
   if (rx == 0x41) { //letra 'A'
     serv_rs232_envia_leituras_gravadas_eeprom();
   }//if 'A'
-      
+
   //Comando Monitora?
   else if (rx == 'B') {
     if (estado_diferente_monitora) {
@@ -119,6 +120,7 @@ void prot_rs232_executa(void) {
          */
 
       //Entra no estado Monitora.
+      serv_adcon_monitora_grava = 1;
       est_estado_atual = EST_ESTADO_MONITORA;
       //Habilita monitora.
       INTCONbits.T0IE = 1;
@@ -128,7 +130,7 @@ void prot_rs232_executa(void) {
       rs232_envia_string("E=1\n");
     }
   }//if 'B'
-      
+
   //Monitora e Grava?
   else if (rx == 'C') {
     if (estado_diferente_monitora) {
@@ -160,8 +162,12 @@ void prot_rs232_executa(void) {
       //Para monitoramento.
       est_estado_atual = EST_ESTADO_MENU_PRINCIPAL;
       //Desabilita monitora.
-      INTCONbits.T0IE = 0;
+      //INTCONbits.T0IE = 0;
     }//if estado_atual
+    else {
+      //Envia "E=1".
+      rs232_envia_string("E=1\n");
+    }
   }//if D
 
       
@@ -192,7 +198,6 @@ void prot_rs232_executa(void) {
   else if (rx == 'F') {
     if (estado_diferente_monitora) {
         rs232_envia_string("Z\n");
-        
         sprintf(tmp, "S=%d\n", adcon_cfg_quant_sensores_atual);
         rs232_envia_string(tmp);
     }//if estado_diferente_monitora
@@ -243,7 +248,7 @@ void prot_rs232_executa(void) {
       rs232_envia_string("E=1\n");
     }
   }//if 'H'
-      
+
   //Grava Tempo Amostra.
   else if (rx == 'J') {
     if (estado_diferente_monitora) {

@@ -28,7 +28,7 @@ extern "C" {
 //Esta diretiva é definida pelo compilador quando o projeto é executado em modo DEBUG.
 //É interessante também habilitá-la aqui quando o projeto for executado em modo DEBUG,
 //pois assim a IDE mostra o código que será compilado.
-//#define __DEBUG
+#define __DEBUG
     
 //Esta diretiva somente será usada quando o projeto estiver em modo __DEBUG.
 //Nessa caso, se esta diretiva estiver ativada, então os comandos de escrita no LCD

@@ -20,6 +20,11 @@ extern "C" {
 //===== Tipos ================================================================
 
 //===== Variáveis ============================================================
+    
+//Indica se está em uma sessão de monitora_grava.
+//Quando a EEPROM estiver cheia, esta variável será colocada em zero (0),
+//assim, quem estiver efetuando o monitoramento deve checar esta variável.
+extern uint8_t serv_adcon_monitora_grava;
 
 //===== Funções ==============================================================
 /**
@@ -35,8 +40,9 @@ extern "C" {
  * Atualiza a variável global adcon_quant_amostras_gravadas e grava-a na EEPROM.
  * Pode atualizar as variáveis globais adcon_leitura_min e adcon_leitura_max,
  * gravando-as também na EEPROM.
+ * @return retorna a quantidade de valores que foram lidos ou 0 se 
  */
-extern void serv_adcon_amostra_print_grava(void);
+extern uint8_t serv_adcon_amostra_print_grava(void);
 
 /*
  * Imprime no display o valor de um sensor.
@@ -47,7 +53,7 @@ extern void serv_adcon_amostra_print_grava(void);
  * @param num_sensor número do sensor (0, 1, 2, 3) que está sendo mostrado. 
  * A partir desse dado a função saberá em qual posição do display deverá mostrar o valor_sensor.
  */
-extern void serv_adcon_print_leitura(uint16_t valor_sensor, uint8_t num_sensor);
+//extern void serv_adcon_print_leitura(uint16_t valor_sensor, uint8_t num_sensor);
 
 /**
  * Mostra no LCD os valores de uma amostra da EEPROM. O parâmetro indice_amostra
