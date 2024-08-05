@@ -4,14 +4,13 @@
  *
  * Created on 25 de Dezembro de 2013, 15:57
  */
-#ifdef _MODULO_NOVO_
+#ifdef _HARDWARE_NOVO_
 //  #pragma config CP = OFF, BOREN = OFF, WDTE = OFF, PWRTE = ON, FOSC = XT, LVP = OFF
 #endif
 
-#ifdef _MODULO_ANTIGO_
+#ifdef _HARDWARE_ANTIGO_
   //#pragma config CP = OFF, BOREN = OFF, WDTE = OFF, PWRTE = ON, FOSC = XT, LVP = OFF
 #endif
-
 
 // CONFIG
 #pragma config FOSC = XT        // Oscillator Selection bits (XT oscillator)
@@ -33,69 +32,64 @@
 #include "main.h"
 #include "versao.h"
 #include "xtal.h"
-#include "adcon.h"
-#include "botoes.h"
-#include "lcd.h"
-#include "rs232.h"
-#include "timer.h"
-#include "menu_principal.h"
-#include "serv_eeprom.h"
-#include "estados.h"
+#include "base_timer.h" //timer0_init()
 
-#include "serv_rs232.h"
-#include "prot_rs232.h"
-
-#include "handler.h"
+#include "ct_handler.h"
 
 //Esta função é usada somente para marcação no Clock Stimulus
 //void inicializado3(void){ };
 
 #ifdef __DEBUG
-//Esta macro é implementada somente em modo __DEBUG 
-//para que a saída do printf() seja na UART do simulador.
+//Se estiver em modo __DEBUG então a saída da função printf()
+//será direcionada para a UART do microcontrolador, pois esta é a única forma
+//de se visualizar a saída do printf().
 void putch(char dado) {
-  while( ! PIR1bits.TXIF)          // wait until the transmitter is ready
+  while( ! PIR1bits.TXIF) // wait until the transmitter is ready
     continue;
-  TXREG = dado;                     // send one character
+  TXREG = dado;  // send one character
 }
 #endif
 
  /**
- * Funcao principal: inicializa os dispositivos do PIC, inicializa menus, 
- * configura a interrupcao global, etc...
- * e fica em while().
+ * Ponto de entrada da aplicação.
+ * Configura o Timer0, habilita as interrupções e entra no loop infinito. 
  * @return EXIT_SUCCESS
  */
 int main(void) {
 
-  rs232_init();
-  lcd_init();
-  
   timer0_init();
+  
   INTCONbits.GIE = 1; //Habilita interrupcoes globais.
   INTCONbits.T0IE = 1;
   
+  //Chama est_maquina() para fazer inicializações.
+  //Não pode chamar aqui pois está sendo chamada no interrupt handler e dessa forma o compilador duplica a função,
+  //resultando na seguinte mensagem de erro:
+  //advisory: (1510) non-reentrant function "nome da funcao" appears in multiple call graphs and has been duplicated by the compiler.
+  //est_maquina(BTN_NULL);
     
   while (1) {
-    #ifdef _MODULO_ANTIGO_
-      TBotao option;
+    #ifdef _HARDWARE_ANTIGO_
+      //Aqui deveria ser implementada a leitura dos botões.
+      //Atualmente está implementado no handler, ao ativar o Timer0.
+      //Não é o local correto, mas foi deixado assim.
+    
+      //TBotao option;
       //Este microcontrolador tem 8 níveis de stack mas este código pode alcançar até 12 niveis.
       //INTCONbits.GIE = 0; //Desabilita interrupcoes globais para não causar stack "overflow".
       //if (hand_rcif) {
         //hand_rcif = 0;
         //prot_rs232_executa();
      // }
-      
       //option = btns_testa_antigo();
       //if (option != 0) {
-      //  est_maquina(option);
+        //est_maquina(option);
       //}
       //INTCONbits.GIE = 1; //Habilita interrupcoes globais.
       //__delay_us(20);
     #endif
   }//while (1))
   return (EXIT_SUCCESS);
-   
   
   while(1);
 }//main()

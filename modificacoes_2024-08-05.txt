@@ -1,0 +1,26 @@
+Modificações nesta versão:
+
+Modificação no nome do diretório do projeto, de mq-2016.X para sensores2023.
+
+Modificações gerais em nomes de variáveis, constantes, defines e funções em todos os módulos (arquivos).
+
+Mudança na terminologia utilizada (ver modulo base_adcon):
+aquisicao -> passou a se chamar de leitura.
+leitura -> passou a se chamar de amostra.
+amostra -> passou a se chamar de aquisicao.
+
+Nova terminologia:
+
+Leitura: é a leitura de um valor da porta analógica.
+  
+Amostra: é a leitura de vários valores da porta analógica, resultando no valor médio, sendo este considerado 
+como o valor lido (amostrado) do sensor. Por exemplo, uma amostra de um sensor pode corresponder à leitura de 10 valores do sensor.
+ 
+Aquisição: é um conjunto de amostras de todos os sensores atualmente configurados.
+Por exemplo, se está configurado para 4 sensores, então uma aquisição corresponde a 4 amostras.
+Supondo que cada amostra corresponda à média da leitura de 10 valores,
+então uma aquisição corresponderá à leitura de 40 valores (armazenamento de apenas 4 amostras).
+ 
+Sessão de monitoramento: corresponde a uma sessão onde são realizadas várias aquisições, 
+todas com o mesmo intervalo de tempo (tempo entre aquisções), conforme configuração escolhida pelo usuário.
+

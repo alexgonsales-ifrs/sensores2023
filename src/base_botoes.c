@@ -1,5 +1,5 @@
 #include <xc.h>
-#include "botoes.h"
+#include "base_botoes.h"
 #include "versao.h"
 #include "xtal.h"
 
@@ -12,7 +12,7 @@ void btns_init(void) {
   BTN_START_TRIS = BTN_STOP_TRIS = BTN_UP_TRIS = BTN_DOWN_TRIS = 1;
   BTN_START_PIN = BTN_STOP_PIN = BTN_UP_PIN = BTN_DOWN_PIN = 0;
     
-  #ifdef _MODULO_NOVO_
+  #ifdef _HARDWARE_NOVO_
     OPTION_REGbits.nRBPU = 0;  //HABILITA PULL-UPS (BIT ~WBPU)
     WPUB = 0xf0;    // weak pull-up portb
     
@@ -43,7 +43,7 @@ TBotao btns_testa(void) {
     return 0;
 }//btns_testa()
 
-#ifdef _MODULO_ANTIGO_
+#ifdef _HARDWARE_ANTIGO_
 TBotao btns_testa_antigo(void) {
     static short int press_start = 0, press_stop = 0, press_up = 0;
     static short int press_down = 0, press_menu=0;

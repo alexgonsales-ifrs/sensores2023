@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <xc.h>
-#include "eeprom.h"
+#include "base_eeprom.h"
 
 static uint16_t eeprom_le_word_big(uint8_t end);
 static uint16_t eeprom_ler_word_little(uint8_t end);

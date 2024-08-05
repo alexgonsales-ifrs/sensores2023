@@ -1,15 +1,12 @@
 #include <xc.h> //
 #include <stdio.h> //sprintf
 #include "xtal.h"
-
 #include "string.h"
 
-#include "prot_rs232.h"
-#include "serv_rs232.h"
-#include "estados.h"
-#include "rs232.h"
-#include "adcon.h"
-#include "eeprom.h"
+#include "ct_prot_rs232.h"
+#include "ct_estados.h"
+#include "base_rs232.h"
+#include "base_adcon.h"
 #include "serv_adcon.h"
 
 /*****************************************************************************
@@ -63,7 +60,7 @@ void prot_rs232_executa(void) {
   
   //Comando Enviar Dados (comando antigo)?
   if (rx == 0x41) { //letra 'A'
-    serv_rs232_envia_leituras_gravadas_eeprom();
+    serv_adcon_envia_rs232_amostras_gravadas_eeprom();
   }//if 'A'
 
   //Comando Monitora?
@@ -77,7 +74,7 @@ void prot_rs232_executa(void) {
       rs232_envia_string(tmp);
       
       //Envia "T=t" onde t é o tempo de amostra configurado.
-      sprintf(tmp, "T=%d\n", adcon_cfg_tempo_amostra_atual);
+      sprintf(tmp, "T=%d\n", adcon_cfg_tempo_aquisicao_atual);
       rs232_envia_string(tmp);
 
         //TXREG = 'Z';
@@ -139,7 +136,7 @@ void prot_rs232_executa(void) {
         sprintf(tmp, "S=%d\n", adcon_cfg_quant_sensores_atual);
         rs232_envia_string(tmp);
 
-        sprintf(tmp, "T=%d\n", adcon_cfg_tempo_amostra_atual);
+        sprintf(tmp, "T=%d\n", adcon_cfg_tempo_aquisicao_atual);
         rs232_envia_string(tmp);
 
         //Entra no estado Monitora e Grava.
@@ -179,14 +176,14 @@ void prot_rs232_executa(void) {
         sprintf(tmp, "S=%d\n", adcon_cfg_quant_sensores_atual);
         rs232_envia_string(tmp);
 
-        sprintf(tmp, "T=%d\n", adcon_cfg_tempo_amostra_atual);
+        sprintf(tmp, "T=%d\n", adcon_cfg_tempo_aquisicao_atual);
         rs232_envia_string(tmp);
         
-        sprintf(tmp, "Q=%d\n", adcon_quant_leituras_gravadas / adcon_cfg_quant_sensores_atual);
+        sprintf(tmp, "Q=%d\n", adcon_quant_amostras_gravadas / adcon_cfg_quant_sensores_atual);
         rs232_envia_string(tmp);
 
         //Envia leituras armazenadas na EEPROM.
-        serv_rs232_envia_leituras_gravadas_eeprom();
+        serv_adcon_envia_rs232_amostras_gravadas_eeprom();
     }//if estado_diferente_monitora
     else {
       //Envia "E=1".
@@ -213,7 +210,7 @@ void prot_rs232_executa(void) {
         //Envia Tempo Amostra.
         rs232_envia_string("Z\n");
         
-        sprintf(tmp, "T=%d\n", adcon_cfg_tempo_amostra_atual);
+        sprintf(tmp, "T=%d\n", adcon_cfg_tempo_aquisicao_atual);
         rs232_envia_string(tmp);
 
         //Envia byte mais significativo.
@@ -269,7 +266,7 @@ void prot_rs232_executa(void) {
         rx = RCREG;
         tempo_amostra = tempo_amostra +       (rx - 48);
         __delay_ms(50);
-        serv_adcon_set_tempo_amostra_atual(tempo_amostra);
+        serv_adcon_set_tempo_aquisicao_atual(tempo_amostra);
         sprintf(tmp, "T=%d\n", tempo_amostra);
         rs232_envia_string("Z\n");        
         rs232_envia_string(tmp);

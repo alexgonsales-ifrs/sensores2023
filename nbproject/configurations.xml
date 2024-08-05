@@ -5,25 +5,24 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/xtal.h</itemPath>
-      <itemPath>src/botoes.h</itemPath>
-      <itemPath>src/eeprom.h</itemPath>
-      <itemPath>src/estados.h</itemPath>
-      <itemPath>src/lcd.h</itemPath>
-      <itemPath>src/menu.h</itemPath>
-      <itemPath>src/menu_principal.h</itemPath>
       <itemPath>src/mq6.h</itemPath>
-      <itemPath>src/rs232.h</itemPath>
-      <itemPath>src/timer.h</itemPath>
       <itemPath>src/versao.h</itemPath>
-      <itemPath>src/adcon.h</itemPath>
       <itemPath>src/main.h</itemPath>
-      <itemPath>src/handler.h</itemPath>
       <itemPath>src/template2.h</itemPath>
       <itemPath>src/template1.h</itemPath>
-      <itemPath>src/serv_rs232.h</itemPath>
       <itemPath>src/serv_adcon.h</itemPath>
       <itemPath>src/serv_eeprom.h</itemPath>
-      <itemPath>src/prot_rs232.h</itemPath>
+      <itemPath>src/base_eeprom.h</itemPath>
+      <itemPath>src/base_lcd.h</itemPath>
+      <itemPath>src/base_adcon.h</itemPath>
+      <itemPath>src/base_rs232.h</itemPath>
+      <itemPath>src/base_botoes.h</itemPath>
+      <itemPath>src/util_menu.h</itemPath>
+      <itemPath>src/base_timer.h</itemPath>
+      <itemPath>src/serv_menus.h</itemPath>
+      <itemPath>src/ct_handler.h</itemPath>
+      <itemPath>src/ct_estados.h</itemPath>
+      <itemPath>src/ct_prot_rs232.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -32,23 +31,22 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/lcd.c</itemPath>
-      <itemPath>src/adcon.c</itemPath>
-      <itemPath>src/botoes.c</itemPath>
-      <itemPath>src/eeprom.c</itemPath>
-      <itemPath>src/estados.c</itemPath>
-      <itemPath>src/handler.c</itemPath>
       <itemPath>src/main.c</itemPath>
-      <itemPath>src/menu.c</itemPath>
       <itemPath>src/mq6.c</itemPath>
-      <itemPath>src/rs232.c</itemPath>
-      <itemPath>src/timer.c</itemPath>
       <itemPath>src/template1.c</itemPath>
-      <itemPath>src/serv_rs232.c</itemPath>
       <itemPath>src/serv_adcon.c</itemPath>
       <itemPath>src/serv_eeprom.c</itemPath>
-      <itemPath>src/menu_principal.c</itemPath>
-      <itemPath>src/prot_rs232.c</itemPath>
+      <itemPath>src/base_eeprom.c</itemPath>
+      <itemPath>src/base_lcd.c</itemPath>
+      <itemPath>src/base_adcon.c</itemPath>
+      <itemPath>src/base_rs232.c</itemPath>
+      <itemPath>src/base_botoes.c</itemPath>
+      <itemPath>src/util_menu.c</itemPath>
+      <itemPath>src/base_timer.c</itemPath>
+      <itemPath>src/serv_menus.c</itemPath>
+      <itemPath>src/ct_handler.c</itemPath>
+      <itemPath>src/ct_estados.c</itemPath>
+      <itemPath>src/ct_prot_rs232.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

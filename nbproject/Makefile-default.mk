@@ -30,12 +30,12 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 IMAGE_TYPE=debug
 OUTPUT_SUFFIX=elf
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=${DISTDIR}/sensores2023.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 else
 IMAGE_TYPE=production
 OUTPUT_SUFFIX=hex
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=${DISTDIR}/sensores2023.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 endif
 
 ifeq ($(COMPARE_BUILD), true)
@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=src/lcd.c src/adcon.c src/botoes.c src/eeprom.c src/estados.c src/handler.c src/main.c src/menu.c src/mq6.c src/rs232.c src/timer.c src/template1.c src/serv_rs232.c src/serv_adcon.c src/serv_eeprom.c src/menu_principal.c src/prot_rs232.c
+SOURCEFILES_QUOTED_IF_SPACED=src/main.c src/mq6.c src/template1.c src/serv_adcon.c src/serv_eeprom.c src/base_eeprom.c src/base_lcd.c src/base_adcon.c src/base_rs232.c src/base_botoes.c src/util_menu.c src/base_timer.c src/serv_menus.c src/ct_handler.c src/ct_estados.c src/ct_prot_rs232.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/lcd.p1 ${OBJECTDIR}/src/adcon.p1 ${OBJECTDIR}/src/botoes.p1 ${OBJECTDIR}/src/eeprom.p1 ${OBJECTDIR}/src/estados.p1 ${OBJECTDIR}/src/handler.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/menu.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/rs232.p1 ${OBJECTDIR}/src/timer.p1 ${OBJECTDIR}/src/template1.p1 ${OBJECTDIR}/src/serv_rs232.p1 ${OBJECTDIR}/src/serv_adcon.p1 ${OBJECTDIR}/src/serv_eeprom.p1 ${OBJECTDIR}/src/menu_principal.p1 ${OBJECTDIR}/src/prot_rs232.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/src/lcd.p1.d ${OBJECTDIR}/src/adcon.p1.d ${OBJECTDIR}/src/botoes.p1.d ${OBJECTDIR}/src/eeprom.p1.d ${OBJECTDIR}/src/estados.p1.d ${OBJECTDIR}/src/handler.p1.d ${OBJECTDIR}/src/main.p1.d ${OBJECTDIR}/src/menu.p1.d ${OBJECTDIR}/src/mq6.p1.d ${OBJECTDIR}/src/rs232.p1.d ${OBJECTDIR}/src/timer.p1.d ${OBJECTDIR}/src/template1.p1.d ${OBJECTDIR}/src/serv_rs232.p1.d ${OBJECTDIR}/src/serv_adcon.p1.d ${OBJECTDIR}/src/serv_eeprom.p1.d ${OBJECTDIR}/src/menu_principal.p1.d ${OBJECTDIR}/src/prot_rs232.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/template1.p1 ${OBJECTDIR}/src/serv_adcon.p1 ${OBJECTDIR}/src/serv_eeprom.p1 ${OBJECTDIR}/src/base_eeprom.p1 ${OBJECTDIR}/src/base_lcd.p1 ${OBJECTDIR}/src/base_adcon.p1 ${OBJECTDIR}/src/base_rs232.p1 ${OBJECTDIR}/src/base_botoes.p1 ${OBJECTDIR}/src/util_menu.p1 ${OBJECTDIR}/src/base_timer.p1 ${OBJECTDIR}/src/serv_menus.p1 ${OBJECTDIR}/src/ct_handler.p1 ${OBJECTDIR}/src/ct_estados.p1 ${OBJECTDIR}/src/ct_prot_rs232.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/src/main.p1.d ${OBJECTDIR}/src/mq6.p1.d ${OBJECTDIR}/src/template1.p1.d ${OBJECTDIR}/src/serv_adcon.p1.d ${OBJECTDIR}/src/serv_eeprom.p1.d ${OBJECTDIR}/src/base_eeprom.p1.d ${OBJECTDIR}/src/base_lcd.p1.d ${OBJECTDIR}/src/base_adcon.p1.d ${OBJECTDIR}/src/base_rs232.p1.d ${OBJECTDIR}/src/base_botoes.p1.d ${OBJECTDIR}/src/util_menu.p1.d ${OBJECTDIR}/src/base_timer.p1.d ${OBJECTDIR}/src/serv_menus.p1.d ${OBJECTDIR}/src/ct_handler.p1.d ${OBJECTDIR}/src/ct_estados.p1.d ${OBJECTDIR}/src/ct_prot_rs232.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/src/lcd.p1 ${OBJECTDIR}/src/adcon.p1 ${OBJECTDIR}/src/botoes.p1 ${OBJECTDIR}/src/eeprom.p1 ${OBJECTDIR}/src/estados.p1 ${OBJECTDIR}/src/handler.p1 ${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/menu.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/rs232.p1 ${OBJECTDIR}/src/timer.p1 ${OBJECTDIR}/src/template1.p1 ${OBJECTDIR}/src/serv_rs232.p1 ${OBJECTDIR}/src/serv_adcon.p1 ${OBJECTDIR}/src/serv_eeprom.p1 ${OBJECTDIR}/src/menu_principal.p1 ${OBJECTDIR}/src/prot_rs232.p1
+OBJECTFILES=${OBJECTDIR}/src/main.p1 ${OBJECTDIR}/src/mq6.p1 ${OBJECTDIR}/src/template1.p1 ${OBJECTDIR}/src/serv_adcon.p1 ${OBJECTDIR}/src/serv_eeprom.p1 ${OBJECTDIR}/src/base_eeprom.p1 ${OBJECTDIR}/src/base_lcd.p1 ${OBJECTDIR}/src/base_adcon.p1 ${OBJECTDIR}/src/base_rs232.p1 ${OBJECTDIR}/src/base_botoes.p1 ${OBJECTDIR}/src/util_menu.p1 ${OBJECTDIR}/src/base_timer.p1 ${OBJECTDIR}/src/serv_menus.p1 ${OBJECTDIR}/src/ct_handler.p1 ${OBJECTDIR}/src/ct_estados.p1 ${OBJECTDIR}/src/ct_prot_rs232.p1
 
 # Source Files
-SOURCEFILES=src/lcd.c src/adcon.c src/botoes.c src/eeprom.c src/estados.c src/handler.c src/main.c src/menu.c src/mq6.c src/rs232.c src/timer.c src/template1.c src/serv_rs232.c src/serv_adcon.c src/serv_eeprom.c src/menu_principal.c src/prot_rs232.c
+SOURCEFILES=src/main.c src/mq6.c src/template1.c src/serv_adcon.c src/serv_eeprom.c src/base_eeprom.c src/base_lcd.c src/base_adcon.c src/base_rs232.c src/base_botoes.c src/util_menu.c src/base_timer.c src/serv_menus.c src/ct_handler.c src/ct_estados.c src/ct_prot_rs232.c
 
 
 
@@ -82,60 +82,12 @@ FIXDEPS=fixDeps
 ifneq ($(INFORMATION_MESSAGE), )
 	@echo $(INFORMATION_MESSAGE)
 endif
-	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/sensores2023.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=16F876A
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/src/lcd.p1: src/lcd.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/lcd.p1.d 
-	@${RM} ${OBJECTDIR}/src/lcd.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/lcd.p1 src/lcd.c 
-	@-${MV} ${OBJECTDIR}/src/lcd.d ${OBJECTDIR}/src/lcd.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/lcd.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/adcon.p1: src/adcon.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/adcon.p1.d 
-	@${RM} ${OBJECTDIR}/src/adcon.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/adcon.p1 src/adcon.c 
-	@-${MV} ${OBJECTDIR}/src/adcon.d ${OBJECTDIR}/src/adcon.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/adcon.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/botoes.p1: src/botoes.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/botoes.p1.d 
-	@${RM} ${OBJECTDIR}/src/botoes.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/botoes.p1 src/botoes.c 
-	@-${MV} ${OBJECTDIR}/src/botoes.d ${OBJECTDIR}/src/botoes.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/botoes.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/eeprom.p1: src/eeprom.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/eeprom.p1.d 
-	@${RM} ${OBJECTDIR}/src/eeprom.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/eeprom.p1 src/eeprom.c 
-	@-${MV} ${OBJECTDIR}/src/eeprom.d ${OBJECTDIR}/src/eeprom.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/eeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/estados.p1: src/estados.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/estados.p1.d 
-	@${RM} ${OBJECTDIR}/src/estados.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/estados.p1 src/estados.c 
-	@-${MV} ${OBJECTDIR}/src/estados.d ${OBJECTDIR}/src/estados.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/estados.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/handler.p1: src/handler.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/handler.p1.d 
-	@${RM} ${OBJECTDIR}/src/handler.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/handler.p1 src/handler.c 
-	@-${MV} ${OBJECTDIR}/src/handler.d ${OBJECTDIR}/src/handler.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/handler.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/src/main.p1: src/main.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
 	@${RM} ${OBJECTDIR}/src/main.p1.d 
@@ -143,14 +95,6 @@ ${OBJECTDIR}/src/main.p1: src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/main.p1 src/main.c 
 	@-${MV} ${OBJECTDIR}/src/main.d ${OBJECTDIR}/src/main.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/menu.p1: src/menu.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/menu.p1.d 
-	@${RM} ${OBJECTDIR}/src/menu.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/menu.p1 src/menu.c 
-	@-${MV} ${OBJECTDIR}/src/menu.d ${OBJECTDIR}/src/menu.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/menu.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/src/mq6.p1: src/mq6.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
@@ -160,22 +104,6 @@ ${OBJECTDIR}/src/mq6.p1: src/mq6.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/src/mq6.d ${OBJECTDIR}/src/mq6.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/mq6.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/src/rs232.p1: src/rs232.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/rs232.p1.d 
-	@${RM} ${OBJECTDIR}/src/rs232.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/rs232.p1 src/rs232.c 
-	@-${MV} ${OBJECTDIR}/src/rs232.d ${OBJECTDIR}/src/rs232.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/rs232.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/timer.p1: src/timer.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/timer.p1.d 
-	@${RM} ${OBJECTDIR}/src/timer.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/timer.p1 src/timer.c 
-	@-${MV} ${OBJECTDIR}/src/timer.d ${OBJECTDIR}/src/timer.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/timer.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/src/template1.p1: src/template1.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
 	@${RM} ${OBJECTDIR}/src/template1.p1.d 
@@ -183,14 +111,6 @@ ${OBJECTDIR}/src/template1.p1: src/template1.c  nbproject/Makefile-${CND_CONF}.m
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/template1.p1 src/template1.c 
 	@-${MV} ${OBJECTDIR}/src/template1.d ${OBJECTDIR}/src/template1.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/template1.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/serv_rs232.p1: src/serv_rs232.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/serv_rs232.p1.d 
-	@${RM} ${OBJECTDIR}/src/serv_rs232.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/serv_rs232.p1 src/serv_rs232.c 
-	@-${MV} ${OBJECTDIR}/src/serv_rs232.d ${OBJECTDIR}/src/serv_rs232.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/serv_rs232.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/src/serv_adcon.p1: src/serv_adcon.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
@@ -208,71 +128,95 @@ ${OBJECTDIR}/src/serv_eeprom.p1: src/serv_eeprom.c  nbproject/Makefile-${CND_CON
 	@-${MV} ${OBJECTDIR}/src/serv_eeprom.d ${OBJECTDIR}/src/serv_eeprom.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/serv_eeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/src/menu_principal.p1: src/menu_principal.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/src/base_eeprom.p1: src/base_eeprom.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/menu_principal.p1.d 
-	@${RM} ${OBJECTDIR}/src/menu_principal.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/menu_principal.p1 src/menu_principal.c 
-	@-${MV} ${OBJECTDIR}/src/menu_principal.d ${OBJECTDIR}/src/menu_principal.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/menu_principal.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/src/base_eeprom.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_eeprom.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_eeprom.p1 src/base_eeprom.c 
+	@-${MV} ${OBJECTDIR}/src/base_eeprom.d ${OBJECTDIR}/src/base_eeprom.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_eeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/src/prot_rs232.p1: src/prot_rs232.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/src/base_lcd.p1: src/base_lcd.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/prot_rs232.p1.d 
-	@${RM} ${OBJECTDIR}/src/prot_rs232.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/prot_rs232.p1 src/prot_rs232.c 
-	@-${MV} ${OBJECTDIR}/src/prot_rs232.d ${OBJECTDIR}/src/prot_rs232.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/prot_rs232.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/src/base_lcd.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_lcd.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_lcd.p1 src/base_lcd.c 
+	@-${MV} ${OBJECTDIR}/src/base_lcd.d ${OBJECTDIR}/src/base_lcd.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_lcd.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/base_adcon.p1: src/base_adcon.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/base_adcon.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_adcon.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_adcon.p1 src/base_adcon.c 
+	@-${MV} ${OBJECTDIR}/src/base_adcon.d ${OBJECTDIR}/src/base_adcon.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_adcon.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/base_rs232.p1: src/base_rs232.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/base_rs232.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_rs232.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_rs232.p1 src/base_rs232.c 
+	@-${MV} ${OBJECTDIR}/src/base_rs232.d ${OBJECTDIR}/src/base_rs232.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_rs232.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/base_botoes.p1: src/base_botoes.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/base_botoes.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_botoes.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_botoes.p1 src/base_botoes.c 
+	@-${MV} ${OBJECTDIR}/src/base_botoes.d ${OBJECTDIR}/src/base_botoes.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_botoes.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/util_menu.p1: src/util_menu.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/util_menu.p1.d 
+	@${RM} ${OBJECTDIR}/src/util_menu.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/util_menu.p1 src/util_menu.c 
+	@-${MV} ${OBJECTDIR}/src/util_menu.d ${OBJECTDIR}/src/util_menu.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/util_menu.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/base_timer.p1: src/base_timer.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/base_timer.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_timer.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_timer.p1 src/base_timer.c 
+	@-${MV} ${OBJECTDIR}/src/base_timer.d ${OBJECTDIR}/src/base_timer.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_timer.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/serv_menus.p1: src/serv_menus.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/serv_menus.p1.d 
+	@${RM} ${OBJECTDIR}/src/serv_menus.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/serv_menus.p1 src/serv_menus.c 
+	@-${MV} ${OBJECTDIR}/src/serv_menus.d ${OBJECTDIR}/src/serv_menus.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/serv_menus.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/ct_handler.p1: src/ct_handler.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/ct_handler.p1.d 
+	@${RM} ${OBJECTDIR}/src/ct_handler.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/ct_handler.p1 src/ct_handler.c 
+	@-${MV} ${OBJECTDIR}/src/ct_handler.d ${OBJECTDIR}/src/ct_handler.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/ct_handler.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/ct_estados.p1: src/ct_estados.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/ct_estados.p1.d 
+	@${RM} ${OBJECTDIR}/src/ct_estados.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/ct_estados.p1 src/ct_estados.c 
+	@-${MV} ${OBJECTDIR}/src/ct_estados.d ${OBJECTDIR}/src/ct_estados.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/ct_estados.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/ct_prot_rs232.p1: src/ct_prot_rs232.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/ct_prot_rs232.p1.d 
+	@${RM} ${OBJECTDIR}/src/ct_prot_rs232.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/ct_prot_rs232.p1 src/ct_prot_rs232.c 
+	@-${MV} ${OBJECTDIR}/src/ct_prot_rs232.d ${OBJECTDIR}/src/ct_prot_rs232.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/ct_prot_rs232.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 else
-${OBJECTDIR}/src/lcd.p1: src/lcd.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/lcd.p1.d 
-	@${RM} ${OBJECTDIR}/src/lcd.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/lcd.p1 src/lcd.c 
-	@-${MV} ${OBJECTDIR}/src/lcd.d ${OBJECTDIR}/src/lcd.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/lcd.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/adcon.p1: src/adcon.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/adcon.p1.d 
-	@${RM} ${OBJECTDIR}/src/adcon.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/adcon.p1 src/adcon.c 
-	@-${MV} ${OBJECTDIR}/src/adcon.d ${OBJECTDIR}/src/adcon.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/adcon.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/botoes.p1: src/botoes.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/botoes.p1.d 
-	@${RM} ${OBJECTDIR}/src/botoes.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/botoes.p1 src/botoes.c 
-	@-${MV} ${OBJECTDIR}/src/botoes.d ${OBJECTDIR}/src/botoes.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/botoes.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/eeprom.p1: src/eeprom.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/eeprom.p1.d 
-	@${RM} ${OBJECTDIR}/src/eeprom.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/eeprom.p1 src/eeprom.c 
-	@-${MV} ${OBJECTDIR}/src/eeprom.d ${OBJECTDIR}/src/eeprom.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/eeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/estados.p1: src/estados.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/estados.p1.d 
-	@${RM} ${OBJECTDIR}/src/estados.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/estados.p1 src/estados.c 
-	@-${MV} ${OBJECTDIR}/src/estados.d ${OBJECTDIR}/src/estados.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/estados.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/handler.p1: src/handler.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/handler.p1.d 
-	@${RM} ${OBJECTDIR}/src/handler.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/handler.p1 src/handler.c 
-	@-${MV} ${OBJECTDIR}/src/handler.d ${OBJECTDIR}/src/handler.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/handler.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/src/main.p1: src/main.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
 	@${RM} ${OBJECTDIR}/src/main.p1.d 
@@ -280,14 +224,6 @@ ${OBJECTDIR}/src/main.p1: src/main.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/main.p1 src/main.c 
 	@-${MV} ${OBJECTDIR}/src/main.d ${OBJECTDIR}/src/main.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/menu.p1: src/menu.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/menu.p1.d 
-	@${RM} ${OBJECTDIR}/src/menu.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/menu.p1 src/menu.c 
-	@-${MV} ${OBJECTDIR}/src/menu.d ${OBJECTDIR}/src/menu.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/menu.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/src/mq6.p1: src/mq6.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
@@ -297,22 +233,6 @@ ${OBJECTDIR}/src/mq6.p1: src/mq6.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/src/mq6.d ${OBJECTDIR}/src/mq6.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/mq6.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/src/rs232.p1: src/rs232.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/rs232.p1.d 
-	@${RM} ${OBJECTDIR}/src/rs232.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/rs232.p1 src/rs232.c 
-	@-${MV} ${OBJECTDIR}/src/rs232.d ${OBJECTDIR}/src/rs232.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/rs232.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/timer.p1: src/timer.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/timer.p1.d 
-	@${RM} ${OBJECTDIR}/src/timer.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/timer.p1 src/timer.c 
-	@-${MV} ${OBJECTDIR}/src/timer.d ${OBJECTDIR}/src/timer.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/timer.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/src/template1.p1: src/template1.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
 	@${RM} ${OBJECTDIR}/src/template1.p1.d 
@@ -320,14 +240,6 @@ ${OBJECTDIR}/src/template1.p1: src/template1.c  nbproject/Makefile-${CND_CONF}.m
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/template1.p1 src/template1.c 
 	@-${MV} ${OBJECTDIR}/src/template1.d ${OBJECTDIR}/src/template1.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/template1.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/src/serv_rs232.p1: src/serv_rs232.c  nbproject/Makefile-${CND_CONF}.mk 
-	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/serv_rs232.p1.d 
-	@${RM} ${OBJECTDIR}/src/serv_rs232.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/serv_rs232.p1 src/serv_rs232.c 
-	@-${MV} ${OBJECTDIR}/src/serv_rs232.d ${OBJECTDIR}/src/serv_rs232.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/serv_rs232.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 ${OBJECTDIR}/src/serv_adcon.p1: src/serv_adcon.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
@@ -345,21 +257,93 @@ ${OBJECTDIR}/src/serv_eeprom.p1: src/serv_eeprom.c  nbproject/Makefile-${CND_CON
 	@-${MV} ${OBJECTDIR}/src/serv_eeprom.d ${OBJECTDIR}/src/serv_eeprom.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/src/serv_eeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/src/menu_principal.p1: src/menu_principal.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/src/base_eeprom.p1: src/base_eeprom.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/menu_principal.p1.d 
-	@${RM} ${OBJECTDIR}/src/menu_principal.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/menu_principal.p1 src/menu_principal.c 
-	@-${MV} ${OBJECTDIR}/src/menu_principal.d ${OBJECTDIR}/src/menu_principal.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/menu_principal.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/src/base_eeprom.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_eeprom.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_eeprom.p1 src/base_eeprom.c 
+	@-${MV} ${OBJECTDIR}/src/base_eeprom.d ${OBJECTDIR}/src/base_eeprom.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_eeprom.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/src/prot_rs232.p1: src/prot_rs232.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/src/base_lcd.p1: src/base_lcd.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/src" 
-	@${RM} ${OBJECTDIR}/src/prot_rs232.p1.d 
-	@${RM} ${OBJECTDIR}/src/prot_rs232.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/prot_rs232.p1 src/prot_rs232.c 
-	@-${MV} ${OBJECTDIR}/src/prot_rs232.d ${OBJECTDIR}/src/prot_rs232.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/src/prot_rs232.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/src/base_lcd.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_lcd.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_lcd.p1 src/base_lcd.c 
+	@-${MV} ${OBJECTDIR}/src/base_lcd.d ${OBJECTDIR}/src/base_lcd.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_lcd.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/base_adcon.p1: src/base_adcon.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/base_adcon.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_adcon.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_adcon.p1 src/base_adcon.c 
+	@-${MV} ${OBJECTDIR}/src/base_adcon.d ${OBJECTDIR}/src/base_adcon.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_adcon.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/base_rs232.p1: src/base_rs232.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/base_rs232.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_rs232.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_rs232.p1 src/base_rs232.c 
+	@-${MV} ${OBJECTDIR}/src/base_rs232.d ${OBJECTDIR}/src/base_rs232.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_rs232.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/base_botoes.p1: src/base_botoes.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/base_botoes.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_botoes.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_botoes.p1 src/base_botoes.c 
+	@-${MV} ${OBJECTDIR}/src/base_botoes.d ${OBJECTDIR}/src/base_botoes.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_botoes.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/util_menu.p1: src/util_menu.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/util_menu.p1.d 
+	@${RM} ${OBJECTDIR}/src/util_menu.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/util_menu.p1 src/util_menu.c 
+	@-${MV} ${OBJECTDIR}/src/util_menu.d ${OBJECTDIR}/src/util_menu.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/util_menu.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/base_timer.p1: src/base_timer.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/base_timer.p1.d 
+	@${RM} ${OBJECTDIR}/src/base_timer.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/base_timer.p1 src/base_timer.c 
+	@-${MV} ${OBJECTDIR}/src/base_timer.d ${OBJECTDIR}/src/base_timer.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/base_timer.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/serv_menus.p1: src/serv_menus.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/serv_menus.p1.d 
+	@${RM} ${OBJECTDIR}/src/serv_menus.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/serv_menus.p1 src/serv_menus.c 
+	@-${MV} ${OBJECTDIR}/src/serv_menus.d ${OBJECTDIR}/src/serv_menus.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/serv_menus.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/ct_handler.p1: src/ct_handler.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/ct_handler.p1.d 
+	@${RM} ${OBJECTDIR}/src/ct_handler.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/ct_handler.p1 src/ct_handler.c 
+	@-${MV} ${OBJECTDIR}/src/ct_handler.d ${OBJECTDIR}/src/ct_handler.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/ct_handler.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/ct_estados.p1: src/ct_estados.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/ct_estados.p1.d 
+	@${RM} ${OBJECTDIR}/src/ct_estados.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/ct_estados.p1 src/ct_estados.c 
+	@-${MV} ${OBJECTDIR}/src/ct_estados.d ${OBJECTDIR}/src/ct_estados.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/ct_estados.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/src/ct_prot_rs232.p1: src/ct_prot_rs232.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}/src" 
+	@${RM} ${OBJECTDIR}/src/ct_prot_rs232.p1.d 
+	@${RM} ${OBJECTDIR}/src/ct_prot_rs232.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/src/ct_prot_rs232.p1 src/ct_prot_rs232.c 
+	@-${MV} ${OBJECTDIR}/src/ct_prot_rs232.d ${OBJECTDIR}/src/ct_prot_rs232.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/src/ct_prot_rs232.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 
@@ -378,15 +362,15 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
+${DISTDIR}/sensores2023.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
 	@${MKDIR} ${DISTDIR} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -Wl,-Map=${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.map  -D__DEBUG=1  -mdebugger=none  -DXPRJ_default=$(CND_CONF)  -Wl,--defsym=__MPLAB_BUILD=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib -std=c99 -gdwarf-3 -mstack=compiled:auto:auto        $(COMPARISON_BUILD) -Wl,--memorysummary,${DISTDIR}/memoryfile.xml -o ${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
-	@${RM} ${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.hex 
+	${MP_CC} $(MP_EXTRA_LD_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -Wl,-Map=${DISTDIR}/sensores2023.${IMAGE_TYPE}.map  -D__DEBUG=1  -mdebugger=none  -DXPRJ_default=$(CND_CONF)  -Wl,--defsym=__MPLAB_BUILD=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib -std=c99 -gdwarf-3 -mstack=compiled:auto:auto        $(COMPARISON_BUILD) -Wl,--memorysummary,${DISTDIR}/memoryfile.xml -o ${DISTDIR}/sensores2023.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
+	@${RM} ${DISTDIR}/sensores2023.${IMAGE_TYPE}.hex 
 	
 else
-${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
+${DISTDIR}/sensores2023.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} ${DISTDIR} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -Wl,-Map=${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.map  -DXPRJ_default=$(CND_CONF)  -Wl,--defsym=__MPLAB_BUILD=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     $(COMPARISON_BUILD) -Wl,--memorysummary,${DISTDIR}/memoryfile.xml -o ${DISTDIR}/mq-2016.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
+	${MP_CC} $(MP_EXTRA_LD_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -Wl,-Map=${DISTDIR}/sensores2023.${IMAGE_TYPE}.map  -DXPRJ_default=$(CND_CONF)  -Wl,--defsym=__MPLAB_BUILD=1   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -O2 -Og -maddrqual=ignore -xassembler-with-cpp -I"/opt/microchip/xc8/v2.41/pic/include/proc" -mwarn=0 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mosccal -mno-resetbits -mno-save-resetbits -mno-download -mstackcall -mdefault-config-bits -mc90lib -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     $(COMPARISON_BUILD) -Wl,--memorysummary,${DISTDIR}/memoryfile.xml -o ${DISTDIR}/sensores2023.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
 	
 endif
 

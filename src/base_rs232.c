@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "rs232.h"
+#include "base_rs232.h"
 #include "versao.h"
 #include "xtal.h"
 

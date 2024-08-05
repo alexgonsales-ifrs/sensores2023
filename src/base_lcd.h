@@ -4,8 +4,8 @@
  *
  * Created on 25 de Dezembro de 2013, 17:18
  */
- #ifndef LCD_H
- #define	LCD_H
+ #ifndef BASE_LCD_H
+ #define BASE_LCD_H
 
   #ifdef	__cplusplus
   extern "C" {
@@ -13,7 +13,7 @@
 
  #include "versao.h"
 
-#if defined(_MODULO_NOVO_)
+#if defined(_HARDWARE_NOVO_)
     #define LCD_RS              RC0
     #define LCD_RS_TRIS         TRISC0
     #define LCD_E               RC1
@@ -35,7 +35,7 @@
     #define LCD_D7              RC5
     #define LCD_D7_TRIS         TRISC5
      */
-#elif defined(_MODULO_ANTIGO_)
+#elif defined(_HARDWARE_ANTIGO_)
       #define LCD_RS              RB0
       #define LCD_RS_TRIS         TRISB0
       #define LCD_E               RB1
@@ -84,5 +84,5 @@
   }
   #endif
 
-#endif	/* LCD_H */
+#endif /* BASE_LCD_H */
 

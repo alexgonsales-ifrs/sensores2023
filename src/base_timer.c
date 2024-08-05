@@ -4,7 +4,7 @@
 //#include <pic16f886.h>
 //#include <proc/pic16f876a.h>
 
-#include "timer.h"
+#include "base_timer.h"
 
 void timer0_init(void) {
 

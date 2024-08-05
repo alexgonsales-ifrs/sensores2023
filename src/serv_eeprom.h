@@ -19,21 +19,6 @@ extern "C" {
  */
 extern uint8_t serv_eeprom_verifica_inicializacao(void);
 
-/**
- * Inicializa as configurações da EPRROM com os valores dafault, 
- * gravando também a chave de inicialização.
- */
-extern void serv_eeprom_inicializa_configuracoes(void);
-
-/**
- * Le as configurações da EEPROM e atualiza as variáveis globais. 
- */
-extern void serv_eeprom_le_configuracoes(void);
-
-/**
- * Limpaa os dados de leitura e os valores mínimo e máximo da EEPROM.
- */
-extern void serv_eeprom_limpa_dados(void);
 
 #ifdef	__cplusplus
 }

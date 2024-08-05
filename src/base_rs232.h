@@ -1,12 +1,12 @@
 /* 
- * File:   rs232.h
+ * File:   base_rs232.h
  * Author: ti
  *
  * Created on 22 de Janeiro de 2014, 05:10
  */
 
-#ifndef RS232_H
-#define	RS232_H
+#ifndef BASE_RS232_H
+#define	BASE_RS232_H
 
 #ifdef	__cplusplus
 extern "C" {
@@ -40,5 +40,5 @@ extern void rs232_envia_string(char* str);
 }
 #endif
 
-#endif	/* RS232_H */
+#endif	/* BASE_RS232_H */
 

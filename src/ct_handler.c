@@ -1,14 +1,13 @@
 #include <xc.h>
 #include <stdint.h>
 
-#include "handler.h"
+#include "ct_handler.h"
 #include "versao.h"
 
-#include "botoes.h"
-#include "estados.h"
+#include "base_botoes.h"
+#include "ct_estados.h"
 #include "serv_adcon.h"
-//#include "serv_rs232.h"
-#include "prot_rs232.h"
+#include "ct_prot_rs232.h"
 
 //uint8_t hand_rcif;
 
@@ -46,27 +45,38 @@ void __interrupt() handler(void) {
   //================== Testa interrupção do Timer0 ========================
   if (INTCONbits.T0IE) {
     if (INTCONbits.T0IF) {
-      
+
       //Se recem ligou o equipamento, então chama est_maquina() para fazer inicializações.
-      if (est_estado_atual == EST_ESTADO_INICIAL) {
+      if (est_estado_atual == EST_ESTADO_NULL) {
         est_maquina(BTN_NULL);
       }
-
-      //Trata interface dos botões.
-      TBotao option = btns_testa_antigo();
-      if (option != 0) {
-        est_maquina(option);
-      }
       
+      #ifdef _HARDWARE_ANTIGO_
+      //Trata interface dos botões.
+      //Só vai funcionar se o Timer0 estiver ligado, não deveria ser assim.
+      TBotao botao = btns_testa_antigo();
+      if (botao != 0) {
+        est_maquina(botao);
+      }
+      #endif
+
       //Trata leitura sensores.
-      else if (  (est_estado_atual == EST_ESTADO_MONITORA) || serv_adcon_monitora_grava && (est_estado_atual == EST_ESTADO_MONITORA_GRAVA)  ) {
+      else if (  (est_estado_atual==EST_ESTADO_MONITORA) ||  (est_estado_atual==EST_ESTADO_MONITORA_GRAVA)  ) {
         //Verifica no timer0 se já passou a contagem de tempo para efetuar uma amostra.
-        if (serv_adcon_testa_timer_tempo_amostra(static_count_t0)) {
+        if (serv_adcon_testa_timer_tempo_aquisicao(static_count_t0)) {
           //Ja passou a contagem do Timer0, então efetua uma amostra e zera a contagem.
           if (est_estado_atual == EST_ESTADO_MONITORA) {
-            serv_adcon_amostra_print();
-          } else if (est_estado_atual == EST_ESTADO_MONITORA_GRAVA) {
-            serv_adcon_amostra_print_grava();
+            serv_adcon_aquisicao_print();
+          } else if (est_estado_atual==EST_ESTADO_MONITORA_GRAVA ) {
+            //Se o módulo serv_adcon está monitorando e gravando então
+            if (serv_adcon_monitora_grava) {
+              serv_adcon_aquisicao_print_grava();
+            }
+            else {
+              //Módulo sinalizou que interrompeu a gravação, então deveria avisar máquina de estados e não atribuir diretamente, verificar<<<<<<<<<<<<<<<<<<
+              //<<<<<<<<<<<<<<<<<<<
+              //serv_adcon_monitora_grava = 0;  //<<<<<<<< função serv_adcon_aquisicao_print_grava() já fez isso. retirado em 2024-08-03 alexdg)
+            }
           }
           static_count_t0 = 0;
         } 
@@ -74,6 +84,7 @@ void __interrupt() handler(void) {
           static_count_t0++;
         }//else
       }//if est_estado_atual
+
       
       TMR0 = 39; //para dar overflow antes de 256 ints
       //T0IF tem que ser zerado em software.
@@ -83,7 +94,7 @@ void __interrupt() handler(void) {
   }//if (INTCONbits.T0IE) interrupção Timer0
   
   //==================== Testa interrupção PortB (botoes) ==================
-  #ifdef _MODULO_NOVO_
+  #ifdef _HARDWARE_NOVO_
   //if (INTCONbits.RBIE) {
   if (RBIE) {
     //if (INTCONbits.RBIF) {

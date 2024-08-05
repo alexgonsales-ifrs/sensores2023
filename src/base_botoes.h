@@ -5,8 +5,8 @@
  * Created on 30 de Dezembro de 2013, 11:33
  */
 
-#ifndef BOTOES_H
-  #define	BOTOES_H
+#ifndef BASE_BOTOES_H
+  #define BASE_BOTOES_H
 
   #ifdef	__cplusplus
     extern "C" {
@@ -30,7 +30,7 @@
   //#define BTN_DOWN      4
 
   /****************************************/
-#if defined(_MODULO_NOVO_)
+#if defined(_HARDWARE_NOVO_)
     #define BTN_START_PIN   RB4   //Botão Start/Enter/Select
     #define BTN_STOP_PIN    RB5   //Botão Stop/Exit/Esc
     #define BTN_UP_PIN      RB6   //Botão Up
@@ -46,7 +46,7 @@
    */
   extern TBotao btns_testa(void);
     
-#elif defined( _MODULO_ANTIGO_)
+#elif defined( _HARDWARE_ANTIGO_)
     #define BTN_START_PIN       RC3
     #define BTN_START_TRIS      TRISC3
 
@@ -74,5 +74,5 @@
   }
   #endif
 
-#endif	/* BOTOES_H */
+#endif /* BASE_BOTOES_H */
 

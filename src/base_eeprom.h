@@ -1,19 +1,19 @@
 /* 
- * File:   eeprom.h
+ * File:   base_eeprom.h
  * Author: ti
  *
  * Created on 12 de Janeiro de 2014, 04:36
  */
 
-#ifndef EEPROM_H
-#define	EEPROM_H
+#ifndef BASE_EEPROM_H
+#define	BASE_EEPROM_H
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
 #include <stdint.h>
-    
+
 /*
  * Estes são os endereços da EEPROM onde ficam armazendas essas informações.
  * Algumas informações usam apenas 1 byte e outras usam 2 bytes.
@@ -46,7 +46,7 @@ extern "C" {
 //grava elas na EEPROM e grava a chave de inicialização na EEPROM. Assim, na próxima vez que ligar o equipamento,
 //a chave de inicialização está correta e será feita a leitura das configurações do equipamento.
 #define EEPROM_VALOR_CHAVE_INICIALIZACAO   93  //0x5D = 01011101
-    
+
 /**
  * Grava uma word (16 bits) utilizando a convenção Big Endian.
  * @param end endereco inicial da EEPROM onde será gravado o dado (word de 16 bits).
@@ -65,5 +65,5 @@ extern uint16_t eeprom_le_word(uint8_t end);
 }
 #endif
 
-#endif	/* EEPROM_H */
+#endif	/* BASE_EEPROM_H */
 

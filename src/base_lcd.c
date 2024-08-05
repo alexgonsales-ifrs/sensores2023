@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <xc.h>
 
-#include "lcd.h"
+#include "base_lcd.h"
 #include "versao.h"
 #include "xtal.h"   //usado por __delay_us())
 
@@ -131,15 +131,32 @@ void lcd_goto_sensor(uint8_t num_sensor) {
 }//lcd_goto_sensor())
 
 /**
- * Envia uma string para o LCD. Se estiver em modo __DEBUG, envia também para a UART.
+ * Envia uma string para o LCD.
+ * Se o MPLABx IDE estiver em modo __DEBUG então envia a string também para a UART,
+ * para imprimir na janela "UART1 Output" da IDE e permitir se visualizar durante o DEBUG.
+ * Nesse caso, ao enviar para a UART, coloca o prefixo "LCD:" de modo a poder diferenciar
+ * se o conteúdo enviado para a UART é um conteúdo "legítimo" ou apenas DEBUG do LCD.
  * @param *str string a ser enviada.
  */
 void lcd_puts(const char *str) {
   uint8_t cmd; //comando a ser enviado ao LCD.
   LCD_RS = 1;
   char c;
-  char *p_char;
-  
+  const char *p_char;
+
+  //Se estiver no modo __DEBUG então coloca o prefixo "LCD:" antes de enviar para a UART.
+  #ifdef __DEBUG
+    const char *p_char_lcd_debug_serial = "LCD:"; 
+    p_char = p_char_lcd_debug_serial;
+    while(*p_char) {
+      while (!TXIF) {
+        continue;
+      }
+      TXREG = *p_char;
+      p_char++;
+    }
+  #endif
+
   p_char = str;
 
   while (*p_char) {

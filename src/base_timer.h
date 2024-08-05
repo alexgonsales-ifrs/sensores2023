@@ -1,12 +1,12 @@
 /* 
- * File:   timer.h
+ * File:   base_timer.h
  * Author: ti
  *
  * Created on 2 de Janeiro de 2014, 11:05
  */
 
-#ifndef TIMER_H
-#define	TIMER_H
+#ifndef BASE_TIMER_H
+#define	BASE_TIMER_H
 
 #ifdef	__cplusplus
 extern "C" {
@@ -22,5 +22,5 @@ extern void timer0_init(void);
 }
 #endif
 
-#endif	/* TIMER_H */
+#endif	/* BASE_TIMER_H */
 

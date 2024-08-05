@@ -1,4 +1,4 @@
-#include "menu.h"
+#include "util_menu.h"
 
 /* Inicializa um menu.
  * menu: ponteiro para a variável que representa o menu.
@@ -21,10 +21,15 @@ uint16_t menu_get_value_active(TMenu* menu) {
   return menu->itens[menu->index_active].i_value;
 }//menu_get_value_active()
 
+/* Retorna o texto do item de menu que está navegando (mostrado). */
+const char* menu_get_text_nav(TMenu* menu) {
+  return menu->itens[menu->index_nav].str_text;
+}//menu_get_text_nav()
+
 /* Atualiza value, index_active e index_nav para ficar de acordo
  * com o item de menu que tem o valor igual ao valor recebido como parâmetro.  */
 void menu_set_value_indexes(TMenu* menu, uint16_t value) {
-  menu->index_active = 1;
+  menu->index_active = 1;  //<<<<<<<<<<<<<<<< remover alexdg 2024-07-25
   for (uint8_t i=0; i< menu->quant_itens; i++) {
     if (menu->itens[i].i_value == value) {
       menu->index_active = i;

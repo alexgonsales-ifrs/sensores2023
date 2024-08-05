@@ -3,8 +3,8 @@
 #include <math.h>
 #include <xc.h>
 
-#include "adcon.h"
-#include "lcd.h"
+#include "base_adcon.h"
+#include "base_lcd.h"
 #include "mq6.h"
 #include "versao.h"
 #include "xtal.h"

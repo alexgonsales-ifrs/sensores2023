@@ -1,12 +1,12 @@
 /* 
- * File:   prot_rs232.h
+ * File:   ct_prot_rs232.h
  * Author: alex-adm
  *
  * Created on 4 de Novembro de 2023, 00:11
  */
 
-#ifndef PROT_RS232_H
-#define	PROT_RS232_H
+#ifndef CT_PROT_RS232_H
+#define	CT_PROT_RS232_H
 
 #ifdef	__cplusplus
 extern "C" {
@@ -19,5 +19,5 @@ extern void prot_rs232_executa(void);
 }
 #endif
 
-#endif	/* PROT_RS232_H */
+#endif	/* CT_PROT_RS232_H */
 

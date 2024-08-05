@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>mq-2016</name>
+            <name>sensores2023</name>
             <creation-uuid>129d2a4b-b10b-4e8e-b2ad-a9f124df23fa</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

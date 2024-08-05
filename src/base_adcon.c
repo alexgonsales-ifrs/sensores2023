@@ -14,7 +14,7 @@
 #include <xc.h>
 #include <stdio.h>
 
-#include "adcon.h"
+#include "base_adcon.h"
 #include "xtal.h"
 #include "versao.h"
 
@@ -30,17 +30,17 @@
 
 //===== Variaveis Públicas ===================================================
 
-//Matém o valor da mínima leitura ocorrida. É inicializada com ADCON_VALOR_MAXIMO_LEITURA.
-uint16_t adcon_leitura_min;
+//Matém o valor da mínima amostra ocorrida. É inicializada com ADCON_VALOR_MAXIMO_AMOSTRA.
+uint16_t adcon_amostra_min;
 
-//Matém o valor da maior leitura ocorrida. É inicializada com ADCON_VALOR_MINIMO_LEITURA.
-uint16_t adcon_leitura_max;
+//Matém o valor da maior leitura ocorrida. É inicializada com ADCON_VALOR_MINIMO_AMOSTRA.
+uint16_t adcon_amostra_max;
 
-//Mantém a quantidade de leituras que foram gravadas na EEPROM.
-uint8_t  adcon_quant_leituras_gravadas;
+//Mantém a quantidade de amostras que foram gravadas na EEPROM.
+uint8_t  adcon_quant_amostras_gravadas;
 
-//Temo entre amostras atualmente configurado.
-uint16_t adcon_cfg_tempo_amostra_atual;
+//Temo entre aquisições atualmente configurado.
+uint16_t adcon_cfg_tempo_aquisicao_atual;
 
 //Quantidade de sensores atualmente configurada.
 uint8_t adcon_cfg_quant_sensores_atual;
@@ -51,9 +51,9 @@ uint8_t adcon_cfg_quant_sensores_atual;
 
 //===== Constantes Privadas ==================================================
 
-//Quantidade de aquisições a serem feitas em um sensor para calcular a média 
-//e gerar o valor da leitura do sensor.
-#define ADCON_QUANT_AQUISICOES_MEDIA_LEITURA 32
+//Quantidade de leituras a serem feitas em um sensor para calcular a média 
+//e gerar o valor da amostra do sensor.
+#define ADCON_QUANT_LEITURAS_PARA_MEDIA_AMOSTRA 32
 
 /*
 Configuração dos canais do conversor analógico/digital:
@@ -141,28 +141,28 @@ void adcon_init(void) {
   
 }//adcon_init()
 
-uint16_t adcon_leitura_sensor(uint8_t num_sensor) {
-  //Contérá a soma de todas as aquisições, para calcular a média no final.
+uint16_t adcon_amostra_sensor(uint8_t num_sensor) {
+  //Contérá a soma de todas as leituras, para calcular a média (valor da amostra) no final.
   uint32_t acc = 0;
   //Seleciona o canal analógico de onde será feita a leitura:
   ADCON0bits.CHS = canais[num_sensor]; 
   //Tem que esperar um tempo (pior caso) após trocar o canal:
   __delay_us(20);  
   
-  //Faz n aquisições conforme definido em ADCON_QUANT_AQUISICOES_MEDIA_LEITURA.
-  for (uint16_t n = 0; n < ADCON_QUANT_AQUISICOES_MEDIA_LEITURA; n++) {
+  //Faz n leituras conforme definido em ADCON_QUANT_LEITURAS_PARA_MEDIA_AMOSTRA.
+  for (uint16_t n = 0; n < ADCON_QUANT_LEITURAS_PARA_MEDIA_AMOSTRA; n++) {
     ADCON0bits.GO_nDONE = 1;
     //aguarda o ADC terminar a conversao.
     while (ADCON0bits.GO_nDONE) {
       //Loop vazio.  
     }
-    //Acumula o valor da aquisição.
+    //Acumula o valor da leitura.
     acc += (uint32_t)((ADRESH << 8) + ADRESL); //10bits
   }//for
 
-  //Calcula a média das aquisições:
-  return (uint16_t)(acc / ADCON_QUANT_AQUISICOES_MEDIA_LEITURA);
-}//adcon_leitura_sensor()
+  //Calcula o valor da amostra (média das leituas).
+  return (uint16_t)(acc / ADCON_QUANT_LEITURAS_PARA_MEDIA_AMOSTRA);
+}//adcon_amostra_sensor()
 
 //============================================================================
 //===== Definição (implementação) das Funções Privadas =======================
