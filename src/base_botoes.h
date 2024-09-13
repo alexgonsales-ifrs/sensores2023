@@ -43,6 +43,7 @@
 
   /****************************************/
 //===== Constantes Públicas ==================================================
+  
 #if defined(_HARDWARE_NOVO_)
     #define BTN_START_PIN   RB4   //Botão Start/Enter/Select
     #define BTN_STOP_PIN    RB5   //Botão Stop/Exit/Esc
@@ -57,11 +58,6 @@
    Testa qual botão foi pressionado no equipamento e retorna P_START, P_STOP, P_UP, P_DWON
    * ou retorna zero se foi algum outro evento 
    */
-//===== Funcoes Públicas =====================================================
-  extern TBotao btns_testa(void);
-//============================================================================
-
- //===== Constantes Públicas ==================================================
   
 #elif defined(_HARDWARE_ANTIGO_)
     #define BTN_START_PIN       RC3
@@ -92,9 +88,6 @@
   extern TBotao btns_testa_antigo(void);
   
 #endif
-  
-  
-  
     
   #ifdef	__cplusplus
   }

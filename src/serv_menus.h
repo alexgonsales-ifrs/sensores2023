@@ -39,7 +39,7 @@ extern "C" {
   #define MENU_CFG_TEMPO_AQUISICAO_TAM 7// tamanho do menu.
 
 //===== Variaveis Públicas ===================================================
-  TMenu menu_cfg_tempo_aquisicao;
+  //TMenu menu_cfg_tempo_aquisicao;
   
 //===== Constantes Públicas ==================================================
   
@@ -53,10 +53,8 @@ extern "C" {
 
 //===== Variaveis Públicas ===================================================
   
-  TMenu menu_principal;
+  //TMenu menu_principal;
  
-//===== Constantes Públicas ==================================================
-  
   const TMenuItem menu_principal_itens[8] = {
       {"1)Monitora",      0},
       {"2)Monit/Grava",   1},
@@ -70,10 +68,8 @@ extern "C" {
       
 //===== Variaveis Públicas ===================================================
   
-  TMenu menu_cfg_quant_sensores;
+  //TMenu menu_cfg_quant_sensores;
 
-//===== Constantes Públicas ==================================================
-  
   const TMenuItem menu_cfg_tempo_aquisicao_itens[MENU_CFG_TEMPO_AQUISICAO_TAM] = {
         //"0.1 seg", TEMPO_01_SEGUNDO,
         //"0.5 seg", TEMPO_05_SEGUNDO,
@@ -87,6 +83,12 @@ extern "C" {
   };
 
 //===== Tipos Públicos =======================================================
+  
+  
+//===== Variaveis Públicas ===================================================
+  TMenu menu_cfg_tempo_aquisicao;
+  TMenu menu_principal;
+  TMenu menu_cfg_quant_sensores;
   
 //===== Funcoes Públicas =====================================================
   

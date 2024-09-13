@@ -19,7 +19,6 @@ extern "C" {
 //============================================================================
 // Definições e declarações públicas do módulo.
 
-    
 //Esta diretiva será configurada pela IDE quando configuramos o modelo de PIC nas opções de projeto.
 //No entanto, é interessante definí-la aqui também (de forma correta) para que o compilador reconheça as variáveis definidas nesse modelo de PIC.
 //#define _PIC16F886_H_

@@ -29,8 +29,6 @@ extern "C" {
 
 //===== Funcoes Públicas =====================================================
     
-
-
 #ifdef	__cplusplus
 }
 #endif
