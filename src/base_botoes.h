@@ -42,6 +42,7 @@
   //#define BTN_DOWN      4
 
   /****************************************/
+//===== Constantes Públicas ==================================================
 #if defined(_HARDWARE_NOVO_)
     #define BTN_START_PIN   RB4   //Botão Start/Enter/Select
     #define BTN_STOP_PIN    RB5   //Botão Stop/Exit/Esc
@@ -59,8 +60,10 @@
 //===== Funcoes Públicas =====================================================
   extern TBotao btns_testa(void);
 //============================================================================
+
+ //===== Constantes Públicas ==================================================
   
-#elif defined( _HARDWARE_ANTIGO_)
+#elif defined(_HARDWARE_ANTIGO_)
     #define BTN_START_PIN       RC3
     #define BTN_START_TRIS      TRISC3
 
@@ -73,17 +76,24 @@
     #define BTN_DOWN_PIN        RC0
     #define BTN_DOWN_TRIS       TRISC0
 
-//===== Funcoes Públicas =====================================================
-  
-   extern TBotao btns_testa_antigo(void);
-   
 #endif 
 
+//===== Funcoes Públicas =====================================================
   /**
   * Funcao que inicializa a porta B, configurando para ativar as interrupcoes
   * conforme os pinos onde instalamos os botoes.
   */
-  extern void    btns_init(void);
+  extern void   btns_init(void);
+  
+#if defined (_HARDWARE_NOVO_)
+  extern TBotao btns_testa(void);
+
+#elif defined (_HARDWARE_ANTIGO_)
+  extern TBotao btns_testa_antigo(void);
+  
+#endif
+  
+  
   
     
   #ifdef	__cplusplus
