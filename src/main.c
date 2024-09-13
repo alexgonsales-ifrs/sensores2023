@@ -4,6 +4,12 @@
  *
  * Created on 25 de Dezembro de 2013, 15:57
  */
+
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+
+
 #ifdef _HARDWARE_NOVO_
 //  #pragma config CP = OFF, BOREN = OFF, WDTE = OFF, PWRTE = ON, FOSC = XT, LVP = OFF
 #endif
@@ -24,6 +30,7 @@
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
+//===== Includes =============================================================
 
 #include <xc.h>
 #include <stdlib.h>
@@ -93,3 +100,5 @@ int main(void) {
   
   while(1);
 }//main()
+
+//===== Final do Arquivo =====================================================

@@ -15,19 +15,23 @@ extern "C" {
 //===== Includes =============================================================
 #include <stdint.h> //int8_t
     
-//===== Constantes ===========================================================
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+// Definições e declarações públicas do módulo.
     
-//===== Tipos ================================================================
+//===== Constantes Públicas ==================================================
 
-//===== Variáveis ============================================================
-    
 //Indica se está em uma sessão de monitora_grava.
 //Quando a EEPROM estiver cheia, esta variável será colocada em zero (0),
 //assim, quem estiver efetuando o monitoramento deve checar esta variável.
 extern uint8_t serv_adcon_monitora_grava;
 
-//===== Funções ==============================================================
+//===== Tipos Públicos =======================================================
 
+//===== Variaveis Públicas ===================================================
+
+//===== Funcoes Públicas =====================================================
 /**
  * Funcao chamada a partir da contagem do timer.
  * Faz uma aquisição (lê os sensores) e imprime os valores no display.

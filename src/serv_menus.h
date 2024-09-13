@@ -12,9 +12,18 @@
 extern "C" {
 #endif
 
+//===== Includes =============================================================
+    
 #include "versao.h"
 #include "util_menu.h"
 #include "base_adcon.h"
+
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+// Definições e declarações públicas do módulo.
+
+//===== Constantes Públicas ==================================================
     
 //Quantidade de itens do Menu Principal.
 #ifdef _ENVIA_DADOS_SERIAL
@@ -29,7 +38,10 @@ extern "C" {
   //Quantidade de itens do menu Tempo Amostra.
   #define MENU_CFG_TEMPO_AQUISICAO_TAM 7// tamanho do menu.
 
+//===== Variaveis Públicas ===================================================
   TMenu menu_cfg_tempo_aquisicao;
+  
+//===== Constantes Públicas ==================================================
   
   //const TSensMenuQuantSensores sens_menu_quant_sensores[SENS_TAM_MENU_QUANT_SENSORES] = {
   const TMenuItem menu_cfg_quant_sensores_itens[MENU_CFG_QUANT_SENSORES_TAM] = {
@@ -39,7 +51,11 @@ extern "C" {
         "4 sensores", 4
   };
 
+//===== Variaveis Públicas ===================================================
+  
   TMenu menu_principal;
+ 
+//===== Constantes Públicas ==================================================
   
   const TMenuItem menu_principal_itens[8] = {
       {"1)Monitora",      0},
@@ -52,8 +68,11 @@ extern "C" {
       {"8)Enviar Dados",  7}   //não fechar virgula aqui
   };
       
-
+//===== Variaveis Públicas ===================================================
+  
   TMenu menu_cfg_quant_sensores;
+
+//===== Constantes Públicas ==================================================
   
   const TMenuItem menu_cfg_tempo_aquisicao_itens[MENU_CFG_TEMPO_AQUISICAO_TAM] = {
         //"0.1 seg", TEMPO_01_SEGUNDO,
@@ -67,6 +86,10 @@ extern "C" {
         "1 hora", ADCON_CFG_TEMPO_AQUISICAO_1_HORA
   };
 
+//===== Tipos Públicos =======================================================
+  
+//===== Funcoes Públicas =====================================================
+  
 extern void serv_menu_princ_inicializa(void);
   
 #ifdef	__cplusplus

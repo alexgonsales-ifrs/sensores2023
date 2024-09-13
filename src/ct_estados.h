@@ -9,8 +9,19 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+
+//===== Includes =============================================================
     
   #include "base_botoes.h" //Utiliza TBotao.
+
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+// Definições e declarações públicas do módulo.
+
+//===== Constantes Públicas ==================================================
+    
+//===== Tipos Públicos =======================================================
 
   /* Todos os estados possíveis para a máquina de estados.
    Os Estados que contem MENU no nome representam o menu principal ou algum sub-menu.*/
@@ -27,7 +38,11 @@ extern "C" {
         EST_ESTADO_MENU_CONF_QUANT_SENSORES,
         EST_ESTADO_ENVIAR_DADOS
   } TEstado;
+
+//===== Variaveis Públicas ===================================================
   
+//===== Funcoes Públicas =====================================================
+
   //Variável global que matem o estado atual da máquina de estados.  
   extern TEstado est_estado_atual;
 

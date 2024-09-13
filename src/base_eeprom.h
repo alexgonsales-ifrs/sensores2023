@@ -12,8 +12,14 @@
 extern "C" {
 #endif
 
+//===== Includes =============================================================
 #include <stdint.h>
-
+    
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+// Definições e declarações públicas do módulo.
+    
 /*
  * Estes são os endereços da EEPROM onde ficam armazendas essas informações.
  * Algumas informações usam apenas 1 byte e outras usam 2 bytes.
@@ -23,7 +29,9 @@ extern "C" {
  * Para valores de 16 bits (2 bytes) está sendo utilizada a convenção Big Endian:
  * - byte mais significativo gravado na posição mais baixa de memória.
  * - byte menos significativo gravado na posição mais alta de memória.
-*/    
+*/ 
+    
+//===== Constantes Públicas ==================================================
     
 #define EEPROM_END_QTDE_SENSORES_ATUAL       0x00    //1 byte: quantidade de sensores atual.
 //#define EEPROM_END_QTDE_SENSORES_AMOSTRADOS  0x01    //1 byte: quantidade de sensores utilizados no ultima sessão de monitoramento.
@@ -47,6 +55,13 @@ extern "C" {
 //a chave de inicialização está correta e será feita a leitura das configurações do equipamento.
 #define EEPROM_VALOR_CHAVE_INICIALIZACAO   93  //0x5D = 01011101
 
+    
+//===== Tipos Públicos =======================================================
+    
+//===== Variaveis Públicas ===================================================
+   
+//===== Funcoes Públicas =====================================================
+    
 /**
  * Grava uma word (16 bits) utilizando a convenção Big Endian.
  * @param end endereco inicial da EEPROM onde será gravado o dado (word de 16 bits).

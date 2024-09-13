@@ -12,6 +12,14 @@
 extern "C" {
 #endif
 
+//===== Includes =============================================================
+
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+// Definições e declarações públicas do módulo.
+
+    
 //Esta diretiva será configurada pela IDE quando configuramos o modelo de PIC nas opções de projeto.
 //No entanto, é interessante definí-la aqui também (de forma correta) para que o compilador reconheça as variáveis definidas nesse modelo de PIC.
 //#define _PIC16F886_H_
@@ -28,15 +36,22 @@ extern "C" {
 //MM   = Mes
 //DD   = Dia
 //X.YY = Numeração (atualmente X=1 e Y=700)
-#define _VER_STR_VERSAO_ "20240805v1.700"
+
+ //===== Constantes Públicas ==================================================
     
+#define _VER_STR_VERSAO_ "20240805v1.700"
+  
 #ifdef _HARDWARE_NOVO_
   #define _VER_STR_HARDWARE_NOVO_ANTIGO_ "N"
 #endif
 #ifdef _HARDWARE_ANTIGO_
   #define _VER_STR_HARDWARE_NOVO_ANTIGO_ "A"
-#endif    
+#endif 
 
+//===== Tipos Públicos =======================================================
+    
+//===== Variaveis Públicas ===================================================
+    
 //Esta diretiva é definida pela IDE quando o projeto é executado em modo DEBUG.
 //É interessante também habilitá-la aqui quando o projeto for executado em modo DEBUG,
 //pois assim a IDE mostra o código que será compilado.
@@ -50,6 +65,10 @@ extern "C" {
 //#define _MQ_
 #define _LM35_
 
+//===== Funcoes Públicas =====================================================
+
+//============================================================================
+    
 #ifdef	__cplusplus
 }
 #endif

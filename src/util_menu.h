@@ -42,7 +42,18 @@
 extern "C" {
 #endif
 
+//===== Includes =============================================================
+    
 #include <stdint.h>
+
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+// Definições e declarações públicas do módulo.
+
+//===== Constantes Públicas ==================================================
+
+//===== Tipos Públicos =======================================================
     
     //struct TMenu;
     
@@ -64,6 +75,10 @@ extern "C" {
     uint8_t     quant_itens;  //Quantidade total de itens de menu (tamanho do vetor itens).
     TMenuItem  *itens;        //Ponteiro para o vetor com os itens de menu.
   } TMenu;
+  
+//===== Variaveis Públicas ===================================================
+
+//===== Funcoes Públicas =====================================================
   
 extern void menu_init(TMenu* menu, const TMenuItem* itens, uint8_t quant_itens);
 

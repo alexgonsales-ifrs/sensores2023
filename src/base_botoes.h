@@ -5,6 +5,7 @@
  * Created on 30 de Dezembro de 2013, 11:33
  */
 
+
 #ifndef BASE_BOTOES_H
   #define BASE_BOTOES_H
 
@@ -12,8 +13,17 @@
     extern "C" {
   #endif
 
+//===== Includes =============================================================
+ 
   #include "versao.h"
 
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+// Definições e declarações públicas do módulo.
+
+//===== Tipos Públicos =======================================================
+        
   typedef enum {
         BTN_NULL,
         BTN_START,
@@ -22,6 +32,8 @@
         BTN_DOWN,
   } TBotao;
     
+//===== Constantes Públicas ==================================================
+  
   //valores de retorno dos botoes
   //nao usar zero, pois a funcao btns_testa retorna 0 por default
   ///#define BTN_START     1
@@ -44,8 +56,10 @@
    Testa qual botão foi pressionado no equipamento e retorna P_START, P_STOP, P_UP, P_DWON
    * ou retorna zero se foi algum outro evento 
    */
+//===== Funcoes Públicas =====================================================
   extern TBotao btns_testa(void);
-    
+//============================================================================
+  
 #elif defined( _HARDWARE_ANTIGO_)
     #define BTN_START_PIN       RC3
     #define BTN_START_TRIS      TRISC3
@@ -59,6 +73,8 @@
     #define BTN_DOWN_PIN        RC0
     #define BTN_DOWN_TRIS       TRISC0
 
+//===== Funcoes Públicas =====================================================
+  
    extern TBotao btns_testa_antigo(void);
    
 #endif 

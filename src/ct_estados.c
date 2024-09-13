@@ -43,6 +43,17 @@
  *  
  */
 
+/*****************************************************************************
+ * File:   ct_estados.c
+ * Author: alexdg
+ * Comments:
+ * 
+ * Revision history: 
+ * Created on 30 de Setembro de 2023, 11:04 *  
+ ****************************************************************************/
+
+//===== Includes =============================================================
+
 #include <xc.h>
 #include <stdio.h>
 
@@ -554,3 +565,5 @@ static void est_entra_estado_novo() {
     }//switch (novo_estado)
      
 }//est_entra_estado_novo()
+
+//===== Final do Arquivo =====================================================

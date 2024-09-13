@@ -4,6 +4,7 @@
  *
  * Created on 25 de Dezembro de 2013, 17:18
  */
+
  #ifndef BASE_LCD_H
  #define BASE_LCD_H
 
@@ -11,7 +12,15 @@
   extern "C" {
   #endif
 
+//===== Includes =============================================================
  #include "versao.h"
+
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+// Definições e declarações públicas do módulo.
+
+//===== Constantes Públicas ==================================================
 
 #if defined(_HARDWARE_NOVO_)
     #define LCD_RS              RC0
@@ -50,6 +59,12 @@
       #define LCD_D7_TRIS         TRISB5
 #endif
 
+//===== Tipos Públicos =======================================================
+
+//===== Variaveis Públicas ===================================================
+
+//===== Funcoes Públicas =====================================================
+      
     /**
      * Rotina para inicializar o display. E chamada na funcao main().
      */
