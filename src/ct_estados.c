@@ -1,4 +1,11 @@
-/*
+/*****************************************************************************
+ * File:   ct_estados.c
+ * Author: alexdg
+ * Comments:
+ * 
+ * Revision history: 
+ * Created on 30 de Setembro de 2023, 11:04 *  
+ *
  * Este módulo implementa a máquina de estados para o menu da interface do usuário.
  * 
  * Ao ser pressionado um botão, a seguinte sequência de chamadas de funções é executada:
@@ -43,15 +50,6 @@
  *  
  */
 
-/*****************************************************************************
- * File:   ct_estados.c
- * Author: alexdg
- * Comments:
- * 
- * Revision history: 
- * Created on 30 de Setembro de 2023, 11:04 *  
- ****************************************************************************/
-
 //===== Includes =============================================================
 
 #include <xc.h>
@@ -67,17 +65,27 @@
 #include "serv_menus.h"
 #include "base_rs232.h"
 
-/*********************************************************************
-******************** Definições Públicas do Módulo *******************
-*********************************************************************/
+//============================================================================
+//===== Definições Públicas ==================================================
+//============================================================================
+
+//===== Constantes Públicas ==================================================
+
+//===== Variaveis Públicas ===================================================
 
 //Variável global que matem o estado atual da máquina de estados.  
 //Ao ligar o equipamento ele estará no ESTADO_NULL e passará em seguida para ESTADO_INICIAL.
 TEstado est_estado_atual = EST_ESTADO_NULL;
 
-/*********************************************************************
-**************** Definições Privadas do Módulo ***********************
-*********************************************************************/
+//============================================================================
+//===== Definições e Declaraçoes Privadas ====================================
+//============================================================================
+
+//===== Constantes Privadas ==================================================
+
+//===== Tipos Privados =======================================================
+
+//===== Variáveis Privadas ===================================================
 
 //Variável local para o novo estado, sendo atribuída nas funções específicas
 //de tratamento de cada estado. Se a função est_maquina() detectar que
@@ -85,8 +93,6 @@ TEstado est_estado_atual = EST_ESTADO_NULL;
 //então será feita a atualização est_estado_atual = est_estado_novo e chamada
 //a função est_entra_estado_novo().
 static TEstado est_estado_novo  = EST_ESTADO_NULL;
-
-/******************** Variaveis Privadas ****************************/
 
 //Mantem o indice da aquisição que está sendo mostrada no display quando
 //estiver no estado EST_ESTADO_VER_AQUISICOES
@@ -97,7 +103,7 @@ static uint8_t est_ver_aquisicoes_index = 0;
 //Atualmente esta variável não está sendo utilizada.
 static uint8_t est_equipamento_inicializado = 0;
 
-/******************* Funções Privadas ******************************/
+//===== Declaração das Funções Privadas ======================================
 
 //Funções específicas de cada estado.
 static void est_estado_null(TBotao botao);
@@ -115,9 +121,9 @@ static void est_estado_enviar_dados(TBotao botao);
 //Troca est_estado_atual para est_estado_novo e executa a ação entry do novo estado.
 static void est_entra_estado_novo(void);
 
-/*********************************************************************
-********** Definições (implementação) das Funções Públicas **********
-*********************************************************************/ 
+//============================================================================
+//===== Definição (implementação) das Funções Públicas =======================
+//============================================================================
 
 /**
  * Esta é a funcao de entrada da máquina de estados e que executa um "step" 
@@ -195,9 +201,9 @@ void est_maquina(TBotao botao) {
   
 }//est_maquina()
 
-/*********************************************************************
-********* Definições (implementação) das Funções Privadas  ***********
-*********************************************************************/
+//============================================================================
+//===== Definição (implementação) das Funções Privadas =======================
+//============================================================================
 
 /**
  * Estado ao ligar a máquina, que passará automaticamente para o ESTADO_INICIAL.

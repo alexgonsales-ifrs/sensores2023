@@ -38,7 +38,7 @@ extern "C" {
 
  //===== Constantes Públicas ==================================================
     
-#define _VER_STR_VERSAO_ "20240805v1.700"
+#define _VER_STR_VERSAO_ "20240920v1.701"
   
 #ifdef _HARDWARE_NOVO_
   #define _VER_STR_HARDWARE_NOVO_ANTIGO_ "N"

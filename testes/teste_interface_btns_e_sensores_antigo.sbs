@@ -35,56 +35,56 @@ Pin
 AN0
 Set Voltage
 1 V
-
+Sensor 1
 -1
 --
 Pin
 AN1
 Set Voltage
 2 V
-
+Sensor 2
 -1
 --
 Pin
 AN2
 Set Voltage
 2 V
-
+Sensor 3
 -1
 --
 Pin
 AN4
 Set Voltage
 5 V
-
+Sensor 4
 -1
 --
 Pin
 RC3
 Pulse High
-10 ms
-
+100 ms
+Botão ENTER
 3
 --
 Pin
 RC2
 Pulse High
-10 ms
-
+100 ms
+Botão ESC
 3
 --
 Pin
 RC1
 Pulse High
-10 ms
-
+100 ms
+Botão UP
 3
 --
 Pin
 RC0
 Pulse High
-10 ms
-
+100 ms
+Botão DOWN
 3
 --
 &
