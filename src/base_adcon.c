@@ -1,7 +1,35 @@
 /*****************************************************************************
- * File:   adcon.c
+ * File:   base_adcon.c
  * Author: alexdg
  * Comments:
+ * 
+ * A array adcon_canais[] contém a definição do canal analógico utilizado
+ * por cada sensor analógico (sensor1, sensor2, etc...), conforme a versão do hardware.
+ *  
+ * A numeração dos sensores começa em 1 (um), mas o índice do vetor adcon_canais[] começa em zero.
+ * adcon_canais[0] = canal para o Sensor 1
+ * adcon_canais[1] = canal para o Sensor 2
+ * ...
+ * adcon_canais[ADCON_CFG_QUANT_SENSORES_MAX-1] = canal para o Sensor N.
+ *  
+ * Versão Hard =>   2013   2016
+ * Canal - Pino -   Sensor Sensor
+ * 0000  - AN0  -   1      2
+ * 0001  - AN1  -   2      1
+ * 0010  - AN2  -   3      4
+ * 0011  - AN3  -   x      x
+ * 0100  - AN4  -   4      3
+ * 0101  - AN5  -   x      x
+ * 0110  - AN6  -   x      x
+ * 0111  - AN7  -   x      x
+ * 1000  - AN8  -   x      7
+ * 1001  - AN9  -   x      x
+ * 1010  - AN10 -   x      6
+ * 1011  - AN11 -   x      8
+ * 1100  - AN12 -   x      5
+ * 1101  - AN13 -   x      x
+ * 1110  - CV REF
+ * 1111  - Fixed Ref (0.6 volt fixed reference)
  * 
  * Revision history: 
  * Created on 30 de Setembro de 2023, 11:04 *  
@@ -55,47 +83,27 @@ uint8_t adcon_cfg_quant_sensores_atual;
 //e gerar o valor da amostra do sensor.
 #define ADCON_QUANT_LEITURAS_PARA_MEDIA_AMOSTRA 32
 
-/*
-Configuração dos canais do conversor analógico/digital:
-Canal - Pino - Sensor
-0000  - AN0  - Sensor 1
-0001  - AN1  - Sensor 2
-0010  - AN2  - Sensor 3
-0011  - AN3
-0100  - AN4  - Sensor 4
-0101  - AN5
-0110  - AN6
-0111  - AN7
-1000  - AN8
-1001  - AN9
-1010  - AN10
-1011  - AN11
-1100  - AN12
-1101  - AN13
-1110  - CV REF
-1111  - Fixed Ref (0.6 volt fixed reference)
-*/
-
-//Canais em que estão cada um dos 4 sensores:
-static const uint8_t canais[ADCON_CFG_QUANT_SENSORES_MAX] = {
-    0,
-    1,
-    2,
-    4
+//Canais onde estão os sensores analógicos:
+#if defined(_HARDWARE_2013_)
+static const uint8_t acon_canais[ADCON_CFG_QUANT_SENSORES_MAX] = {
+    0, //Sensor 1 canal 0.
+    1, //Sensor 2 canal 1.
+    2, //Sensor 3 canal 2.
+    4  //Sensor 4 canal 4. Não colocar vírgula no último.
 };
 
-/*versao 8 sensores
-const uint8_t canais[CFG_QUANT_SENSORES_MAX] = {
-    0,
-    1,
-    2,
-    4,  //ra5
-    12, //rb0
-    10, //rb1
-    8,  //rb2
-    9   //rb3
+#elif defined(_HARDWARE_2016_)
+static const uint8_t acon_canais[ADCON_CFG_QUANT_SENSORES_MAX] = {
+    1,  //Sensor 1 canal 1.
+    0,  //Sensor 2 canal 0.
+    4,  //Sensor 3 canal 4.
+    2  //Sensor 4 canal 2.
+    //12, //Sensor 5 canal 12.
+    //10, //Sensor 6 canal 10.
+    //8,  //Sensor 7 canal 8.
+    //11  //Sensor 8 canal 11. Não colocar vírgula no último.
 };
-*/
+#endif
 
 //===== Tipos Privados =======================================================
 
@@ -107,45 +115,11 @@ const uint8_t canais[CFG_QUANT_SENSORES_MAX] = {
 //===== Definição (implementação) das Funções Públicas =======================
 //============================================================================
 
-/*****************************************************************************
- * Funcao que inicializa o conversor analogico/digital.
- * É chamada na funcao main().
- *****************************************************************************/
-void adcon_init(void) {
-  TRISA = 0xFF; //Configura a porta A como entrada.
-  #ifdef _PIC16F886_H_
-    ANSEL = 0b00011111; /// configura porta como analogica
-    //(AN7:5) nao implementadas no PIC16F886
-    ADCON1bits.VCFG1 = 0; // Referencia negativo
-    // 1 = pino Vref- ; 0 = Vss
-    ADCON1bits.VCFG0 = 1; // Referencia positivo
-    // 1 = pino Vref+ ; 0 = Vdd
-    
-    //ADCON0bits.ADCS = 1; // frequencia de conversao: FOSC/8 (recomendado para 4MHz)
-    //ADCON1bits.ADFM = 1; // resultado justificado a direita
-    //ADCON0bits.ADON = 1; //< liga conversor A/D
-
-  #endif
-
-  #ifdef _PIC16F876A_H_
-    ADCON1bits.PCFG = 0b0001; //< configurado para q AN3 seja o pindo de referencia de tensao.
-    //2023-11-07
-    //001 = frequencia de conversao: FOSC/8 (recomendado para 4MHz)
-    ADCON1bits.ADCS2 = 0;
-    ADCON0bits.ADCS1 = 0;
-    ADCON0bits.ADCS0 = 1;
-  
-    ADCON1bits.ADFM = 1; // resultado justificado a direita
-    ADCON0bits.ADON = 1; //< liga conversor A/D (poderia ligar mais tarde, só no momento da aquisição).
-  #endif
-  
-}//adcon_init()
-
 uint16_t adcon_amostra_sensor(uint8_t num_sensor) {
   //Contérá a soma de todas as leituras, para calcular a média (valor da amostra) no final.
   uint32_t acc = 0;
   //Seleciona o canal analógico de onde será feita a leitura:
-  ADCON0bits.CHS = canais[num_sensor]; 
+  ADCON0bits.CHS = acon_canais[num_sensor]; 
   //Tem que esperar um tempo (pior caso) após trocar o canal:
   __delay_us(20);  
   

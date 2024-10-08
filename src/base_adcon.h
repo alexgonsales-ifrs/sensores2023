@@ -32,6 +32,7 @@ extern "C" {
 #endif
 
 //===== Includes =============================================================
+#include "versao.h"
     
 //===== Constantes ===========================================================
 
@@ -48,7 +49,11 @@ extern "C" {
   #define ADCON_VALOR_MAXIMO_AMOSTRA          0xFFFF
 
   //Quantidade máxima possível de sensores.
-  #define ADCON_CFG_QUANT_SENSORES_MAX 4
+  #if defined(_HARDWARE_2013_)
+    #define ADCON_CFG_QUANT_SENSORES_MAX 4
+  #elif defined(_HARDWARE_2016_)
+    #define ADCON_CFG_QUANT_SENSORES_MAX 4
+  #endif
   
   //É a quantidade de sensores que estava configurada a última vez que
   //foi feito um monitoramento.
@@ -83,12 +88,6 @@ extern uint16_t adcon_cfg_tempo_aquisicao_atual;
 extern uint8_t adcon_cfg_quant_sensores_atual;
 
 //===== Funções ==============================================================
-
-/**
- * Funcao que inicializa o conversor analogico/digital.
- * É chamada na funcao main().
-*/
-extern void adcon_init(void);
 
 /*
  * Funcao que faz a amostragem de um sensor, gerando o valor da amostra.

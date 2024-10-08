@@ -37,48 +37,27 @@
 //============================================================================
 //===== Definição (implementação) das Funções Públicas =======================
 //============================================================================
-void btns_init(void) {
-  //TRISB =  botoes, entrada
-  //WPUB = HABILITA PULL-UPS (PORTB)
-  //IOCB = interrupcoes PORTB
-    
-  //PORTB = 0;
-  BTN_START_TRIS = BTN_STOP_TRIS = BTN_UP_TRIS = BTN_DOWN_TRIS = 1;
-  BTN_START_PIN = BTN_STOP_PIN = BTN_UP_PIN = BTN_DOWN_PIN = 0;
-    
-  #ifdef _HARDWARE_NOVO_
-    OPTION_REGbits.nRBPU = 0;  //HABILITA PULL-UPS (BIT ~WBPU)
-    WPUB = 0xf0;    // weak pull-up portb
-    
-    //DESABILITA ANALoGICAS 11 a 13
-    //obs: nao funciona se deixar ans12 como 0
-    //ANSELH = 0b00000111;
-    ANSELH = 0b00010010;
-    IOCB = 0xf0;    // interrupt on change PORTB
 
-    INTCONbits.RBIE = 1; // ativa interrupcao PORTB
-  #endif //_MODULO_NOVO_
+/*
+ Inicializa variáveis dos botões.
+ */
+void btns_init(void) {
+  #if defined(_HARDWARE_2013_)
+
+  #elif defined(_HARDWARE_2016_)
+    //são pinos do PIC, não precisa inicializar
+    //BTN_START_PIN = BTN_STOP_PIN = BTN_UP_PIN = BTN_DOWN_PIN = 1;
+  #endif
 }//btns_init()
 
+/****************************************************************************
+ * Testa qual botão foi pressionado no equipamento e retorna o botão (TBotao).
+ * 
+ ***************************************************************************/
 TBotao btns_testa(void) {
-    if(BTN_START_PIN == 0) {
-        return BTN_START;
-    }
-    if(BTN_STOP_PIN == 0) {
-        return BTN_STOP;
-    }
-    if(BTN_UP_PIN == 0) {
-        return BTN_UP;
-    }
-    if(BTN_DOWN_PIN == 0) {
-        return BTN_DOWN;
-    }
-    __delay_ms(100); //debouncing
-    return 0;
-}//btns_testa()
+  
+  #if defined(_HARDWARE_2013_)
 
-#ifdef _HARDWARE_ANTIGO_
-TBotao btns_testa_antigo(void) {
     static short int press_start = 0, press_stop = 0, press_up = 0;
     static short int press_down = 0, press_menu=0;
 
@@ -132,8 +111,28 @@ TBotao btns_testa_antigo(void) {
     
     /*************************************/    
     return 0;
-}//btns_testa_antigo()
-#endif
+  
+  #elif defined(_HARDWARE_2016_)
+    
+    if(BTN_START_PIN == 0) {
+        return BTN_START;
+    }
+    if(BTN_STOP_PIN == 0) {
+        return BTN_STOP;
+    }
+    if(BTN_UP_PIN == 0) {
+        return BTN_UP;
+    }
+    if(BTN_DOWN_PIN == 0) {
+        return BTN_DOWN;
+    }
+    //Com interrupção não precisa fazer debouncing.
+    //__delay_ms(100); //debouncing
+    return 0;
+    
+  #endif //_HARDWARE_2016_
+
+}//btns_testa()
 
 //============================================================================
 //===== Definição (implementação) das Funções Privadas =======================

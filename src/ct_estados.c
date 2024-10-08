@@ -142,7 +142,8 @@ static void est_entra_estado_novo(void);
  */
 void est_maquina(TBotao botao) {
 
-  //Caso a variavel est_estado_novo perma
+  //Caso a variavel est_estado_novo permaneça EST_ESTADO_NULL então
+  //significa que não houve troca de estado.
   est_estado_novo = EST_ESTADO_NULL;
   
   switch (est_estado_atual) {
@@ -451,12 +452,12 @@ static void est_entra_estado_novo() {
   switch (est_estado_atual) {
 
     case EST_ESTADO_INICIAL:
-      
-    rs232_init();
-    lcd_init();    
 
     //rs232_init() precisa ser antes do printf() e antes do lcd_puts() pois 
-    //em modo __DEUBG essas funções utilizam a UART.
+    //em modo __DEUBG essas funções utilizam a UART.      
+    rs232_init();
+    
+    lcd_init();    
 
     //char teste[10];
     //sprintf(teste, "teste");
@@ -464,21 +465,14 @@ static void est_entra_estado_novo() {
     //perror(&teste2);
     //fprintf(stderr, "teste\n");
 
-    //lcd_puts("20231128v1.65"); //Commited.
     lcd_puts(_VER_STR_VERSAO_ _VER_STR_HARDWARE_NOVO_ANTIGO_);
-    //lcd_puts(_VER_MODULO_NOVO_ANTIGO_);
-    
     lcd_goto(2, 0);
     lcd_puts("Iniciando...");
-
-    adcon_init();
-    //timer0_init();
+    
+    //<<<< verificar >>> Tem que ser antes de habilitar teclado e depois da mensagem na tela
+    //para garantir mostrar mensagem na tela.
     btns_init();
 
-    //Alexdg: retirado em 2023-11-03, pois já está no rs232_init().)
-    //TXSTAbits.TXEN = 1; // enable transmitter
-    //RCSTAbits.SPEN = 1; 
-  
     // the Power-up Timer (72 ms duration) prevents EEPROM write:
     // 140ms = tempo maximo do power-up:
     __delay_ms(200);
@@ -505,10 +499,6 @@ static void est_entra_estado_novo() {
     lcd_goto(2, 0);
     lcd_puts("Pronto!         ");
 
-    //INTCONbits.GIE = 1; //habilita interrupcoes globais.
-
-    //serv_rs232_envia_leituras_gravadas_eeprom();
-
     est_equipamento_inicializado = 1;
     
     break;
@@ -520,7 +510,9 @@ static void est_entra_estado_novo() {
       break; //EST_MENU_PRINCIPAL
       
     case EST_ESTADO_MONITORA:
-      serv_adcon_aquisicao_print();
+      //serv_adcon_aquisicao_print();
+      serv_adcon_aquisicao();
+      serv_adcon_print();
       break; //EST_CAPTURA_E_MOSTRA
       
     case EST_ESTADO_MONITORA_GRAVA:
@@ -531,7 +523,7 @@ static void est_entra_estado_novo() {
       break; //EST_CAPTURA_E_GRAVA
       
     case EST_ESTADO_VER_AQUISICOES:
-      est_estado_ver_aquisicoes(BTN_NULL);
+      serv_adcon_print_aquisicao_da_eeprom(est_ver_aquisicoes_index);
       break; //EST_MOSTRA_TODOS
     
     case EST_ESTADO_MOSTRA_MAX_MIN:

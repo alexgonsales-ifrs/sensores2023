@@ -50,16 +50,30 @@
 
 /**
  * Funcao que trata as interrupções.
+ * 
+ * Nao desabilitar a interrupcao Global INTCONbits.GIE.
+ * Ela é desabilitada automaticamente quando inicia a rotina de tratamento da interrupção e 
+ * habilitada automaticamente quando a rotina de tratamento de interrupção é concluida.
+ * 
+ * Nao habilitar INTCONbits.GIE pois a instrucao RETFIE ja faz isso.
+ * Item 5.8.5, pg. 130 User Guide XC8 (50002737):
+ * Never re-enable interrupts inside the interrupt function itself. 
+ * Interrupts are automatically re-enabled by hardware on execution of the
+ * RETFIE instruction. Re-enabling interrupts inside an interrupt function
+ * may result in code failure.
+ * 
+ * O parágrafo acima parece se referir somente à GIE global e não aos bits individuais.
+ *
+ * Seção 14.3 (Interrupts) do datasheet do PIC (DS40001291H):
+ * The interrupt flag bit(s) must be cleared in software before
+ * re-enabling interrupts to avoid multiple interrupt
+ * requests.
+ * 
  */
-
 void __interrupt() handler(void) {
   TBotao botao;
   static uint16_t static_count_t0 = 0;
   
-  //Nao precisa desabilitar a interrupcao Global.
-  //Ela é desabilitada automaticamente quando inicia a rotina d tratamento da interrupção e 
-  //habilitada automaticamente quando a rotina de tratamento de interrupção é concluida.
-    
   //Testa para ver qual o tipo de interrupção que ocorreu:
 
   //==================== Testa interrupção Porta Serial ===============
@@ -75,6 +89,9 @@ void __interrupt() handler(void) {
         //PIR1bits.RCIF = 0;
       }
       */
+      
+      //RCIF é somente leitura. É zerada quando se le o RCREG:
+      //PIR1bits.RCIF = 0;
     }
   }//if (PIE1bits.RCIE) - interrupção Porta Serial.
 
@@ -87,7 +104,7 @@ void __interrupt() handler(void) {
         est_maquina(BTN_NULL);
       }
       
-      #ifdef _HARDWARE_ANTIGO_
+      #ifdef _HARDWARE_2013_
       //Trata interface dos botões.
       //Só vai funcionar se o Timer0 estiver ligado, não deveria ser assim.
       TBotao botao = btns_testa_antigo();
@@ -102,7 +119,9 @@ void __interrupt() handler(void) {
         if (serv_adcon_testa_timer_tempo_aquisicao(static_count_t0)) {
           //Ja passou a contagem do Timer0, então efetua uma amostra e zera a contagem.
           if (est_estado_atual == EST_ESTADO_MONITORA) {
-            serv_adcon_aquisicao_print();
+            //serv_adcon_aquisicao_print();
+            serv_adcon_aquisicao();
+            serv_adcon_print();
           } else if (est_estado_atual==EST_ESTADO_MONITORA_GRAVA ) {
             //Se o módulo serv_adcon está monitorando e gravando então
             if (serv_adcon_monitora_grava) {
@@ -130,38 +149,21 @@ void __interrupt() handler(void) {
   }//if (INTCONbits.T0IE) interrupção Timer0
   
   //==================== Testa interrupção PortB (botoes) ==================
-  #ifdef _HARDWARE_NOVO_
-  //if (INTCONbits.RBIE) {
-  if (RBIE) {
-    //if (INTCONbits.RBIF) {
-    if (RBIF) {
-      //guia do xc8 especifica para nao reabilitar interrupcoes dentro de handlers:
-      //INTCONbits.RBIE = 0;
-        
-      botao = btns_testa();
+  
+  #ifdef _HARDWARE_2016_
 
+  if (INTCONbits.RBIE) {
+    if (INTCONbits.RBIF) {
+      botao = btns_testa();
       if (botao != 0) {
         est_maquina(botao);
       }
-
-      //INTCONbits.RBIF = 0;
-      RBIF = 0;
-
-      //guia do xc8 especifica para nao reabilitar interrupcoes dentro de handlers:
-      //INTCONbits.RBIE = 1;
-    }
-  }//if (RBIE) - interrupção PortB.
-  #endif //_MODULO_NOVO_
+      INTCONbits.RBIF = 0;
+      }//if (INTCONbits.RBIF)
+  }//if (INTCONbits.RBIE) - interrupção PortB.
+  
+  #endif //_HARDWARE_2016_
     
-  /**
-  * INTCONbits.GIE = 1; //habilita interrupcao global\n
-  * Nao fazer isso pois a instrucao RETFIE ja faz isso.
-  * Item 5.9.4, pg. 192 User Guide XC8\n
-  * Never re-enable interrupts inside the interrupt function itself. 
-  * Interrupts are automatically re-enabled by hardware on execution of the
-  * RETFIE instruction. Re-enabling interrupts inside an interrupt function
-  * may result in code failure.
-  */
   
 }//handler())
 

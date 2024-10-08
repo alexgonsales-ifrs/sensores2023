@@ -43,13 +43,10 @@
 
 void rs232_init(void) {
 
-
-#ifdef _PIC16F886_H_
+  #ifdef _PIC16F886_H_
+    //8-bit Baud Rate Generator is used.
     BRG16 = 0;
   #endif
-
-  TRISC6 = 0; //TX = saida
-  TRISC7 = 1; //RX = entrada
   
   BRGH = 0;
   SPBRG = 25; //2400 BPS

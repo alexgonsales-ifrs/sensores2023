@@ -68,7 +68,6 @@ static void lcd_write(uint8_t c);
 * Rotina para inicializar o display. É chamada na funcao main().
 */
 void lcd_init(void) {
-    LCD_RS_TRIS = LCD_E_TRIS = LCD_D4_TRIS = LCD_D5_TRIS = LCD_D6_TRIS = LCD_D7_TRIS = 0;
     LCD_RS = LCD_E = LCD_D4 = LCD_D5 = LCD_D6 = LCD_D7 = 0; // display, 0 = saida
     lcd_write(2);
     lcd_write(8);

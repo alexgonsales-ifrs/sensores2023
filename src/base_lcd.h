@@ -22,43 +22,24 @@
 
 //===== Constantes Públicas ==================================================
 
-#if defined(_HARDWARE_NOVO_)
+#if defined(_HARDWARE_2013_)
+    #define LCD_RS              RB0
+    #define LCD_E               RB1
+    #define LCD_D4              RB2
+    #define LCD_D5              RB3
+    #define LCD_D6              RB4
+    #define LCD_D7              RB5
+#elif defined(_HARDWARE_2016_)
+    //Estão definidos fora de ordem por uma conveniência de conexão na
+    //placa do hardware.
     #define LCD_RS              RC0
-    #define LCD_RS_TRIS         TRISC0
     #define LCD_E               RC1
-    #define LCD_E_TRIS          TRISC1
     #define LCD_D4              RC2
-    #define LCD_D4_TRIS         TRISC2
-
-    #define LCD_D5              RB2
-    #define LCD_D5_TRIS         TRISB2
-    #define LCD_D6              RB1
-    #define LCD_D6_TRIS         TRISB1
-    #define LCD_D7              RB0
-    #define LCD_D7_TRIS         TRISB0
-    /*
-    #define LCD_D5              RC3
-    #define LCD_D5_TRIS         TRISC3
+    #define LCD_D5              RC5
     #define LCD_D6              RC4
-    #define LCD_D6_TRIS         TRISC4
-    #define LCD_D7              RC5
-    #define LCD_D7_TRIS         TRISC5
-     */
-#elif defined(_HARDWARE_ANTIGO_)
-      #define LCD_RS              RB0
-      #define LCD_RS_TRIS         TRISB0
-      #define LCD_E               RB1
-      #define LCD_E_TRIS          TRISB1
-      #define LCD_D4              RB2
-      #define LCD_D4_TRIS         TRISB2
-      #define LCD_D5              RB3
-      #define LCD_D5_TRIS         TRISB3
-      #define LCD_D6              RB4
-      #define LCD_D6_TRIS         TRISB4
-      #define LCD_D7              RB5
-      #define LCD_D7_TRIS         TRISB5
+    #define LCD_D7              RC3
 #endif
-
+      
 //===== Tipos Públicos =======================================================
 
 //===== Variaveis Públicas ===================================================
@@ -100,4 +81,3 @@
   #endif
 
 #endif /* BASE_LCD_H */
-

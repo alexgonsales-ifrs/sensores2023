@@ -32,41 +32,37 @@ extern uint8_t serv_adcon_monitora_grava;
 //===== Variaveis Públicas ===================================================
 
 //===== Funcoes Públicas =====================================================
-/**
- * Funcao chamada a partir da contagem do timer.
- * Faz uma aquisição (lê os sensores) e imprime os valores no display.
- */
- extern void serv_adcon_aquisicao_print(void);
- 
- /**
- * Funcao chamada a partir da contagem do timer.
- * Faz uma aquisição (lê os sensores), imprime os valores no display e
- * grava os valores na EEPROM.
- * Atualiza a variável global adcon_quant_amostras_gravadas e grava-a na EEPROM.
- * Pode atualizar as variáveis globais adcon_amostra_min e adcon_amostra_max,
- * gravando-as também na EEPROM.
- * @return Retorna a quantidade de amostras que foram lidas ou 0 caso não tenha espaço na EEPROM para gravar. 
- * Se não houver espaço na EEPROM, quem chamou esta função será responsável por interromper o monitoramento.
-  */
+
+/****************************************************************************
+* Faz uma aquisição (lê os sensores) e armazena os valores no array
+* serv_adcon_amostras[].
+ ***************************************************************************/
+ extern void serv_adcon_aquisicao(void);
+
+/****************************************************************************
+ * Imprime no LCD os valores que estão no array serv_adcon_amostras[].
+ ***************************************************************************/
+extern void serv_adcon_print(void);
+
+ /****************************************************************************
+* Faz uma aquisição (lê os sensores), imprime os valores no display e
+* grava os valores na EEPROM.
+* Atualiza a variável global adcon_quant_amostras_gravadas e grava-a na EEPROM.
+* Pode atualizar as variáveis globais adcon_amostra_min e adcon_amostra_max,
+* gravando-as também na EEPROM.
+* @return Retorna a quantidade de amostras que foram lidas ou 0 caso não tenha espaço na EEPROM para gravar. 
+* Se não houver espaço na EEPROM, a função sinaliza colocando zero na variável global serv_adcon_monitora_grava.
+* Quem chamou esta função será responsável por interromper o monitoramento.
+*****************************************************************************/
 extern uint8_t serv_adcon_aquisicao_print_grava(void);
 
-/*
- * Imprime no display o valor de um sensor.
- * Imprime na posição num_sensor o valor valor_sensor.
- * A funcao divide o valor_sensor por 10 e mostra no display o quociente e o resto, 
- * separando-os por um ponto para indicar o separador de decimal.
- * @param valor_sensor valor a ser mostrado no display.
- * @param num_sensor número do sensor (0, 1, 2, 3) que está sendo mostrado. 
- * A partir desse dado a função saberá em qual posição do display deverá mostrar o valor_sensor.
- */
-//extern void serv_adcon_print_leitura(uint16_t valor_sensor, uint8_t num_sensor);
-
-/**
- * Mostra no LCD os valores de uma aquisição da EEPROM. O parâmetro indice_aquisicao
- * é o índice da aquisição que será buscada da EEPROM para ser mostrada no LCD.
- * Se não houver aquisições, mostra mensagem adequada no LCD.
- * @param indice_aquisicao índice da aquisição que será buscada da EEPROM.
- */
+/****************************************************************************
+* Mostra no LCD os valores de uma aquisição da EEPROM. 
+* O parâmetro indice_aquisicao é o índice da aquisição que será buscada da EEPROM 
+* para ser mostrada no LCD.
+* Se não houver aquisições, mostra mensagem adequada no LCD.
+* @param indice_aquisicao índice da aquisição que será buscada da EEPROM.
+*****************************************************************************/
 extern void serv_adcon_print_aquisicao_da_eeprom(uint8_t indice_aquisicao);
 
 /**

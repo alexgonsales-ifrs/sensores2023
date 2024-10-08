@@ -1,0 +1,62 @@
+=============================================================================
+20241008v1.712
+Ajustes para a versão do hardware 2016.
+
+Movido local de configuração dos pinos do microcontrolador:
+retirado dos módulos específicos e colocado na função main().
+
+Arquivos modificados:
+
+versao.h:
+- ajuste do template e adição comentários sobre PRAGMA.
+- Modificado nome da macro _HARDWARE_ANTIGO_ para _HARDWARE_2013_.
+- Modificado nome da macro _HARDWARE_NOVO_   para _HARDWARE_2016_.
+Arquivos modificados:
+botoes.h
+botoes.c
+base_lcd.h
+ct_handler.c
+main.c
+
+main.c: 
+Ajuste do template e adição comentários sobre PRAGMA.
+Adicionado include "base_botoes.h".
+Adicionado include "base_lcd.h".
+
+base_botoes.h
+Excluídas macros BTN_xxx_TRIS.
+Redefinidas portas digitais dos botões.
+
+base_botoes.c
+Excluída função btns_init().
+
+base_adcon.h
+#include versao.h para configurar ADCON_CFG_QUANT_SENSORES_MAX.
+
+base_adcon.c
+Excluída função adcon_init().
+Variável canais renomeada para adcon_canais.
+Variável adcon_canais para as duas versões de hardware (2013 e 2016).
+
+serv_adcon.c
+#include versao.h
+Adicionado array privado serv_adcon_amostras[].
+Adicionada função serv_adcon_print().
+Modificado serv_adcon_aquisicao_print() para serv_adcon_aquisicao().
+Modificado ct_handler() e ct_estados() para chamar essas funções.
+
+base_rs_232_init().
+Movido configuração TRISC6 e TRISC7 para main().
+
+base_lcd.h
+Excluídas macros LCD_xxx_TRIS.
+Redefinidas portas digitais do LCD.
+
+base_lcd.c
+lcd_init().
+Movido configuração bits para main().
+
+versao.h
+Removidas macros _LM_35_ e _MQ_.
+
+=============================================================================

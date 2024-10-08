@@ -1,10 +1,9 @@
 /* 
- * File:   botoes.h
+ * File:   base_botoes.h
  * Author: ti
  *
  * Created on 30 de Dezembro de 2013, 11:33
  */
-
 
 #ifndef BASE_BOTOES_H
   #define BASE_BOTOES_H
@@ -24,6 +23,7 @@
 
 //===== Tipos Públicos =======================================================
         
+  //Valor de retorno para a função btns_testa().
   typedef enum {
         BTN_NULL,
         BTN_START,
@@ -33,61 +33,27 @@
   } TBotao;
     
 //===== Constantes Públicas ==================================================
-  
-  //valores de retorno dos botoes
-  //nao usar zero, pois a funcao btns_testa retorna 0 por default
-  ///#define BTN_START     1
-  //#define BTN_STOP      2
-  //#define BTN_UP        3
-  //#define BTN_DOWN      4
 
-  /****************************************/
-//===== Constantes Públicas ==================================================
-  
-#if defined(_HARDWARE_NOVO_)
-    #define BTN_START_PIN   RB4   //Botão Start/Enter/Select
-    #define BTN_STOP_PIN    RB5   //Botão Stop/Exit/Esc
-    #define BTN_UP_PIN      RB6   //Botão Up
-    #define BTN_DOWN_PIN    RB7   //Botão Down
-
-    #define BTN_START_TRIS  TRISB4
-    #define BTN_STOP_TRIS   TRISB5
-    #define BTN_UP_TRIS     TRISB6
-    #define BTN_DOWN_TRIS   TRISB7
-  /*
-   Testa qual botão foi pressionado no equipamento e retorna P_START, P_STOP, P_UP, P_DWON
-   * ou retorna zero se foi algum outro evento 
-   */
-  
-#elif defined(_HARDWARE_ANTIGO_)
+#if defined(_HARDWARE_2013_)
     #define BTN_START_PIN       RC3
-    #define BTN_START_TRIS      TRISC3
-
     #define BTN_STOP_PIN        RC2
-    #define BTN_STOP_TRIS       TRISC2
-
     #define BTN_UP_PIN          RC1
-    #define BTN_UP_TRIS         TRISC1
-
     #define BTN_DOWN_PIN        RC0
-    #define BTN_DOWN_TRIS       TRISC0
-
-#endif 
-
-//===== Funcoes Públicas =====================================================
-  /**
-  * Funcao que inicializa a porta B, configurando para ativar as interrupcoes
-  * conforme os pinos onde instalamos os botoes.
-  */
-  extern void   btns_init(void);
-  
-#if defined (_HARDWARE_NOVO_)
-  extern TBotao btns_testa(void);
-
-#elif defined (_HARDWARE_ANTIGO_)
-  extern TBotao btns_testa_antigo(void);
-  
+#elif defined(_HARDWARE_2016_)
+    //Estão definidos fora de ordem por uma conveniência de conexão na
+    //placa do hardware.
+    #define BTN_START_PIN   RB6   //Botão Start/Enter/Select
+    #define BTN_STOP_PIN    RB7   //Botão Stop/Exit/Esc
+    #define BTN_UP_PIN      RB5   //Botão Up
+    #define BTN_DOWN_PIN    RB3   //Botão Down
 #endif
+  
+//===== Funcoes Públicas =====================================================
+  
+extern void btns_init(void);
+
+/* Testa qual botão foi pressionado no equipamento e retorna o botão (TBotao). */
+extern TBotao btns_testa(void);
     
   #ifdef	__cplusplus
   }
