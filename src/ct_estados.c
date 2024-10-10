@@ -504,6 +504,7 @@ static void est_entra_estado_novo() {
     break;
 
     case EST_ESTADO_MENU_PRINCIPAL:
+      //Essas 3 linhas demoram em torno de 7531 ciclos de instrução (2024-10-09).
       lcd_clear();
       texto = menu_get_text_nav(&menu_principal);
       lcd_puts(texto);

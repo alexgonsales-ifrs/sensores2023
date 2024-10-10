@@ -55,6 +55,8 @@ void btns_init(void) {
  * 
  ***************************************************************************/
 TBotao btns_testa(void) {
+  TBotao btn_aux;
+  btn_aux = BTN_NULL;
   
   #if defined(_HARDWARE_2013_)
 
@@ -115,20 +117,26 @@ TBotao btns_testa(void) {
   #elif defined(_HARDWARE_2016_)
     
     if(BTN_START_PIN == 0) {
-        return BTN_START;
+        btn_aux = BTN_START;
     }
     if(BTN_STOP_PIN == 0) {
-        return BTN_STOP;
+        btn_aux = BTN_STOP;
     }
     if(BTN_UP_PIN == 0) {
-        return BTN_UP;
+        btn_aux = BTN_UP;
     }
     if(BTN_DOWN_PIN == 0) {
-        return BTN_DOWN;
+        btn_aux = BTN_DOWN;
     }
-    //Com interrupção não precisa fazer debouncing.
-    //__delay_ms(100); //debouncing
-    return 0;
+    
+    //Debouncing:
+    //Efetuado teste no simulador, necessita debouncing de pelo menos 3ms.
+    //Foi utilizado 50ms para garantir qualquer bounce (ruído) na chave (switch) física.
+    __delay_ms(50);
+    
+    //Tem que usar esta variável auxiliar pois tem que executar o delay()
+    //antes de excutar o return;
+    return btn_aux;
     
   #endif //_HARDWARE_2016_
 

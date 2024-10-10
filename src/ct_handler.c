@@ -158,6 +158,7 @@ void __interrupt() handler(void) {
       if (botao != 0) {
         est_maquina(botao);
       }
+      PORTB = PORTB; //para poder limpar o RBIF.
       INTCONbits.RBIF = 0;
       }//if (INTCONbits.RBIF)
   }//if (INTCONbits.RBIE) - interrupção PortB.

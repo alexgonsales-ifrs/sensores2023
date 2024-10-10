@@ -1,0 +1,347 @@
+## SCL Builder Setup File: Do not edit!!
+
+## VERSION: MPLAB X
+## FORMAT:  v2.00.01
+## DEVICE:  PIC16F886
+
+## PINREGACTIONS
+ms
+No Repeat
+RB7
+RB6
+--
+100
+0
+
+--
+200
+1
+
+--
+300
+0
+
+--
+400
+1
+
+--
+500
+0
+
+--
+600
+1
+
+--
+700
+0
+
+--
+800
+1
+
+--
+900
+0
+
+--
+1000
+1
+
+--
+1100
+0
+
+--
+1200
+1
+
+--
+1300
+0
+
+--
+1400
+1
+
+--
+1500
+0
+
+--
+1600
+1
+
+--
+1700
+0
+
+--
+1800
+1
+
+--
+1900
+0
+
+--
+2000
+1
+
+--
+2100
+
+0
+--
+2200
+
+1
+--
+2300
+
+0
+--
+2400
+
+1
+--
+2500
+
+0
+--
+2600
+
+1
+--
+2700
+
+0
+--
+2800
+
+1
+--
+2900
+
+0
+--
+3000
+
+1
+--
+3100
+
+0
+--
+3200
+
+1
+--
+3300
+
+0
+--
+3400
+
+1
+--
+3500
+
+0
+--
+3600
+
+1
+--
+3700
+
+0
+--
+3800
+
+1
+--
+3900
+
+0
+--
+4000
+
+1
+--
+&
+## ADVPINREGACTIONS
+RB7
+--
+&
+--
+COND1
+Any
+
+
+
+0
+cyc
+
+--
+&
+## CLOCK
+&
+## STIMULUSFILE
+&
+## RESPONSEFILE
+&
+## ASYNCH
+Pin
+RB6
+Pulse Low
+50 ms
+Btn Start/Select
+3
+--
+Pin
+RB7
+Pulse Low
+50 ms
+Btn Stop/Esc
+3
+--
+Pin
+RB5
+Pulse Low
+50 ms
+Btn Up
+3
+--
+Pin
+RB3
+Pulse Low
+50 ms
+Btn down
+3
+--
+Pin
+RB6
+Set Low
+
+Start low
+-1
+--
+Pin
+RB6
+Set High
+
+Start high
+-1
+--
+Pin
+RB7
+Set Low
+
+Stop low
+-1
+--
+Pin
+RB7
+Set High
+
+Stop high
+-1
+--
+Pin
+RB5
+Set Low
+
+Up down
+-1
+--
+Pin
+RB5
+Set High
+
+Up high
+-1
+--
+Pin
+RB3
+Set Low
+
+Down low
+-1
+--
+Pin
+RB3
+Set High
+
+Down high
+-1
+--
+Pin
+AN1
+Set Voltage
+1 V
+Sensor 1
+-1
+--
+Pin
+AN0
+Set Voltage
+2 V
+Sensor 2
+-1
+--
+Pin
+AN4
+Set Voltage
+3 V
+Sensor 3
+-1
+--
+Pin
+AN2
+Set Voltage
+4 V
+Sensor 4
+-1
+--
+Pin
+AN12
+Set Voltage
+5 V
+Sensor 5
+-1
+--
+Pin
+AN10
+Set Voltage
+0 V
+Sensor 6
+-1
+--
+Pin
+AN8
+Set Voltage
+0 V
+Sensor 7
+-1
+--
+Pin
+AN11
+Set Voltage
+0 V
+Sensor 8
+-1
+--
+Pin
+VREF+
+Set Voltage
+5 V
+VREF_IN
+-1
+--
+&
+## ADVANCEDSCL
+
+0
+&
