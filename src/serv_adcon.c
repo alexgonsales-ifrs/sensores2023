@@ -47,7 +47,7 @@ uint8_t serv_adcon_monitora_grava;
 //Guardas os valores das amostras efetuadas em uma aquisição.
 //A função serv_adcon_aquisicao() grava os valores nesse array.
 //A função serv_adcon_print() mostra no LCD os valores que estão nesse array.
-static uint16_t serv_adcon_amostras[ADCON_CFG_QUANT_SENSORES_MAX];
+static uint16_t serv_adcon_amostras[ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS];
 
 //===== Declaração das Funções Privadas ======================================
 
@@ -91,8 +91,15 @@ void serv_adcon_print(void) {
       lcd_puts(temp_str);
 
     #elif defined(_HARDWARE_2016_)
+      //Imprime valor absoluto
+      valor_sensor = serv_adcon_amostras[index_sensor];
+      char temp_str[17] = {0};
+      sprintf(temp_str, "%4d", valor_sensor);
+      lcd_goto_sensor(index_sensor);
+      lcd_puts(temp_str);
 
       //Imprime como se fosse temperatura:
+      /*
       valor_sensor = serv_adcon_amostras[index_sensor];
       char temp_str[17] = {0};
       div_t temp_div;
@@ -101,6 +108,7 @@ void serv_adcon_print(void) {
       sprintf(temp_str, "%d=%d.%d", index_sensor+1, temp_div.quot, temp_div.rem);
       lcd_goto_sensor(index_sensor);
       lcd_puts(temp_str);
+      */
 
       //Imprimir valor em PPM:
       //uint16_t ppm = potencia(t_int);

@@ -3,14 +3,14 @@
  * Author: alexdg
  * Comments:
  * 
- * A array adcon_canais[] contém a definição do canal analógico utilizado
+ * O array adcon_canais[] contém a definição do canal analógico utilizado
  * por cada sensor analógico (sensor1, sensor2, etc...), conforme a versão do hardware.
  *  
  * A numeração dos sensores começa em 1 (um), mas o índice do vetor adcon_canais[] começa em zero.
  * adcon_canais[0] = canal para o Sensor 1
  * adcon_canais[1] = canal para o Sensor 2
  * ...
- * adcon_canais[ADCON_CFG_QUANT_SENSORES_MAX-1] = canal para o Sensor N.
+ * adcon_canais[ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS-1] = canal para o Sensor N.
  *  
  * Versão Hard =>   2013   2016
  * Canal - Pino -   Sensor Sensor
@@ -81,11 +81,12 @@ uint8_t adcon_cfg_quant_sensores_atual;
 
 //Quantidade de leituras a serem feitas em um sensor para calcular a média 
 //e gerar o valor da amostra do sensor.
-#define ADCON_QUANT_LEITURAS_PARA_MEDIA_AMOSTRA 32
+//Em 2024-10-13 trocado de 32 para 1 para testar nos sensores MQ.
+#define ADCON_QUANT_LEITURAS_PARA_MEDIA_AMOSTRA 1
 
 //Canais onde estão os sensores analógicos:
 #if defined(_HARDWARE_2013_)
-static const uint8_t acon_canais[ADCON_CFG_QUANT_SENSORES_MAX] = {
+static const uint8_t adcon_canais[ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS] = {
     0, //Sensor 1 canal 0.
     1, //Sensor 2 canal 1.
     2, //Sensor 3 canal 2.
@@ -93,15 +94,16 @@ static const uint8_t acon_canais[ADCON_CFG_QUANT_SENSORES_MAX] = {
 };
 
 #elif defined(_HARDWARE_2016_)
-static const uint8_t acon_canais[ADCON_CFG_QUANT_SENSORES_MAX] = {
+//Os canais ficaram fora de ordem por uma melhor conveniência de conexões no hardware.
+static const uint8_t adcon_canais[ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS] = {
     1,  //Sensor 1 canal 1.
     0,  //Sensor 2 canal 0.
     4,  //Sensor 3 canal 4.
-    2  //Sensor 4 canal 2.
-    //12, //Sensor 5 canal 12.
-    //10, //Sensor 6 canal 10.
-    //8,  //Sensor 7 canal 8.
-    //11  //Sensor 8 canal 11. Não colocar vírgula no último.
+    2,  //Sensor 4 canal 2.
+    12, //Sensor 5 canal 12.
+    10, //Sensor 6 canal 10.
+    8,  //Sensor 7 canal 8.
+    11  //Sensor 8 canal 11. Não colocar vírgula no último.
 };
 #endif
 
@@ -119,7 +121,7 @@ uint16_t adcon_amostra_sensor(uint8_t num_sensor) {
   //Contérá a soma de todas as leituras, para calcular a média (valor da amostra) no final.
   uint32_t acc = 0;
   //Seleciona o canal analógico de onde será feita a leitura:
-  ADCON0bits.CHS = acon_canais[num_sensor]; 
+  ADCON0bits.CHS = adcon_canais[num_sensor]; 
   //Tem que esperar um tempo (pior caso) após trocar o canal:
   __delay_us(20);  
   

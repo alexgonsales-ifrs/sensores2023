@@ -33,7 +33,11 @@
   #endif
 
   //Quantidade de itens do menu Quantidade de Sensores.
-  #define MENU_CFG_QUANT_SENSORES_TAM  4 // tamanho do menu.
+  #if defined (_HARDWARE_2013_)
+    #define MENU_CFG_QUANT_SENSORES_TAM  4 // tamanho do menu.
+  #elif defined (_HARDWARE_2016_)
+    #define MENU_CFG_QUANT_SENSORES_TAM  8 // tamanho do menu.
+  #endif
 
   //Quantidade de itens do menu Tempo Amostra.
   #define MENU_CFG_TEMPO_AQUISICAO_TAM 7// tamanho do menu.
@@ -50,6 +54,7 @@
       {"8)Enviar Dados",  7}   //não fechar virgula no último item
   };
 
+  #if defined (_HARDWARE_2013_)
   //Itens para o menu menu_cfg_quant_sensores:
   const TMenuItem menu_cfg_quant_sensores_itens[MENU_CFG_QUANT_SENSORES_TAM] = {
         "1 sensor",   1,
@@ -57,6 +62,20 @@
         "3 sensores", 3,
         "4 sensores", 4  //não fechar virgula no último item
   };
+
+  #elif defined (_HARDWARE_2016_)
+  //Itens para o menu menu_cfg_quant_sensores:
+  const TMenuItem menu_cfg_quant_sensores_itens[MENU_CFG_QUANT_SENSORES_TAM] = {
+        "1", 1,
+        "2", 2,
+        "3", 3,
+        "4", 4,
+        "5", 5,
+        "6", 6,
+        "7", 7,
+        "8", 8  //não fechar virgula no último item
+  };
+  #endif
 
   //Itens para o menu menu_cfg_tempo_aquisicao:
   const TMenuItem menu_cfg_tempo_aquisicao_itens[MENU_CFG_TEMPO_AQUISICAO_TAM] = {

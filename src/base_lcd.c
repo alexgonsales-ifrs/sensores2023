@@ -33,28 +33,32 @@ typedef struct {
     uint8_t linha;
     uint8_t coluna;
   } TLCDPosicao;
-    
+  
+  //Esse vetor contém as posições (linha e coluna) 
+  //onde inicia a impressão de cada sensor no LCD.
+  //Linhas: 1 e 2.
+  //Colunas: 0 a 15.
+#if defined (_HARDWARE_2013_)
   const TLCDPosicao LCD_V_POSICOES[] = {
-    1, 0,
-    1, 8,
-    2, 0,
-    2, 8
+    1, 0, //Sensor 1: linha 1 x coluna 0
+    1, 8, //Sensor 2: linha 1 x coluna 8
+    2, 0, //Sensor 3: linha 2 x coluna 0
+    2, 8  //Sensor 4: linha 2 x coluna 8. Não colocar vírgula no último.
   };
-
-  /*versao 8 sensores
-  const S_pos LCD_POSICAO[TAM_MENU_QUANT_SENSORES] = {
-    1, 0,
-    1, 8,
-    2, 0,
-    2, 8,
-    1, 0,
-    1, 8,
-    2, 0,
-    2, 8
+#elif defined (_HARDWARE_2016_)
+  const TLCDPosicao LCD_V_POSICOES[] = {
+    1, 0,  //Sensor 1: linha 1 x coluna 0
+    1, 4,  //Sensor 2: linha 1 x coluna 4
+    1, 8,  //Sensor 3: linha 1 x coluna 8
+    1, 12, //Sensor 4: linha 1 x coluna 12
+    2, 0,  //Sensor 5: linha 2 x coluna 0
+    2, 4,  //Sensor 6: linha 2 x coluna 4
+    2, 8,  //Sensor 7: linha 2 x coluna 8
+    2, 12  //Sensor 8: linha 2 x coluna 12. Não colocar vírgula no último.
   };
-  */
+#endif
 
-  //===== Variaveis Privadas ===================================================
+//===== Variaveis Privadas ===================================================
   
 //===== Declaração das Funções Privadas ======================================
   
@@ -97,10 +101,13 @@ void lcd_clear(void) {
  * em cada uma das posições de um display 2 (linhas) x 16 (colunas)
  * 80 81 82 83 84 85 86 87 88 89 8A 8B 8C 8D 8E 8F
  * C0 C1 C2 C3 C4 C5 C6 C7 C8 C9 CA CB CC CD CE CF
- * 
+ 
  * que equivalem aos seguintes endereços da DDRAM do display:
  * 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
  * 40 41 42 43 44 45 46 47 48 49 4A 4B 4C 4D 4E 4F
+ * 
+ * Exemplo: para posicionar o cursor na linha 1 e coluna 0, 
+ * deve ser enviado o comando 0x80.
  */
 void lcd_goto(uint8_t linha, uint8_t coluna) {
   LCD_RS = 0;
@@ -182,7 +189,7 @@ void lcd_puts(const char *str) {
     lcd_write(cmd);
     __delay_us(40);
         
-    //Envia os 4 bits menos sigificativos do caractere.
+    //Envia os 4 bits menos significativos do caractere.
     lcd_write(*p_char);
     __delay_us(40);
 

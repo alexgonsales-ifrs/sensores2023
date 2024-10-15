@@ -36,11 +36,6 @@ extern "C" {
     
 //===== Constantes ===========================================================
 
-  //Quantidade máxima de amostras permitidas (gravadas na EEPROM). Cada amostra ocupa 2 bytes.
-  //A quantidade de aquisições dependerá da quantidade de sensores que está configurado.
-  //Quantidade máxima de aquisições = QUANT_MAX_AMOSTRAS / QUANT_SENSORES
-  #define ADCON_QTD_MAX_AMOSTRAS              120 
-    
   //As constantes abaixo são utilizadas para inicialização das variáveis adcon_amostra_min e adcon_amostra_max.
   //São os valores mínimo e máximo possíveis na amostra de um sensor.
   //Apesar do conversor analógico/digital ter resolução de 10 bits, o que daria o valor máximo de 1023,
@@ -50,11 +45,22 @@ extern "C" {
 
   //Quantidade máxima possível de sensores.
   #if defined(_HARDWARE_2013_)
-    #define ADCON_CFG_QUANT_SENSORES_MAX 4
+    #define ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS 4
   #elif defined(_HARDWARE_2016_)
-    #define ADCON_CFG_QUANT_SENSORES_MAX 4
+    //8 sensores MQ.
+    #define ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS 8
   #endif
-  
+
+  //verificar<<<< 
+  //1 sensor digital DHT22 que contará como 2 sensores (temperatura e umidade).
+    
+  //Quantidade máxima de amostras permitidas (gravadas na EEPROM). 
+  //A EEPROM tem 240 bytes disponíveis para isso.
+  //Cada amostra ocupa 2 bytes, portanto são possíveis 120 amostras.
+  //A quantidade de aquisições dependerá da quantidade de sensores que está configurado.
+  //Quantidade máxima de aquisições = QUANT_MAX_AMOSTRAS / QUANT_SENSORES
+  #define ADCON_QTD_MAX_AMOSTRAS              120 
+
   //É a quantidade de sensores que estava configurada a última vez que
   //foi feito um monitoramento.
   //extern uint8_t cfg_quant_sensores_amostrados;

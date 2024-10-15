@@ -1,7 +1,32 @@
+=============================================================================
+20241013v1.714
+base_lcd.h: modificação pinos LCD.
+
+base_adcon.h:
+ADCON_CFG_QUANT_SENSORES_MAX renomeado para ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS.
+ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS = 8.
+
+base_adcon.c
+ADCON_QUANT_LEITURAS_PARA_MEDIA_AMOSTRA trocado de 32 para 1 para testar com os sensores MQ.
+Vetor acon_canais[] renomeado para adcon_canais[].
+
+base_lcd.h: modificado pinos do LCD (D5 e D7).
+
+base_lcd.c
+LCD_V_POSICOES[] ajustado para 8 sensores.
+
+serv_adcon.c:
+serv_adcon_print() modificado para imprimir valor absoluto dos sensores analógicos. Ainda não foi implementada impressão do sensor DHT22.
+
+ser_menus.h: menu_cfg_quant_sensores_itens -> 8 sensores.
 
 =============================================================================
-20241005v1.702
-Diversas modificações.
+20241009v1.713
+Correção bug debouncing: arquivos base_botoes.c e ct_handler.c.
+
+=============================================================================
+20241008v1.712
+Ajustes para a versão do hardware 2016.
 
 Movido local de configuração dos pinos do microcontrolador:
 retirado dos módulos específicos e colocado na função main().
@@ -60,4 +85,99 @@ Movido configuração bits para main().
 versao.h
 Removidas macros _LM_35_ e _MQ_.
 
+=============================================================================
+2024-08-05
+Modificações nesta versão:
+
+Modificação no nome do diretório do projeto, de mq-2016.X para sensores2023.
+
+Modificações gerais em nomes de variáveis, constantes, defines e funções em todos os módulos (arquivos).
+
+Mudança na terminologia utilizada (ver modulo base_adcon):
+aquisicao -> passou a se chamar de leitura.
+leitura -> passou a se chamar de amostra.
+amostra -> passou a se chamar de aquisicao.
+
+Nova terminologia:
+
+Leitura: é a leitura de um valor da porta analógica.
+  
+Amostra: é a leitura de vários valores da porta analógica, resultando no valor médio, sendo este considerado 
+como o valor lido (amostrado) do sensor. Por exemplo, uma amostra de um sensor pode corresponder à leitura de 10 valores do sensor.
+ 
+Aquisição: é um conjunto de amostras de todos os sensores atualmente configurados.
+Por exemplo, se está configurado para 4 sensores, então uma aquisição corresponde a 4 amostras.
+Supondo que cada amostra corresponda à média da leitura de 10 valores,
+então uma aquisição corresponderá à leitura de 40 valores (armazenamento de apenas 4 amostras).
+ 
+Sessão de monitoramento: corresponde a uma sessão onde são realizadas várias aquisições, 
+todas com o mesmo intervalo de tempo (tempo entre aquisções), conforme configuração escolhida pelo usuário.
+
+=============================================================================
+2023-12-01
+- Modificação na implementação da máquina de estados.
+- Modificação na estrutura geral: todo código passado para o handler, assim eliminou a duplicação de código que o compilador fazia para as funções não reentrantes. Ocupação da memória de programa diminui de 98% para 75%.
+- Ajustes gerais.
+
+=============================================================================
+2023-11-27
+Modificações para reduzir o tamanho do call stack.
+
+=============================================================================
+2023-11-26
+Um merge de modificações do Laboratório de Hardware (IFRS) para tentar encontrar o bug das funcionalidades "monitora" e "monitora e grava". Ainda precisa ser corrigido.
+
+=============================================================================
+2023-11-05
+Modificações nesta versão:
+
+Diversas modificações.
+
+Habilitado _MODULO_ANTIGO_.
+>>> Gravar no hardware ANTIGO e verificar se funciona <<<
+
+Criados os módulos serv_adcon, serv_eeprom, serv_rs232.
+Removido o módulo servicos e funções passadas para os módulos serv_adcon, serv_eeprom, serv_rs232.
+
+Criado o módulo prot_rs232.
+
+=============================================================================
+2023-11-03
+Modificações nesta versão:
+
+adcon:
+Variável adcon_quant_amostras_gravadas renomeada para adcon_quant_leituras_gravadas.
+Função adcon_le_sensor() renomeada para adcon_leitura_sensor().
+Função adcon_print() transformada em privada (static).
+Função modificada adcon_amostra_print_grava().
+
+cfg_quant_sensores: retirada variável cfg_quant_sensores_amostrados.
+
+cfg_tempo_amostra: tipo da variável cfg_tempo_amostra_atual modificada para uint16_t.
+
+eeprom.h:
+EEPROM_END_QTDE_AMOSTRAS modificado para EEPROM_END_QTDE_LEITURAS.
+Foi declarado extern nas funções para ficar de acordo com as convenções definidas.
+
+eeprom.c:
+Foi declarado static em algumas funções para ficar de acordo com as convenções definidas.
+
+estados:
+Variável est_ver_todos_index_amostra renomeada para est_mostra_todos_index_amostra.
+Função est_executa() renomeada para est_executa_acao_do().
+Função est_estado_ver_todos() renomeada para est_estado_mostra_todos().
+Função est_estado_menu_limpar() renomeada para est_estado_limpar().
+Modificações na função est_estado_mostra_todos().
+Modificações na função est_executa_acao_do(): estado EST_ESTADO_MOSTRA_TODOS.
+
+main.c: modificações para chamar as funções do módulo eeprom_util.
+
+rs232:
+Função rs232_transmite() renomeada para rs232_envia_leituras_gravadas_eeprom().
+Função rs232_envia_leituras_gravadas_eeprom() ajustada.
+
+Habilitada a funcionalidade para enviar dados pela serial (módulos modificados: estados, menu_principal, versao.h).
+versao.h: habilitada a macro _ENVIA_DADOS_SERIAL_.
+
+Criado o módulo servicos: algumas funções dos módulos adcon, rs232 e eeprom foram renomeadas (adicionado prefixo serv no nome da função) e passadas para este novo módulo.
 =============================================================================

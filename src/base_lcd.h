@@ -30,14 +30,12 @@
     #define LCD_D6              RB4
     #define LCD_D7              RB5
 #elif defined(_HARDWARE_2016_)
-    //Estão definidos fora de ordem por uma conveniência de conexão na
-    //placa do hardware.
     #define LCD_RS              RC0
     #define LCD_E               RC1
     #define LCD_D4              RC2
-    #define LCD_D5              RC5
+    #define LCD_D5              RC3
     #define LCD_D6              RC4
-    #define LCD_D7              RC3
+    #define LCD_D7              RC5
 #endif
       
 //===== Tipos Públicos =======================================================
