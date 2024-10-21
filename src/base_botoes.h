@@ -35,17 +35,17 @@
 //===== Constantes Públicas ==================================================
 
 #if defined(_HARDWARE_2013_)
-    #define BTN_START_PIN       RC3
-    #define BTN_STOP_PIN        RC2
-    #define BTN_UP_PIN          RC1
-    #define BTN_DOWN_PIN        RC0
+    #define BTN_PIN_START       RC3
+    #define BTN_PIN_STOP        RC2
+    #define BTN_PIN_UP          RC1
+    #define BTN_PIN_DOWN        RC0
 #elif defined(_HARDWARE_2016_)
     //Estão definidos fora de ordem por uma conveniência de conexão na
     //placa do hardware.
-    #define BTN_START_PIN   RB6   //Botão Start/Enter/Select
-    #define BTN_STOP_PIN    RB7   //Botão Stop/Exit/Esc
-    #define BTN_UP_PIN      RB5   //Botão Up
-    #define BTN_DOWN_PIN    RB3   //Botão Down
+    #define BTN_PIN_START   RB6   //Botão Start/Enter/Select
+    #define BTN_PIN_STOP    RB7   //Botão Stop/Exit/Esc
+    #define BTN_PIN_UP      RB5   //Botão Up
+    #define BTN_PIN_DOWN    RB3   //Botão Down
 #endif
   
 //===== Funcoes Públicas =====================================================

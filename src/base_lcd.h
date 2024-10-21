@@ -23,19 +23,19 @@
 //===== Constantes Públicas ==================================================
 
 #if defined(_HARDWARE_2013_)
-    #define LCD_RS              RB0
-    #define LCD_E               RB1
-    #define LCD_D4              RB2
-    #define LCD_D5              RB3
-    #define LCD_D6              RB4
-    #define LCD_D7              RB5
+    #define LCD_PIN_RS              RB0
+    #define LCD_PIN_E               RB1
+    #define LCD_PIN_D4              RB2
+    #define LCD_PIN_D5              RB3
+    #define LCD_PIN_D6              RB4
+    #define LCD_PIN_D7              RB5
 #elif defined(_HARDWARE_2016_)
-    #define LCD_RS              RC0
-    #define LCD_E               RC1
-    #define LCD_D4              RC2
-    #define LCD_D5              RC3
-    #define LCD_D6              RC4
-    #define LCD_D7              RC5
+    #define LCD_PIN_RS              RC0
+    #define LCD_PIN_E               RC1
+    #define LCD_PIN_D4              RC2
+    #define LCD_PIN_D5              RC3
+    #define LCD_PIN_D6              RC4
+    #define LCD_PIN_D7              RC5
 #endif
       
 //===== Tipos Públicos =======================================================

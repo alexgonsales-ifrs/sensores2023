@@ -72,7 +72,7 @@ static void lcd_write(uint8_t c);
 * Rotina para inicializar o display. É chamada na funcao main().
 */
 void lcd_init(void) {
-    LCD_RS = LCD_E = LCD_D4 = LCD_D5 = LCD_D6 = LCD_D7 = 0; // display, 0 = saida
+    LCD_PIN_RS = LCD_PIN_E = LCD_PIN_D4 = LCD_PIN_D5 = LCD_PIN_D6 = LCD_PIN_D7 = 0; // display, 0 = saida
     lcd_write(2);
     lcd_write(8);
     lcd_write(0);
@@ -86,7 +86,7 @@ void lcd_init(void) {
 * Limpa o display e aguarda 2ms.
 */
 void lcd_clear(void) {
-    LCD_RS = 0;
+    LCD_PIN_RS = 0;
     lcd_write(0);
     lcd_write(1);
     __delay_ms(2);
@@ -110,7 +110,7 @@ void lcd_clear(void) {
  * deve ser enviado o comando 0x80.
  */
 void lcd_goto(uint8_t linha, uint8_t coluna) {
-  LCD_RS = 0;
+  LCD_PIN_RS = 0;
   switch (linha) {
     case 1:
       lcd_write(0x08);
@@ -138,7 +138,7 @@ void lcd_goto_sensor(uint8_t num_sensor) {
   uint8_t linha, coluna;
   linha  = LCD_V_POSICOES[num_sensor].linha;
   coluna = LCD_V_POSICOES[num_sensor].coluna;
-  LCD_RS = 0;
+  LCD_PIN_RS = 0;
   switch (linha) {
     case 1:
       lcd_write(0x08);
@@ -163,7 +163,7 @@ void lcd_goto_sensor(uint8_t num_sensor) {
  */
 void lcd_puts(const char *str) {
   uint8_t cmd; //comando a ser enviado ao LCD.
-  LCD_RS = 1;
+  LCD_PIN_RS = 1;
   char c;
   const char *p_char;
 
@@ -244,28 +244,28 @@ void lcd_puts(const char *str) {
  */
 static void lcd_write(uint8_t c) {
   if (c & 0b00000001) {
-    LCD_D4 = 1;
+    LCD_PIN_D4 = 1;
   } else {
-    LCD_D4 = 0;
+    LCD_PIN_D4 = 0;
   }
   if (c & 0b00000010) {
-    LCD_D5 = 1;
+    LCD_PIN_D5 = 1;
   } else {
-    LCD_D5 = 0;
+    LCD_PIN_D5 = 0;
   }
   if (c & 0b00000100) {
-    LCD_D6 = 1;
+    LCD_PIN_D6 = 1;
   } else {
-    LCD_D6 = 0;
+    LCD_PIN_D6 = 0;
   }
   if (c & 0b00001000) {
-    LCD_D7 = 1;
+    LCD_PIN_D7 = 1;
   } else {
-    LCD_D7 = 0;
+    LCD_PIN_D7 = 0;
   }
   __delay_us(40);
-  LCD_E = 1;
-  LCD_E = 0;
+  LCD_PIN_E = 1;
+  LCD_PIN_E = 0;
 }//lcd_write())
 
 //===== Final do Arquivo =====================================================
