@@ -145,11 +145,11 @@ uint16_t adcon_amostra_sensor(uint8_t num_sensor) {
 void adcon_binario_para_valor(uint16_t binario, char* p_str_valor) {
   sprintf(p_str_valor, "%4d", binario);
   
-  //sprintf(p_str_valor, "Max=%d.%d", binario / 10, binario % 10);
+  //sprintf(p_str_valor, "%d.%d", binario / 10, binario % 10);
   
   //div_t temp_div;
-  //temp_div =  div((int16_t)valor_amostra, 10);
-  //sprintf(str_valor, "%d.%d", temp_div.quot, temp_div.rem);
+  //temp_div =  div((int16_t)binario, 10);
+  //sprintf(p_str_valor, "%d.%d", temp_div.quot, temp_div.rem);
 }
 
 //============================================================================
