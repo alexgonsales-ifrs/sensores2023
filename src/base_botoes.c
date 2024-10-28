@@ -131,7 +131,7 @@ TBotao btns_testa(void) {
     
     //Debouncing:
     //Efetuado teste no simulador, necessita debouncing de pelo menos 3ms.
-    //Foi utilizado 50ms para garantir qualquer bounce (ruído) na chave (switch) física.
+    //Foi utilizado 100ms para garantir qualquer bounce (ruído) na chave (switch) física.
     __delay_ms(100);
     
     //Tem que usar esta variável auxiliar pois tem que executar o delay()

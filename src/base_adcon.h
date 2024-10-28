@@ -106,6 +106,8 @@ extern uint8_t adcon_cfg_quant_sensores_atual;
  */
 extern uint16_t adcon_amostra_sensor(uint8_t num_sensor);
 
+extern void adcon_binario_para_valor(uint16_t binario, char* p_str_valor);
+    
 #ifdef	__cplusplus
 }
 #endif

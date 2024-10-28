@@ -36,7 +36,6 @@
  ****************************************************************************/
 
 //===== Includes =============================================================
-
 #include <stdint.h>
 #include <stdlib.h>
 #include <xc.h>
@@ -139,6 +138,19 @@ uint16_t adcon_amostra_sensor(uint8_t num_sensor) {
   //Calcula o valor da amostra (média das leituas).
   return (uint16_t)(acc / ADCON_QUANT_LEITURAS_PARA_MEDIA_AMOSTRA);
 }//adcon_amostra_sensor()
+
+/* Converte o valor de 10 bits do conversor AD para o valor a ser mostrado no display.
+ * Essa conversão depende do tipo de sensor que está sendo utilizado.
+ */
+void adcon_binario_para_valor(uint16_t binario, char* p_str_valor) {
+  sprintf(p_str_valor, "%4d", binario);
+  
+  //sprintf(p_str_valor, "Max=%d.%d", binario / 10, binario % 10);
+  
+  //div_t temp_div;
+  //temp_div =  div((int16_t)valor_amostra, 10);
+  //sprintf(str_valor, "%d.%d", temp_div.quot, temp_div.rem);
+}
 
 //============================================================================
 //===== Definição (implementação) das Funções Privadas =======================

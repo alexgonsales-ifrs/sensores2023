@@ -94,7 +94,7 @@ void serv_adcon_print(void) {
       //Imprime valor absoluto
       valor_sensor = serv_adcon_amostras[index_sensor];
       char temp_str[17] = {0};
-      sprintf(temp_str, "%4d", valor_sensor);
+      adcon_binario_para_valor(valor_sensor, temp_str);
       lcd_goto_sensor(index_sensor);
       lcd_puts(temp_str);
 
@@ -268,16 +268,22 @@ void serv_adcon_print_aquisicao_da_eeprom(uint8_t indice_aquisicao) {
 ****************************************************************************/
 void serv_adcon_print_max_min(void) {
   char tmp[17] = {0}; //warning do compilador
+  char tmp_aux[17] = {0}; //warning do compilador
   lcd_clear();
   if (adcon_quant_amostras_gravadas == 0) {
     lcd_puts("Nenhum Dado");
   }
   else {
-    sprintf(tmp, "Max=%d.%d", adcon_amostra_max / 10, adcon_amostra_max % 10);
-    lcd_puts(tmp);
+    strcpy(tmp_aux,"Max=");
+    adcon_binario_para_valor(adcon_amostra_max, tmp);
+    strcat(tmp_aux, tmp);
+    lcd_puts(tmp_aux);
+    
     lcd_goto(2, 0);
-    sprintf(tmp, "Min=%d.%d", adcon_amostra_min / 10, adcon_amostra_min % 10);
-    lcd_puts(tmp);
+    strcpy(tmp_aux,"Min=");
+    adcon_binario_para_valor(adcon_amostra_min, tmp);
+    strcat(tmp_aux, tmp);
+    lcd_puts(tmp_aux);
   }
 }//serv_adcon_print_max_min()
 
@@ -429,11 +435,10 @@ uint8_t serv_adcon_envia_rs232_amostras_gravadas_eeprom(void) {
     valor_amostra = valor_amostra << 8;
     //Pega o byte menos significativo.
     valor_amostra = valor_amostra + eeprom_read(EEPROM_END_INICIO_AMOSTRAS + i + 1);
-    div_t temp_div;
-    temp_div =  div((int16_t)valor_amostra, 10);
     
     //Transforma valor para string.
-    sprintf(str_valor, "%d.%d", temp_div.quot, temp_div.rem);
+    adcon_binario_para_valor(valor_amostra, str_valor);
+    
     //Concatena na linha e adiciona uma vírgula.
     p_str_valor = str_valor;
     while (*p_str_valor != 0) {
