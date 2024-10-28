@@ -42,7 +42,7 @@ extern "C" {
 //MM   = Mes
 //DD   = Dia
 //X.YY = Numeração (atualmente X=1 e Y=700)
-#define _VER_STR_VERSAO_ "20241020v1.714"
+#define _VER_STR_VERSAO_ "20241027v1.715"
   
 #ifdef _HARDWARE_2013_
   #define _VER_STR_HARDWARE_NOVO_ANTIGO_ "A"
@@ -54,7 +54,7 @@ extern "C" {
 //Esta diretiva é definida pela IDE quando o projeto é executado em modo DEBUG.
 //É interessante também habilitá-la aqui quando o projeto for executado em modo DEBUG
 //pois assim a IDE mostra o código que será compilado.
-#define __DEBUG
+//#define __DEBUG
     
 //Esta diretiva somente será usada quando se desejar efetuar o DEBUG do LCD.
 //Nessa caso, os comandos de escrita no LCD serão enviados para a porta serial 

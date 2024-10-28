@@ -48,6 +48,25 @@
  * est_executa_estado_novo(), que executa a action "entry" do novo estado e atualiza
  * a variável est_estado_atual = est_estado_novo. 
  *  
+ * ATENÇÂO:
+ * Quanto acontece uma auto-transição a máquina sai do estado atual e entra novamente.
+ *  
+ * Para adicionar um novo item no Menu Principal, chamado MENU_NOVO, as seguintes ações são necessárias:
+ * 1) Em serv_menus.h
+ *    1.1) Ajustar MENU_PRINCIPAL_TAM
+ *    1.2) Incluir o item "Menu Novo" em menu_principal_itens[]
+ *    1.3) Se o item também for um Menu, então:
+ *         1.3.1)Criar uma macro MENU_NOVO_TAM
+ *         1.3.2)Criar const TMenuItem menu_novo_itens[MENU_NOVO_TAM]
+ *         1.3.3)Criar variavel TMenu menu_novo;
+ * 2) Em ct_estados.h adicionar o novo ESTADO no tipo TEstado (exemplo EST_ESTADO_MENU_NOVO).
+ * 3) Em ct_estados.c
+ *    3.1) Implementar a funcao static void est_estado_menu_novo(TBotao botao);
+ *    3.2) Adicionar um case na funcao est_maquina().
+ *    3.3) Na função est_estado_menu_principal() adicionar um sub-case ao case BTN_START.
+ *    3.4) Adicionar um case na função est_entra_estado_novo().
+ * 4) Na função est_entra_estado_novo, no case EST_ESTADO_INICIAL, inicializar o menu.
+ 
  */
 
 //===== Includes =============================================================
@@ -118,6 +137,9 @@ static void est_estado_menu_conf_tempo_aquisicao(TBotao botao);
 static void est_estado_menu_conf_quant_sensores(TBotao botao);
 static void est_estado_enviar_dados(TBotao botao);
 
+static void est_estado_configuracoes(TBotao botao);
+static void est_estado_configuracoes_item1(TBotao botao);
+
 //Troca est_estado_atual para est_estado_novo e executa a ação entry do novo estado.
 static void est_entra_estado_novo(void);
 
@@ -127,8 +149,8 @@ static void est_entra_estado_novo(void);
 
 /**
  * Esta é a funcao de entrada da máquina de estados e que executa um "step" 
- * Na máquina de estados. Caso ocorra uma transição de estado ou transição para 
- * o mesmo estado atual, então a variável est_estado_novo conterá estado a ser executado
+ * na máquina de estados. Caso ocorra uma transição de estado ou transição para 
+ * o mesmo estado atual, então a variável est_estado_novo conterá o Estado a ser executado
  * nesse "step". Caso contrário, a variável est_estado_novo conterá o valor EST_ESTADO_NULL,
  * indicando que não houve nenhuma transição de estado (nem no próprio estado atual).
  * A sequência de ações desta função é:
@@ -143,7 +165,9 @@ static void est_entra_estado_novo(void);
 void est_maquina(TBotao botao) {
 
   //Caso a variavel est_estado_novo permaneça EST_ESTADO_NULL então
-  //significa que não houve troca de estado.
+  //significa que não houve transição.
+  //Isso é importante quando ocorre uma auto-transição.
+  //Quanto acontece uma auto-transição a máquina sai do estado atual e entra novamente.
   est_estado_novo = EST_ESTADO_NULL;
   
   switch (est_estado_atual) {
@@ -190,6 +214,14 @@ void est_maquina(TBotao botao) {
         case EST_ESTADO_ENVIAR_DADOS:
             est_estado_enviar_dados(botao);
         break; //EST_ENVIAR_DADOS
+
+        case EST_ESTADO_MENU_CONFIGURACOES:
+            est_estado_configuracoes(botao);
+        break; //EST_CONFIGURACOES
+
+        case EST_ESTADO_MENU_CONFIGURACOES_ITEM1:
+            est_estado_configuracoes_item1(botao);
+        break; //EST_CONFIGURACOES_ITEM1
 
         default:
             break;
@@ -275,7 +307,7 @@ static void est_estado_menu_principal(TBotao botao) {
 
         case 5: //"Tempo Amostra"
           //Seta o item do sub-menu antes entrar no sub-menu.
-          menu_set_value_indexes(&menu_cfg_quant_sensores, adcon_cfg_tempo_aquisicao_atual);
+          menu_set_value_indexes(&menu_cfg_tempo_aquisicao, adcon_cfg_tempo_aquisicao_atual);
           est_estado_novo = EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO;
           break;
 
@@ -288,7 +320,11 @@ static void est_estado_menu_principal(TBotao botao) {
         case 7: //"Enviar Dados"
           est_estado_novo = EST_ESTADO_ENVIAR_DADOS;
           break;
-            
+
+        case 8: //"Configuracoes
+          est_estado_novo = EST_ESTADO_MENU_CONFIGURACOES;
+          break;
+
       }//switch (index)
     break; //BTN_START
     
@@ -437,6 +473,82 @@ static void est_estado_enviar_dados(TBotao botao) {
   }
 }//est_estado_enviar_dados()
 
+
+/**
+ * Funcao que trata as transições do estado EST_ESTADO_CONFIGURACOES
+ * @param botao o botão que foi pressionado.
+ */
+static void est_estado_configuracoes(TBotao botao) {
+  uint8_t index;  
+
+  switch (botao) {
+    case BTN_UP:
+      if (menu_dec_index(&menu_configuracoes) != -1) {
+        est_estado_novo = EST_ESTADO_MENU_CONFIGURACOES;
+      }
+      break;
+    case BTN_DOWN:
+      if ( menu_inc_index(&menu_configuracoes) != -1 ) {
+        est_estado_novo = EST_ESTADO_MENU_CONFIGURACOES;
+      }
+      break;
+    case BTN_STOP:
+      menu_restore_index(&menu_configuracoes);
+      est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+      break;
+      
+    case BTN_START:
+      
+      index = menu_get_index_nav(&menu_configuracoes);
+      menu_confirma_index(&menu_configuracoes);
+      switch (index) {
+        case 0:
+            est_estado_novo = EST_ESTADO_MENU_CONFIGURACOES_ITEM1;
+          break;
+        default:
+           //serv_adcon_set_tempo_aquisicao_atual(menu_get_value_active(&menu_cfg_tempo_aquisicao));
+            est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+            break;
+      }
+      break;
+      
+    default:
+      break;
+  }//switch
+   
+}//est_estado_configuracoes()
+
+/**
+ * Funcao que trata as transições do estado EST_ESTADO_CONFIGURACOES_ITEM1
+ * @param botao o botão que foi pressionado.
+ */
+static void est_estado_configuracoes_item1(TBotao botao) {
+  switch (botao) {
+    case BTN_UP:
+      if (menu_dec_index(&menu_configuracoes_item1) != -1) {
+        est_estado_novo = EST_ESTADO_MENU_CONFIGURACOES_ITEM1;
+      }
+      break;
+    case BTN_DOWN:
+      if ( menu_inc_index(&menu_configuracoes_item1) != -1 ) {
+        est_estado_novo = EST_ESTADO_MENU_CONFIGURACOES_ITEM1;
+      }
+      break;
+    case BTN_STOP:
+      menu_restore_index(&menu_configuracoes_item1);
+      est_estado_novo = EST_ESTADO_MENU_CONFIGURACOES;
+      break;
+    case BTN_START:
+      menu_confirma_index(&menu_configuracoes_item1);
+      //serv_adcon_set_tempo_aquisicao_atual(menu_get_value_active(&menu_cfg_tempo_aquisicao));
+      est_estado_novo = EST_ESTADO_MENU_CONFIGURACOES;
+      break;
+    default:
+      break;
+  }//switch
+   
+}//est_estado_configuracoes_item1()
+
 /**
  * Faz a troca para o novo estado e executa a ação entry desse novo estado.
  * Atualiza a variavel est_estado_atual = est_estado_novo.
@@ -487,14 +599,14 @@ static void est_entra_estado_novo() {
       //Chave de inicialização existe, então le as configurações da EEPROM.
       serv_adcon_le_configuracoes_eeprom();
     }
+
+    //Inicializa menus.
+    serv_menu_princ_inicializa();
   
-    //Inicializa os menus:
-    menu_init(&menu_principal, menu_principal_itens, MENU_PRINCIPAL_TAM);
-    menu_init(&menu_cfg_quant_sensores, menu_cfg_quant_sensores_itens, MENU_CFG_QUANT_SENSORES_TAM);
-    menu_init(&menu_cfg_tempo_aquisicao, menu_cfg_tempo_aquisicao_itens, MENU_CFG_TEMPO_AQUISICAO_TAM);
-  
+    //Atualiza menus conforme valores da eeprom.
     menu_set_value_indexes(&menu_cfg_quant_sensores, adcon_cfg_quant_sensores_atual);
     menu_set_value_indexes(&menu_cfg_tempo_aquisicao,  adcon_cfg_tempo_aquisicao_atual);
+    //menu_set_value_indexes(&menu_configuracoes,  1);
   
     lcd_goto(2, 0);
     lcd_puts("Pronto!         ");
@@ -558,6 +670,19 @@ static void est_entra_estado_novo() {
       serv_adcon_envia_rs232_amostras_gravadas_eeprom();
       break; //EST_ENVIAR_DADOS
 
+    case EST_ESTADO_MENU_CONFIGURACOES:
+      lcd_clear();
+      texto = menu_get_text_nav(&menu_configuracoes);
+      lcd_puts(texto);
+      break; //EST_MENU_CONFIGURACOES
+
+    case EST_ESTADO_MENU_CONFIGURACOES_ITEM1:
+      lcd_clear();
+      texto = menu_get_text_nav(&menu_configuracoes_item1);
+      lcd_puts(texto);
+      break; //EST_MENU_CONFIGURACOES_ITEM1
+
+      
     default:
       break;
 

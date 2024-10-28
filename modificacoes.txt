@@ -1,3 +1,7 @@
+20241027v1.715
+Adição do Menu Configurações e sub-menu Item1 com sub-itens.
+Inicialização dos menus colocado na função serv_menu_princ_inicializa().
+
 =============================================================================
 20241020v1.714
 Modificações nos nomes das macros dos pinos LCD e BTN.

@@ -34,9 +34,12 @@ extern "C" {
         EST_ESTADO_VER_AQUISICOES,
         EST_ESTADO_MOSTRA_MAX_MIN,
         EST_ESTADO_LIMPAR,
-        EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO,
-        EST_ESTADO_MENU_CONF_QUANT_SENSORES,
-        EST_ESTADO_ENVIAR_DADOS
+        EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO, //Menu
+        EST_ESTADO_MENU_CONF_QUANT_SENSORES,  //Menu
+        EST_ESTADO_ENVIAR_DADOS,
+                
+        EST_ESTADO_MENU_CONFIGURACOES,        //Menu Configuracoes
+        EST_ESTADO_MENU_CONFIGURACOES_ITEM1
   } TEstado;
 
 //===== Variaveis Públicas ===================================================

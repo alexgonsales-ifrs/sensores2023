@@ -63,7 +63,7 @@ extern "C" {
   typedef struct {
     const char *str_text;
     uint16_t   i_value;
-    //struct TMenu * menu;
+    struct TMenu * menu;
   } TMenuItem;
   
   /* TMenu representa um menu com seus itens (TMenuItem) e as variáveis de controle
