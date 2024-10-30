@@ -1,3 +1,9 @@
+=============================================================================
+20241030v1.716a
+Adição da funcionalidade para leitura do sensor DHT22. Criado os módulos base_dht22 e serv_dht22.
+Adicionada função timer1_init() no módulo base_timer.
+
+=============================================================================
 20241027v1.715
 Adição do Menu Configurações e sub-menu Item1 com sub-itens.
 Inicialização dos menus colocado na função serv_menu_princ_inicializa().

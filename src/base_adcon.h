@@ -47,13 +47,15 @@ extern "C" {
   #if defined(_HARDWARE_2013_)
     #define ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS 4
   #elif defined(_HARDWARE_2016_)
-    //8 sensores MQ.
+    //6 sensores MQ.
     #define ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS 8
   #endif
 
-  //verificar<<<< 
   //1 sensor digital DHT22 que contará como 2 sensores (temperatura e umidade).
-    
+  //No display, as posições 7 e 8 serão reservadas para o sensor DHT22.
+  //Posição 7 - Temperatura.
+  //Posição 8 - Umidade.
+  
   //Quantidade máxima de amostras permitidas (gravadas na EEPROM). 
   //A EEPROM tem 240 bytes disponíveis para isso.
   //Cada amostra ocupa 2 bytes, portanto são possíveis 120 amostras.

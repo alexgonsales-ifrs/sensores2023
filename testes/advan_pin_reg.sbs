@@ -7,103 +7,144 @@
 ## PINREGACTIONS
 ms
 No Repeat
+RB3
 --
 100
+0
 --
 110
+1
 --
 120
+0
 --
 130
+1
 --
 160
+0
 --
 600
+1
 --
 700
+
 --
 800
+
 --
 900
+
 --
 1000
+
 --
 1100
+
 --
 1200
+
 --
 1300
+
 --
 1400
+
 --
 1500
+
 --
 1600
+
 --
 1700
+
 --
 1800
+
 --
 1900
+
 --
 2000
+
 --
 2100
+
 --
 2200
+
 --
 2300
+
 --
 2400
+
 --
 2500
+
 --
 2600
+
 --
 2700
+
 --
 2800
+
 --
 2900
+
 --
 3000
+
 --
 3100
+
 --
 3200
+
 --
 3300
+
 --
 3400
+
 --
 3500
+
 --
 3600
+
 --
 3700
+
 --
 3800
+
 --
 3900
+
 --
 4000
+
 --
 &
 ## ADVPINREGACTIONS
-PORTC.RC1
+RB7
 --
 1
 COND1
-1x
-
-
+Cont
 1
+cyc
+
 --
 &
 --
 COND1
 Bit
-PORTB.RB7
+PORTB.RB4
 =
 0
 0
@@ -205,22 +246,64 @@ Down high
 Pin
 AN1
 Set Voltage
-4 V
+5 V
 Sensor 1
 -1
 --
 Pin
 AN0
 Set Voltage
-3 V
+2 V
 Sensor 2
 -1
 --
 Pin
 AN4
 Set Voltage
-2 V
+3 V
 Sensor 3
+-1
+--
+Pin
+AN2
+Set Voltage
+4 V
+Sensor 4
+-1
+--
+Pin
+AN12
+Set Voltage
+5 V
+Sensor 5
+-1
+--
+Pin
+AN10
+Set Voltage
+0 V
+Sensor 6
+-1
+--
+Pin
+AN8
+Set Voltage
+0 V
+Sensor 7
+-1
+--
+Pin
+AN11
+Set Voltage
+0 V
+Sensor 8
+-1
+--
+Pin
+VREF+
+Set Voltage
+5 V
+VREF_IN
 -1
 --
 &

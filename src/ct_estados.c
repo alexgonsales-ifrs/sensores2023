@@ -83,6 +83,7 @@
 #include "serv_eeprom.h"
 #include "serv_menus.h"
 #include "base_rs232.h"
+#include "serv_dht22.h"
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -626,6 +627,13 @@ static void est_entra_estado_novo() {
       //serv_adcon_aquisicao_print();
       serv_adcon_aquisicao();
       serv_adcon_print();
+      
+      //Desabilita as interrupções.
+      INTCONbits.GIE = 0;
+      serv_dht22_amostra_e_print();
+      //Habilita as interrupções.
+      INTCONbits.GIE = 0;
+      
       break; //EST_CAPTURA_E_MOSTRA
       
     case EST_ESTADO_MONITORA_GRAVA:

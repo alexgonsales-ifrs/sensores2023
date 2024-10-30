@@ -1,12 +1,12 @@
 /* 
- * File:   base_timer.h
- * Author: ti
+ * File:   serv_dht22.h
+ * Author: alex-adm
  *
- * Created on 2 de Janeiro de 2014, 11:05
+ * Created on 30 de Outubro de 2024, 10:36
  */
 
-#ifndef BASE_TIMER_H
-#define	BASE_TIMER_H
+#ifndef SERV_DHT22_H
+#define	SERV_DHT22_H
 
 #ifdef	__cplusplus
 extern "C" {
@@ -26,19 +26,13 @@ extern "C" {
 //===== Variaveis Públicas ===================================================
 
 //===== Funcoes Públicas =====================================================
-    
-/**
-* Inicializa o timer 0. E chamada durante a funcao main().
-*/
-extern void timer0_init(void);
 
-extern void timer1_init(void);
-
-//void timer2_init(void);
+extern void serv_dht22_amostra_e_print(void);
+extern void serv_dht22_print(void);
 
 #ifdef	__cplusplus
 }
 #endif
 
-#endif	/* BASE_TIMER_H */
+#endif	/* SERV_DHT22_H */
 

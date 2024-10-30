@@ -96,7 +96,13 @@ int main(void) {
 
   #if defined(_HARDWARE_2013_)
     TRISA = 0xFF; //Configura a porta A como entrada.
+    
+    //Configura portas analógicas AN4, AN3 (VRef+), AN2, AN1, AN0.  
+    ANSEL  = 0b00011111;
+
       ADCON1bits.PCFG = 0b0001; //< configurado para q AN3 seja o pindo de referencia de tensao.
+      
+      
     //2023-11-07
     //001 = frequencia de conversao: FOSC/8 (recomendado para 4MHz)
     ADCON1bits.ADCS2 = 0;
@@ -108,69 +114,72 @@ int main(void) {
 
   #elif defined(_HARDWARE_2016_)
     //PORTA
-    //Configura todos pinos como entrada, com exceção do RA4.
-    //RA0=AN0
-    //RA1=AN1
-    //RA2=AN2
-    //RA3=VREF+ (ou AN3?)
-    //RA4=Sensor7_Aquec (saída digital)
-    //RA5=AN4
-    //RA6=OSC2
-    //RA7=OSC1
+    //Configura todos pinos como entrada, com exceção de RA4.
+    //RA0=AN0 (entrada)
+    //RA1=AN1 (entrada)
+    //RA2=AN2 (entrada)
+    //RA3=AN3 (entrada)
+    //RA4=Sensor7_Aquec (saída)
+    //RA5=AN4  (entrada)
+    //RA6=OSC2 (entrada)
+    //RA7=OSC1 (entrada)
     TRISA = 0b11101111;
     
     //PORTB
-    //Configura todos os pinos como entrada.
+    //Configura todos os pinos como entrada (mas RB4 funcionará como entrada e saída).
     //RB0=AN12
     //RB1=AN10
     //RB2=AN8
     //RB3=BTN_DOWN
-    //RB4=AN11
+    //RB4=Digital (Sensor9TU será entrada e saída)
     //RB5=BTN_UP
     //RB6=BTN_START
     //RB7=BTN_STOP
-    TRISB = 0xFF;
+    TRISB = 0b11111111;
 
     //Para poder habilitar os bits Weak Pull-up (bit ~WBPU do Option register).
     OPTION_REGbits.nRBPU = 0; 
     //Configura weak pull-up para os bits 7,6,5,3 da PORTB:
     WPUB = 0xE8; //Weak Pull-up PortB.
 
-    //Interrupt On Change PORTB. Habilita pinos 7,6,5,3:
-    IOCB = 0xE8; //11101000
+    //Interrupt On Change PORTB. Habilita pinos 7,6,5,4,3:
+    //RB4 é o Sensor9TU.
+    IOCB = 0b11111000; 
     //Habilita Interrupções PORTB.
     INTCONbits.RBIE = 1; 
 
     //PORTC
-    //Configura todos pinos como saída, com exceção de RX.
+    //Configura todos pinos como saída, com exceção de R7.
     //RC0=LCD_RS
     //RC1=LCD_ENABLE
-    //RC2=LCD_D4 e Sensor9TU
+    //RC2=LCD_D4
     //RC3=LCD_D7
     //RC4=LCD_D6
     //RC5=LCD_D5
-    //RC6=TX
-    //RC7=RX
+    //RC6=TX (RS232)
+    //RC7=RX (RS232)
     TRISC = 0b10000000;
     
     //Configura portas analógicas:
     //Digital=0
     //Analog=1
     
-    //Configura portas analógicas AN4, AN3 (VRef+), AN2, AN1, AN0.  
+    //Configura portas analógicas AN4, AN3, AN2, AN1, AN0.  
     ANSEL  = 0b00011111;
-    //Configura portas analógicas AN12, AN11, AN10, AN8.
-    ANSELH = 0b00011101;
+    //Configura portas analógicas AN12, AN10, AN8.
+    ANSELH = 0b00010101;
 
     //Configura referência negativa para VSS (GND).
     //VSS = 0
     //Pino VREF- = 1
     ADCON1bits.VCFG1 = 0; 
     
-    //Configura referência positiva para pino VREF+. <<< verificar trocar para VDD.
+    //Configura referência positiva:
+    //Estava configurado para pino VREF+.
+    //Em 2024-10-28 foi trocado para VDD, liberando esta entrada para o Sensor8.
     //VDD = 0.
     //Pino VREF+ = 1.
-    ADCON1bits.VCFG0 = 1;
+    ADCON1bits.VCFG0 = 0; //trocado para zero em 2024-10-28.
     
     ADCON0bits.ADCS = 0b01; //01 = Fequencia de conversao = FOSC/8 (recomendado para 4MHz).
     ADCON1bits.ADFM = 1;    //Resultado justificado a direita.
@@ -179,6 +188,7 @@ int main(void) {
   #endif //_HARDWARE_2016_
 
   timer0_init();
+  timer1_init();
   
   INTCONbits.GIE = 1; //Habilita interrupcoes globais.
   INTCONbits.T0IE = 1;//Habilita interrupção Timer0.

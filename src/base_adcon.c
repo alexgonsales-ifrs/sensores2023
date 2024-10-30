@@ -9,15 +9,14 @@
  * A numeração dos sensores começa em 1 (um), mas o índice do vetor adcon_canais[] começa em zero.
  * adcon_canais[0] = canal para o Sensor 1
  * adcon_canais[1] = canal para o Sensor 2
- * ...
- * adcon_canais[ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS-1] = canal para o Sensor N.
- *  
- * Versão Hard =>   2013   2016
- * Canal - Pino -   Sensor Sensor
+ * ... 
+   *                 <Sensor>
+ *                 <Versão Hard>
+ * Canal - Pino -   2013   2016
  * 0000  - AN0  -   1      2
  * 0001  - AN1  -   2      1
  * 0010  - AN2  -   3      4
- * 0011  - AN3  -   x      x
+ * 0011  - AN3  -   R      D         
  * 0100  - AN4  -   4      3
  * 0101  - AN5  -   x      x
  * 0110  - AN6  -   x      x
@@ -30,6 +29,9 @@
  * 1101  - AN13 -   x      x
  * 1110  - CV REF
  * 1111  - Fixed Ref (0.6 volt fixed reference)
+ * 
+ * R = VREF+ (tensão de referência).
+ * D = Saída digital para controle tensão de aquecimento MQ7.
  * 
  * Revision history: 
  * Created on 30 de Setembro de 2023, 11:04 *  
@@ -102,7 +104,7 @@ static const uint8_t adcon_canais[ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS] = {
     12, //Sensor 5 canal 12.
     10, //Sensor 6 canal 10.
     8,  //Sensor 7 canal 8.
-    11  //Sensor 8 canal 11. Não colocar vírgula no último.
+    3   //Sensor 8 canal 3. Não colocar vírgula no último.
 };
 #endif
 

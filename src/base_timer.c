@@ -58,6 +58,7 @@ void timer0_init(void) {
      * Temos que ter 18 interrupcoes para chegar a 1 segundo.
      */
     TMR0 = 39;
+    TMR1L = 0;  //<<<<<<<<<<<<<<<<<<<<<<< retirar
 
     OPTION_REGbits.T0CS = 0; // timer = Fosc/4
     OPTION_REGbits.PSA = 0; // prescaler -> timer0 em vez de wdt
@@ -79,6 +80,18 @@ void timer0_init(void) {
     T0IE = 0; //desabilita interrupcao do timer 0
 
 }//timer0_init()
+
+void timer1_init(void) {
+    TMR1H = 0; //<<<<<<<<<<<<<<<<<<<<<<< retirar
+    TMR1L = 0; //<<<<<<<<<<<<<<<<<<<<<<< retirar
+
+    T1CONbits.TMR1CS = 0; //Internall clock (Fosc/4).
+    T1CONbits.TMR1ON = 0; //Desliga o Timer.
+
+    PIE1bits.TMR1IE = 0; //desabilita interrupcao do timer 1
+    PIR1bits.TMR1IF = 0; //limpa flag interrupcao do timer 1
+
+}//timer1_init()
 
 //void timer2_init(void) {
 /*    TMR2 = 39;

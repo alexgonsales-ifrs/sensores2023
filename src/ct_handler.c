@@ -19,6 +19,7 @@
 #include "ct_estados.h"
 #include "serv_adcon.h"
 #include "ct_prot_rs232.h"
+#include "serv_dht22.h"
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -122,6 +123,11 @@ void __interrupt() handler(void) {
             //serv_adcon_aquisicao_print();
             serv_adcon_aquisicao();
             serv_adcon_print();
+
+            //Não precisa (nem pode) desabilitar a interrupção global aqui
+            //pois o próprio handler já desabilita automaticamente.
+            serv_dht22_amostra_e_print();
+
           } else if (est_estado_atual==EST_ESTADO_MONITORA_GRAVA ) {
             //Se o módulo serv_adcon está monitorando e gravando então
             if (serv_adcon_monitora_grava) {
