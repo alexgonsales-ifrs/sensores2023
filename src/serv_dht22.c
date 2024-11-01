@@ -44,8 +44,8 @@
 void serv_dht22_amostra_e_print(void) {
   //if (base_dht22_amostra()) {
 
-  base_dht22_amostra();
-  serv_dht22_print();
+  if (base_dht22_amostra())
+    serv_dht22_print();
 
 }//serv_dht22_amostra_e_print()
 

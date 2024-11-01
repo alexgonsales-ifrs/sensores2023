@@ -53,6 +53,7 @@ static char base_dht22_le_byte(unsigned char * dht_data);
 char base_dht22_amostra(void) {
   unsigned char low_byte;
   unsigned char high_byte;
+  unsigned char sum = 0;
   
   base_dht22_start();
   
@@ -61,28 +62,33 @@ char base_dht22_amostra(void) {
   
   if (!base_dht22_le_byte(&high_byte))
     return 0;
+  sum += high_byte;
   
   if (!base_dht22_le_byte(&low_byte))
     return 0;
+  sum += low_byte;
   
-  base_dht22_amostra_temperatura = (high_byte<<8) + low_byte;
+  base_dht22_amostra_umidade = (high_byte<<8) + low_byte;
   
   if (!base_dht22_le_byte(&high_byte))
     return 0;
+  sum += high_byte;
   
   if (!base_dht22_le_byte(&low_byte))
     return 0;
+  sum += low_byte;
   
-  base_dht22_amostra_umidade = (high_byte<<8) + low_byte;
+  base_dht22_amostra_temperatura = (high_byte<<8) + low_byte;
 
   //Le checksum.
   if (!base_dht22_le_byte(&low_byte))
     return 0;
   
   //Conferir checksum
-  //......
-  
-  return 1;
+  if (sum == low_byte)
+    return 1;
+  else
+    return 0;
 
 }//base_dht22_amostra()
 
