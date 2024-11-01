@@ -23,6 +23,8 @@
       <itemPath>src/ct_handler.h</itemPath>
       <itemPath>src/ct_estados.h</itemPath>
       <itemPath>src/ct_prot_rs232.h</itemPath>
+      <itemPath>src/base_dht22.h</itemPath>
+      <itemPath>src/serv_dht22.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -52,6 +54,8 @@
       <itemPath>src/ct_handler.c</itemPath>
       <itemPath>src/ct_estados.c</itemPath>
       <itemPath>src/ct_prot_rs232.c</itemPath>
+      <itemPath>src/base_dht22.c</itemPath>
+      <itemPath>src/serv_dht22.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -62,12 +66,12 @@
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC16F876A</targetDevice>
+        <targetDevice>PIC16F886</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>Simulator</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>2.46</languageToolchainVersion>
+        <languageToolchainVersion>2.41</languageToolchainVersion>
         <platform>2</platform>
       </toolsSet>
       <packs>
