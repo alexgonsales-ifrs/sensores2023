@@ -1,4 +1,9 @@
 =============================================================================
+20241110v1.717a: diversas modificações no sistema de menus e na máquina de estados.
+RAM free: 87 bytes.
+ROM free: 2016 words (14 bit).
+
+=============================================================================
 20241030v1.716a
 Adição da funcionalidade para leitura do sensor DHT22. Criado os módulos base_dht22 e serv_dht22.
 Adicionada função timer1_init() no módulo base_timer.

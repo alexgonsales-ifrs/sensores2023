@@ -68,7 +68,7 @@ char base_dht22_amostra(void) {
     return 0;
   sum += low_byte;
   
-  base_dht22_amostra_umidade = (high_byte<<8) + low_byte;
+  base_dht22_amostra_umidade = (uint16_t)(high_byte<<8) + low_byte;
   
   if (!base_dht22_le_byte(&high_byte))
     return 0;
@@ -78,7 +78,7 @@ char base_dht22_amostra(void) {
     return 0;
   sum += low_byte;
   
-  base_dht22_amostra_temperatura = (high_byte<<8) + low_byte;
+  base_dht22_amostra_temperatura = (uint16_t)(high_byte<<8) + low_byte;
 
   //Le checksum.
   if (!base_dht22_le_byte(&low_byte))

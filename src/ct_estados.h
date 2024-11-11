@@ -39,7 +39,9 @@ extern "C" {
         EST_ESTADO_ENVIAR_DADOS,
                 
         EST_ESTADO_MENU_CONFIGURACOES,        //Menu Configuracoes
-        EST_ESTADO_MENU_CONFIGURACOES_ITEM1
+        EST_ESTADO_MENU_CONFIGURACOES_ITEM2,
+                
+        EST_ESTADO_TRATA_MENU
   } TEstado;
 
 //===== Variaveis Públicas ===================================================

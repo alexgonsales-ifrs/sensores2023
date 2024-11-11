@@ -56,42 +56,57 @@ extern "C" {
 //===== Tipos Públicos =======================================================
     
     //struct TMenu;
+struct TMenuStruc;
+typedef struct TMenuStruc      TMenu;
+
+struct TMenuItemStruct;
+typedef struct TMenuItemStruct TMenuItem;
     
   /* TMenuItem representa um item de Menu. Um item de menu tem um texto (que será mostrado no display)
    * e um valor associado. Esse valor normalmente é o valor de configuração do item que será
    * utilizado em alguma parte do sistema. */
-  typedef struct {
-    const char *str_text;
-    uint16_t   i_value;
-    struct TMenu * menu;
-  } TMenuItem;
+  struct TMenuItemStruct{
+    const char         *str_text;
+    uint16_t            i_value;
+    struct TMenuStruct *p_submenu;  //Caso esse item represente um novo sub-menu, esta variável aponta para esse sub-menu.
+  };
+  
   
   /* TMenu representa um menu com seus itens (TMenuItem) e as variáveis de controle
    * de navegação de item de seleção de item (item ativo).
    */
-  typedef struct {
+  struct TMenuStruc{
     uint8_t     index_active; //Indice do item de menu ativo (selecionado).
     uint8_t     index_nav;    //Indice do item de menu sendo navegado.
     uint8_t     quant_itens;  //Quantidade total de itens de menu (tamanho do vetor itens).
     TMenuItem  *itens;        //Ponteiro para o vetor com os itens de menu.
-  } TMenu;
+    TMenu      *p_supermenu;  //Ponteiro para o menu pai (supermenu), para saber para onde retornar quando clicar ESC.
+  };
   
 //===== Variaveis Públicas ===================================================
 
+  extern TMenu *menu_p_menu_ativo;
+
 //===== Funcoes Públicas =====================================================
   
-extern void menu_init(TMenu* menu, const TMenuItem* itens, uint8_t quant_itens);
+extern void menu_init(TMenu* p_menu, const TMenuItem* p_itens, uint8_t quant_itens, TMenu *p_supermenu);
 
 extern uint8_t  menu_get_index_nav(TMenu* menu);
 const char*     menu_get_text_nav(TMenu* menu);
 extern uint16_t menu_get_value_active(TMenu* menu);
+extern uint16_t menu_get_value_nav(TMenu* menu);
 
 extern void     menu_set_value_indexes(TMenu* menu, uint16_t quant);
 
 extern int8_t   menu_inc_index(TMenu* menu);
 extern int8_t   menu_dec_index(TMenu* menu);
+
+extern void     menu_set_index(TMenu* menu, uint8_t index);
+
 extern void     menu_restore_index(TMenu* menu);
 extern void     menu_confirma_index(TMenu* menu);
+
+extern void menu_add_submenu(TMenu *p_supermenu, int pos, TMenu *p_submenu);
 
 #ifdef	__cplusplus
 }

@@ -71,11 +71,11 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>Simulator</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>2.41</languageToolchainVersion>
+        <languageToolchainVersion>2.50</languageToolchainVersion>
         <platform>2</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC16Fxxx_DFP" vendor="Microchip" version="1.4.149"/>
+        <pack name="PIC16Fxxx_DFP" vendor="Microchip" version="1.6.156"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
