@@ -32,10 +32,10 @@
 #elif defined(_HARDWARE_2016_)
     #define LCD_PIN_RS              RC0
     #define LCD_PIN_E               RC1
-    #define LCD_PIN_D4              RC3 //D4 e D5 trocados devido à posição já existente na versão 2016 do hardware.
-    #define LCD_PIN_D5              RC2 //D4 e D5 trocados devido à posição já existente na versão 2016 do hardware.
-    #define LCD_PIN_D6              RC5 //D6 e D7 trocados devido à posição já existente na versão 2016 do hardware.
-    #define LCD_PIN_D7              RC4 //D6 e D7 trocados devido à posição já existente na versão 2016 do hardware.
+    #define LCD_PIN_D4              RC2
+    #define LCD_PIN_D5              RC3
+    #define LCD_PIN_D6              RC4
+    #define LCD_PIN_D7              RC5
 #endif
       
 //===== Tipos Públicos =======================================================

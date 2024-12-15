@@ -42,7 +42,7 @@ extern "C" {
 //MM   = Mes
 //DD   = Dia
 //X.YY = Numeração (atualmente X=1 e Y=700)
-#define _VER_STR_VERSAO_ "20241206v1.717b"
+#define _VER_STR_VERSAO_ "20241215v1.717d"
   
 #ifdef _HARDWARE_2013_
   #define _VER_STR_HARDWARE_NOVO_ANTIGO_ "A"

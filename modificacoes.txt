@@ -1,7 +1,17 @@
+
+=============================================================================
+20241215v1.717d: retornado pinos do LCD (D4 a D7) para valores anteriores pois o commit 20241206v1.717b estava com erro.
+
+=============================================================================
+20241206v1.717b: lcd.h: trocados pinos do LCD (R4 com R5 e R6 com R7) devido às posições já existentes na versão do hardware 2016.
+
 =============================================================================
 20241110v1.717a: diversas modificações no sistema de menus e na máquina de estados.
 RAM free: 87 bytes.
 ROM free: 2016 words (14 bit).
+
+=============================================================================
+20241031v1.716c: ajustes leitura dht22.
 
 =============================================================================
 20241030v1.716a
