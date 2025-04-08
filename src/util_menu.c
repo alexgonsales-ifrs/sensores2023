@@ -142,21 +142,21 @@ void menu_confirma_index(TMenu* menu) {
 /* Atualiza index_active para o valor de index_nav.
 * Usado quando se sai da navega??o do menu confirmando com o bot?o START/ENTER.*/
 void menu_confirma_index(TMenu* menu) {
+  //Torna ativo o item de menu que está sendo navegado (mostrado).
   menu->index_active = menu->index_nav;
   //Se o item de menu for um submenu, entra no submenu.
   if ( (menu->itens[menu->index_active].p_submenu) != 0) {
     menu_p_menu_ativo = menu->itens[menu->index_active].p_submenu;
   }
-  //Se o item de menu tiver um menu pai, retorna para o menu pai.
-  else if (menu->p_supermenu != 0) {
-    //Retorna para o menu pai.
-    menu_p_menu_ativo = menu_p_menu_ativo->p_supermenu;
+  //Se o item de menu não for um submenu e o campo retorno_pai == 1 então 
+  //retorna para o menu pai.
+  else if (menu->itens[menu->index_active].retorno_pai == 1) {
+    //Se o item de menu tiver um menu pai, retorna para o menu pai.
+    if (menu->p_supermenu != 0) {
+      //Retorna para o menu pai.
+      menu_p_menu_ativo = menu_p_menu_ativo->p_supermenu;
+    }
   }
-  //? o menu principal, ent?o permanece nele.
-  else {
-    //Permanece no mesmo menu.
-  }
-
 }//menu_confirma_index()
 
 /* Especifica que o item "pos" do menu_pai tem um p_submenu.

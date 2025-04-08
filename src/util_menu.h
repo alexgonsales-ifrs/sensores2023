@@ -56,31 +56,33 @@ extern "C" {
 //===== Tipos Públicos =======================================================
     
     //struct TMenu;
-struct TMenuStruc;
-typedef struct TMenuStruc      TMenu;
+//struct TMenuStruc;
+typedef struct TMenuStruct      TMenu;
 
-struct TMenuItemStruct;
+//struct TMenuItemStruct;
 typedef struct TMenuItemStruct TMenuItem;
     
   /* TMenuItem representa um item de Menu. Um item de menu tem um texto (que será mostrado no display)
    * e um valor associado. Esse valor normalmente é o valor de configuração do item que será
    * utilizado em alguma parte do sistema. */
   struct TMenuItemStruct{
-    const char         *str_text;
-    uint16_t            i_value;
-    struct TMenuStruct *p_submenu;  //Caso esse item represente um novo sub-menu, esta variável aponta para esse sub-menu.
+    const char   *str_text;
+    uint16_t     i_value;
+    TMenu        *p_submenu;  //Caso o item represente um novo submenu, então esta variável aponta para esse submenu.
+    uint8_t      retorno_pai; //0 = não retorna para o menu pai. 1 = retorna para o menu pai.
   };
   
   
   /* TMenu representa um menu com seus itens (TMenuItem) e as variáveis de controle
    * de navegação de item de seleção de item (item ativo).
    */
-  struct TMenuStruc{
+  struct TMenuStruct{
     uint8_t     index_active; //Indice do item de menu ativo (selecionado).
     uint8_t     index_nav;    //Indice do item de menu sendo navegado.
     uint8_t     quant_itens;  //Quantidade total de itens de menu (tamanho do vetor itens).
     TMenuItem  *itens;        //Ponteiro para o vetor com os itens de menu.
     TMenu      *p_supermenu;  //Ponteiro para o menu pai (supermenu), para saber para onde retornar quando clicar ESC.
+    const char *str_titulo;   //Titulo do Menu.
   };
   
 //===== Variaveis Públicas ===================================================

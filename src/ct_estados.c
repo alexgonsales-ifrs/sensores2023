@@ -10,8 +10,8 @@
  * 
  * Ao ser pressionado um botão, a seguinte sequência de chamadas de funções é executada:
  * 1) Chama a função est_maquina(botao) que verifica o estado atual e 
- * 2) chama a função específica para tratar as transições do estado e a execução da ação de transição,
- * 3) chama a função específica para executar a ação "entry" do novo estado.
+ * 2) chama a função específica (est_testa_estado_nome_estado) para tratar as transições do estado e a execução da ação de transição,
+ * 3) chama a função específica para executar a ação "entry" do novo estado (est_entra_estado_nome_estado).
  * 4) Atualiza a variável est_estado_atual para representar o novo estado da máquina.
   *  
  * Detalhamento:
@@ -21,20 +21,18 @@
  * Toda transição de estado começa por esta função, que é chamada pela interrupção que foi gerada pelo botão.
  * O botão que foi pressionado é passado como parâmetro para a função.
  * Esta função faz 3 ações:
- * 1.1) Chama a função específica para tratar a transição de estado.
- * 1.2) Chama a função específica para executar a ação "entry" do novo estado.
- * 1.3) Atualiza o estado da máquina (atualiza a variável est_estado).
+ * 1.1) Chama a função específica para tratar a transição de estado (est_testa_estado_nome_do_estado).
+ * 1.2) Chama a função específica para executar a ação "entry" do novo estado (est_entra_estado_nome_estado).
+ * 1.3) Atualiza o estado da máquina (atualiza a variável est_estado_atual).
  * 
  * 1.1)
- * Funções específicas de cada estado:
+ * Funções específicas de tratamento de cada estado:
  * Cada estado possui uma função específica que executa as ações de transição que ocorrem no estado.
  * As ações executadas durante uma transição estão implementadas nessas funções específicas.
- * Por exemplo: a ação "decrementar item menu" ao clicar no botão UP enquanto no estado EST_CONF_QUANT_SENSORES
- * está implementada na função est_testa_menu_conf_quant_sensores(). A função específica de tratamento do estado
- * atualiza a variável est_estado_novo, que será utilizada pela função est_maquina().
+ * Por exemplo: a ação "decrementar item menu" ao clicar no botão UP enquanto no estado EST_MENU_CONF_QUANT_SENSORES
+ * está implementada na função est_testa_menu_conf_quant_sensores().
  * 
- * As ações específicas de cada estado* são listadas a seguir:
- *  
+ * As funções específicas de tratamento de cada estado são listadas a seguir:
  * est_testa_estado_inicial(TBotao botao);
  * est_testa_estado_menu_principal(TBotao botao);
  * est_testa_estado_monitora(TBotao botao);
@@ -49,14 +47,19 @@
  *  
  * 1.2)
  * Testa a variável est_estado_novo, caso ela seja diferente de NULL então chama a função específica
- * para executar a ação "entry" do novo estado.
+ * para executar a ação "entry" do novo estado. A função "entry" de cada estado deve atualizar
+ * a variável est_estado_novo, que será utilizada pela função est_maquina().
+ * Exemplo de função de entrada de um estado: est_entra_estado_menu_conf_tempo_aquisicao()
  * 
  * 1.3) Atualiza a variável est_estado_atual = est_estado_novo.
  *  
  * ATENÇÂO:
- * Quanto acontece uma auto-transição a máquina sai do estado atual e entra novamente.
+ * Quanto acontece uma auto-transição a máquina sai do estado atual e entra novamente no mesmo estado.
  *  
- * Para adicionar um novo item no Menu Principal, chamado MENU_NOVO, as seguintes ações são necessárias:
+ * ===============================================================
+ * 
+ * Exemplo para adiconar um novo item no Menu Principal, chamado MENU_NOVO.
+ * As seguintes ações são necessárias:
  * 1) Em serv_menus.h
  *    1.1) Ajustar MENU_PRINCIPAL_TAM
  *    1.2) Incluir o item "Menu Novo" em menu_principal_itens[]
@@ -66,12 +69,12 @@
  *         1.3.3)Criar variavel TMenu menu_novo;
  * 2) Em ct_estados.h adicionar o novo ESTADO no tipo TEstado (exemplo EST_ESTADO_MENU_NOVO).
  * 3) Em ct_estados.c
- *    3.1) Implementar a funcao static void est_estado_menu_novo(TBotao botao);
- *    3.2) Adicionar um case na funcao est_maquina().
- *    3.3) Na função est_estado_menu_principal() adicionar um sub-case ao case BTN_START.
- *    3.4) Adicionar um case na função est_entra_estado_novo().
- * 4) Na função est_entra_estado_novo, no case EST_ESTADO_INICIAL, inicializar o menu.
- 
+ *    3.1) Implementar a funcao static void est_trata_estado_menu_novo(TBotao botao);
+ *    3.2) Implementar a funcao static void est_entra_estado_menu_novo();
+ *    3.2) Adicionar dois cases, um em cada um dos dois switch da funcao est_maquina(), 
+ *         chamando as funções est_trata_estado_menu_novo() e est_entra_estado_menu_novo(), respectivamente.
+ *    3.3) Na função est_trata_estado_menu_principal() adicionar um sub-case ao case BTN_START fazendo est_estado_novo = EST_ESTADO_MENU_NOVO.
+ * 
  */
 
 //===== Includes =============================================================
@@ -136,7 +139,7 @@ static void est_navega_menus(TBotao botao);
 //Funções específicas de cada estado.
 static void est_testa_estado_null(TBotao botao);
 static void est_testa_estado_inicial(TBotao botao);
-static void est_testa_estado_trata_menu(TBotao botao);
+//static void est_testa_estado_trata_menu(TBotao botao);
 static void est_testa_estado_menu_principal(TBotao botao);
 static void est_testa_estado_monitora(TBotao botao);
 static void est_testa_estado_monitora_grava(TBotao botao);
@@ -171,7 +174,8 @@ static void est_entra_estado_configuracoes_item2(void);
  * Esta é a funcao de entrada da máquina de estados e que executa um "step" 
  * na máquina de estados. Caso ocorra uma transição de estado ou transição para 
  * o mesmo estado atual, então a variável est_estado_novo conterá o Estado a ser executado
- * nesse "step". Caso contrário, a variável est_estado_novo conterá o valor EST_ESTADO_NULL,
+ * nesse "step". 
+ * Caso contrário, a variável est_estado_novo conterá o valor EST_ESTADO_NULL,
  * indicando que não houve nenhuma transição de estado (nem no próprio estado atual).
  * A sequência de ações desta função é:
  * 1) Inicializar est_estado_novo = EST_ESTADO_NULL;
@@ -187,9 +191,9 @@ void est_maquina(TBotao botao) {
   //Caso a variavel est_estado_novo permaneça EST_ESTADO_NULL então
   //significa que não houve transição.
   //Isso é importante quando ocorre uma auto-transição.
-  //Quanto acontece uma auto-transição a máquina sai do estado atual e entra novamente.
-  //Para implementar esse comportamento, a estratégia utilizar a variável auxiliar 
-  //est_estado_novo e atribuir EST_ESTADO_NULL.
+  //Quanto acontece uma auto-transição a máquina sai do estado atual e entra novamente no mesmo estado.
+  //Para implementar esse comportamento, a estratégia foi utilizar a variável auxiliar 
+  //est_estado_novo e atribuir EST_ESTADO_NULL a ela.
   est_estado_novo = EST_ESTADO_NULL;
   
   switch (est_estado_atual) {
@@ -330,6 +334,7 @@ void est_maquina(TBotao botao) {
 //===== Definição (implementação) das Funções Privadas =======================
 //============================================================================
 
+/*
 static void est_testa_estado_trata_menu(TBotao botao) {
 
   switch (botao) {
@@ -362,10 +367,15 @@ static void est_testa_estado_trata_menu(TBotao botao) {
   } //switch (botao)
   
 }//est_testa_estado_trata_menu()
+*/
 
 static void est_atualizar_menu(void) {
+  const char* titulo;
   const char* texto;
   lcd_clear();
+  titulo = menu_p_menu_ativo->str_titulo;
+  lcd_puts(titulo); 
+  lcd_goto(2,0);
   texto = menu_get_text_nav(menu_p_menu_ativo);
   lcd_puts(texto); 
 }// est_atualizar_menu()
@@ -397,6 +407,10 @@ static void est_navega_menus(TBotao botao) {
       break;
   }//switch
 }//est_navega_menus()
+
+//===========================================================================
+//================== Funções Testa_Estado... ================================
+//===========================================================================
 
 /**
  * Estado ao ligar a máquina, que passará automaticamente para o ESTADO_INICIAL.
@@ -707,6 +721,10 @@ static void est_testa_estado_configuracoes_item1(TBotao botao) {
   }//switch
    */
 }//est_estado_configuracoes_item1()
+
+//===========================================================================
+//================== Funções Entra_Estado... ================================
+//===========================================================================
 
 static void est_entra_estado_inicial(void) {
       //rs232_init() precisa ser antes do printf() e antes do lcd_puts() pois 
