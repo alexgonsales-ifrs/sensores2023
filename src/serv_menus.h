@@ -70,16 +70,34 @@
     #define MENU_CFG_TEMPO_AQUISICAO_TAM 7// tamanho do menu.
     #define MENU_CFG_QUANT_SENSORES_TAM  8 // tamanho do menu.
     #define MENU_CONFIGURACOES_TAM       4 //
-    #define MENU_CONFIGURACOES_ITEM1_TAM 3 //
+    #define MENU_CONFIGURACOES_ITEM2_TAM 3 //
   #endif
 
 
+typedef enum {
+        SERV_MENU_ACAO_EXEC_NULL,
+        SERV_MENU_ACAO_EXEC_MONITORA,
+        SERV_MENU_ACAO_EXEC_MONITORA_GRAVA,
+        SERV_MENU_ACAO_EXEC_VER_AQUISICOES,
+        SERV_MENU_ACAO_EXEC_MOSTRA_MAX_MIN,
+        SERV_MENU_ACAO_EXEC_LIMPAR,
+        SERV_MENU_ACAO_EXEC_ENVIAR_DADOS
+        //Não colocar vírgula no último item.
+        } TServMenuCodigoAcaoExec;
 
+typedef enum {
+        SERV_MENU_ACAO_CFG_NULL,
+        SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, 
+        SERV_MENU_ACAO_CFG_QUANT_SENSORES
+        //Não colocar vírgula no último item.
+        } TServMenuCodigoAcaoCfg;
   
 //===== Tipos Públicos =======================================================
 
   
 //===== Variaveis Públicas ===================================================
+//extern TMenu    *serv_menu_p_menu_ativo; //ponteiro para o menu ativo.
+extern TMenuRaiz serv_menu_raiz;
 
 //===== Funcoes Públicas =====================================================
   

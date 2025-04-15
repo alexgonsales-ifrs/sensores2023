@@ -55,58 +55,86 @@ extern "C" {
 
 //===== Tipos Públicos =======================================================
     
-    //struct TMenu;
-//struct TMenuStruc;
-typedef struct TMenuStruct      TMenu;
-
-//struct TMenuItemStruct;
+typedef struct TMenuRaizStruct TMenuRaiz;
+typedef struct TMenuStruct     TMenu;
 typedef struct TMenuItemStruct TMenuItem;
-    
-  /* TMenuItem representa um item de Menu. Um item de menu tem um texto (que será mostrado no display)
-   * e um valor associado. Esse valor normalmente é o valor de configuração do item que será
-   * utilizado em alguma parte do sistema. */
-  struct TMenuItemStruct{
-    const char   *str_text;
-    uint16_t     i_value;
-    TMenu        *p_submenu;  //Caso o item represente um novo submenu, então esta variável aponta para esse submenu.
-    uint8_t      retorno_pai; //0 = não retorna para o menu pai. 1 = retorna para o menu pai.
-  };
-  
-  
+
+//Tipos de TMenuItem
+//ITEM_MENU_ACAO:   representa um item de menu de ação (não utiliza nenhum campo da union).
+//ITEM_MENU_CFG:   representa um item de menu de configuração, então utiliza o campo i_value da union.
+//ITEM_MENU_SUBMENU: representa um submenu, então utiliza o campo p_submenu da union.
+typedef enum {MENU_TIPO_ITEM_RAIZ, MENU_TIPO_ITEM_ACAO, MENU_TIPO_ITEM_CFG, MENU_TIPO_ITEM_SUBMENU} TMenuItemTipo;
+
+struct TMenuRaizStruct{
+    TMenu      *p_menu_raiz;
+    TMenu      *p_menu_atual;   //Menu atual que está sendo navegado.
+    uint8_t     index_nav;      //Para controlar a navegação nos ítens do menu atual.
+    TMenuItem  *p_item_ativado; //Ponteiro para o último item de menu que foi ativado com a ação ENTER.
+};
+
   /* TMenu representa um menu com seus itens (TMenuItem) e as variáveis de controle
    * de navegação de item de seleção de item (item ativo).
    */
   struct TMenuStruct{
     uint8_t     index_active; //Indice do item de menu ativo (selecionado).
-    uint8_t     index_nav;    //Indice do item de menu sendo navegado.
+    //uint8_t     index_nav;    //Indice do item de menu sendo navegado.
     uint8_t     quant_itens;  //Quantidade total de itens de menu (tamanho do vetor itens).
-    TMenuItem  *itens;        //Ponteiro para o vetor com os itens de menu.
+    TMenuItem  *p_itens;        //Ponteiro para o vetor com os itens de menu.
     TMenu      *p_supermenu;  //Ponteiro para o menu pai (supermenu), para saber para onde retornar quando clicar ESC.
     const char *str_titulo;   //Titulo do Menu.
+    
+    //texto
+    //tipo
+    //acao
+    //
+    //i_value
+    //p_supermenu
+  };
+  
+  /* TMenuItem representa um item de Menu. Existem diversos tipos de Item de Menu.
+   * str_text: texto do item de menu (que será mostrado no display).
+   * tipo: especifica o tipo de item de menu:
+   * tipo==ITEM_MENU_ACAO    então não utiliza nenhum campo da union.
+   * tipo==ITEM_MENU_CFG     então utiliza o campo i_value da union.
+   * tipo==ITEM_MENU_SUBMENU então utiliza o campo p_submenu da union.
+   * Descrição da union:
+   * i_value: valor associado ao item de menu, se ele for do tipo ITEM_MENU_CFG.
+   * p_submenu: ponteiro para o submenu, caso este item de menu seja do tipo ITEM_MENU_SUBMENU.   
+ */
+  struct TMenuItemStruct{
+    const char    *str_text;
+    TMenuItemTipo tipo; 
+    uint8_t       acao;       //Se tipo==ITEM_MENU_ACAO então este campo contém o código da ação a ser executada.
+    union {
+        uint16_t  i_value;    //Se tipo==ITEM_MENU_CFG então este campo contém o valor associado ao item de menu.
+        TMenu    *p_submenu; //Se tipo==ITEM_MENU_SUBMENU então este campo aponta para esse submenu.
+    };
   };
   
 //===== Variaveis Públicas ===================================================
 
-  extern TMenu *menu_p_menu_ativo;
+  //extern TMenu *serv_menu_ativo;
 
 //===== Funcoes Públicas =====================================================
   
+extern void menu_raiz_init(TMenuRaiz* p_menu_raiz, TMenu* p_menu);
 extern void menu_init(TMenu* p_menu, const TMenuItem* p_itens, uint8_t quant_itens, TMenu *p_supermenu);
 
-extern uint8_t  menu_get_index_nav(TMenu* menu);
-const char*     menu_get_text_nav(TMenu* menu);
-extern uint16_t menu_get_value_active(TMenu* menu);
-extern uint16_t menu_get_value_nav(TMenu* menu);
+//extern uint8_t  menu_get_index_nav(TMenu* p_menu);
+extern const char*     menu_get_text_nav(TMenuRaiz* p_menu_raiz);
+//extern uint16_t menu_get_value_active(TMenuRaiz* p_menu_raiz);
 
-extern void     menu_set_value_indexes(TMenu* menu, uint16_t quant);
+uint16_t menu_get_value_item_ativado(TMenuRaiz* p_menu_raiz);
+   
+//extern uint16_t menu_get_value_nav(TMenu* p_menu);
 
-extern int8_t   menu_inc_index(TMenu* menu);
-extern int8_t   menu_dec_index(TMenu* menu);
+//extern void     menu_set_value_indexes(TMenu* p_menu, uint16_t quant);
+//extern void     menu_set_index(TMenu* p_menu, uint8_t index);
 
-extern void     menu_set_index(TMenu* menu, uint8_t index);
-
-extern void     menu_restore_index(TMenu* menu);
-extern void     menu_confirma_index(TMenu* menu);
+extern int8_t     menu_exec_down(TMenuRaiz* p_menu_raiz);
+extern int8_t     menu_exec_up(TMenuRaiz* p_menu_raiz);
+extern void       menu_exec_esc(TMenuRaiz* p_menu_raiz);
+extern TMenuItem* menu_exec_enter(TMenuRaiz* p_menu_raiz);
 
 extern void menu_add_submenu(TMenu *p_supermenu, int pos, TMenu *p_submenu);
 

@@ -158,7 +158,7 @@ void prot_rs232_executa(void) {
 
       rs232_envia_string("Z\n");
       //Para monitoramento.
-      est_estado_atual = EST_ESTADO_MENU_PRINCIPAL;
+      est_estado_atual = EST_ESTADO_TRATA_MENUS;
       //Desabilita monitora.
       //INTCONbits.T0IE = 0;
     }//if estado_atual

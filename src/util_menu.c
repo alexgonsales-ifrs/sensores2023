@@ -19,7 +19,7 @@
 
 //===== Variaveis Públicas ===================================================
 
-TMenu *menu_p_menu_ativo;
+//TMenu *serv_menu_ativo;
 
 //============================================================================
 //===== Definições e Declaraçoes Privadas ====================================
@@ -37,6 +37,12 @@ TMenu *menu_p_menu_ativo;
 //===== Definição (implementação) das Funções Públicas =======================
 //============================================================================
 
+extern void menu_raiz_init(TMenuRaiz* p_menu_raiz, TMenu* p_menu) {
+  p_menu_raiz->p_menu_raiz  = p_menu;
+  p_menu_raiz->p_menu_atual = p_menu;
+  p_menu_raiz->index_nav    = 0;
+}
+
 /* Inicializa um menu.
  * p_menu: ponteiro para a variável que representa o menu.
  * p_itens: ponteiro para o vetor contendo os itens de menu.
@@ -45,71 +51,114 @@ TMenu *menu_p_menu_ativo;
  *  */
 void menu_init(TMenu* p_menu, const TMenuItem* p_itens, uint8_t quant_itens, TMenu *p_supermenu) {
   p_menu->index_active   = 0;
-  p_menu->index_nav      = 0;
+  //p_menu->index_nav      = 0;
   p_menu->quant_itens    = quant_itens;
-  p_menu->itens = (TMenuItem*)(p_itens);
+  p_menu->p_itens = (TMenuItem*)(p_itens);
   p_menu->p_supermenu = p_supermenu;
 }//menu_init(())
 
-/* Retorna o indice do item de menu que está sendo mostrado (navegado). */
-uint8_t menu_get_index_nav(TMenu* menu) {
-  return menu->index_nav;    
-}//menu_get_index_nav()
 
 /* Retorna o valor do item de menu ativo (selecionado). */
-uint16_t menu_get_value_active(TMenu* menu) {
-  return menu->itens[menu->index_active].i_value;
+//uint16_t menu_get_value_active(TMenu* p_menu) {
+//  return p_menu->p_itens[p_menu->index_active].i_value;
+//}//menu_get_value_active()
+
+/* Retorna o valor do item de menu ativo (selecionado). */
+/*uint16_t menu_get_value_active(TMenuRaiz* p_menu_raiz) {
+  TMenu *p_menu;
+  p_menu = p_menu_raiz->p_menu_atual;
+  uint8_t index = p_menu->index_active;
+  uint16_t i = p_menu->p_itens[index].i_value;
+  return i;
 }//menu_get_value_active()
+*/
+
+/* Retorna o valor do último item de menu que foi ativado. */
+uint16_t menu_get_value_item_ativado(TMenuRaiz* p_menu_raiz) {
+  TMenuItem *p_item;
+  p_item = p_menu_raiz->p_item_ativado;
+  uint16_t i = p_item->i_value;
+  return i;
+}//menu_get_value_item_ativado()
+
+/* Retorna o indice do item de menu que está sendo mostrado (navegado). */
+//uint8_t menu_get_index_nav(TMenu* p_menu) {
+//  return p_menu->index_nav;    
+//}//menu_get_index_nav()
 
 /* Retorna o valor do item de menu mostrado (navegado). */
-uint16_t menu_get_value_nav(TMenu* menu) {
-  return menu->itens[menu->index_nav].i_value;
-}//menu_get_value_nav()
+//uint16_t menu_get_value_nav(TMenu* p_menu) {
+//  return p_menu->p_itens[p_menu->index_nav].i_value;
+//}//menu_get_value_nav()
 
 /* Retorna o texto do item de menu que está navegando (mostrado). */
-const char* menu_get_text_nav(TMenu* menu) {
-  return menu->itens[menu->index_nav].str_text;
+const char* menu_get_text_nav(TMenuRaiz* p_menu_raiz) {
+  TMenu* p_menu = p_menu_raiz->p_menu_atual;
+  uint8_t index = p_menu_raiz->index_nav;
+  return p_menu->p_itens[index].str_text;
 }//menu_get_text_nav()
 
+/*
 void menu_set_index(TMenu* menu, uint8_t index) {
   if (index >=0 ) {
     menu->index_active = index;
     menu->index_nav    = index;
   }
 }//menu_set_index())
+*/
 
 /* Atualiza value, index_active e index_nav para ficar de acordo
  * com o item de menu que tem o valor igual ao valor recebido como parâmetro.  */
-void menu_set_value_indexes(TMenu* menu, uint16_t value) {
+/*void menu_set_value_indexes(TMenu* p_menu, uint16_t value) {
 //  menu->index_active = 1;  //<<<<<<<<<<<<<<<< remover alexdg 2024-07-25
-  for (uint8_t i=0; i< menu->quant_itens; i++) {
-    if (menu->itens[i].i_value == value) {
-      menu->index_active = i;
-      menu->index_nav   = i;
+  for (uint8_t i=0; i< p_menu->quant_itens; i++) {
+    if (p_menu->p_itens[i].i_value == value) {
+      p_menu->index_active = i;
+      p_menu->index_nav   = i;
       return;
     }
   }//for
 }//menu_set_value_indexes())
+*/
 
 /* Incrementa index_nav.
- * Usado durante a navegação pelo menu. */
-int8_t menu_inc_index(TMenu* menu) {
-  if (menu->index_nav < menu->quant_itens - 1) {
-    menu->index_nav++;
-    return (int8_t)(menu->index_nav);
+ * Usado durante a navegação pelo menu. 
+ * Retorna o novo índice de menu ou -1 se tentou extrapolar o índice.
+ */
+int8_t menu_exec_down(TMenuRaiz* p_menu_raiz) {
+  TMenu* p_menu = p_menu_raiz->p_menu_atual;
+  uint8_t index = p_menu_raiz->index_nav;
+  if ( index < (p_menu->quant_itens - 1) ) {
+    //2025-04-13: Após começar a efetuar algumas mudanças na struct TMenuItem, 
+    //começou a gerar erro de compilação ao se usar pós-incremento (++).
+    //error: (712) can't generate code for this expression.
+    //menu->index_nav++; //removido e adicionada a linha abaixo.
+    index = index + 1;
+    p_menu_raiz->index_nav = index;
+    //return (int8_t)(p_menu->index_nav);
+    return index;
   }
   return -1;
-}//menu_inc_index()
+}//menu_exec_down()
 
 /* Decrementa index_nav.
- * Usado durante a navegação pelo menu. */
-int8_t menu_dec_index(TMenu* menu) {
-  if (menu->index_nav >= 1) {
-    menu->index_nav--;
-    return (int8_t)(menu->index_nav);
+ * Usado durante a navegação pelo menu. 
+ * Retorna o novo índice de menu ou -1 se tentou extrapolar o índice.
+ */
+int8_t menu_exec_up(TMenuRaiz* p_menu_raiz) {
+  uint8_t index = p_menu_raiz->index_nav;
+  if (index >= 1) {
+    //2025-04-13: Após começar a efetuar algumas mudanças na struct TMenuItem, começou a gerar erro de compilação.
+    //error: (712) can't generate code for this expression.
+    //menu->index_nav--;
+    index = index - 1;
+    p_menu_raiz->index_nav = index;
+    //p_menu->index_nav = p_menu->index_nav - 1;
+    //return (int8_t)(p_menu->index_nav);
+    return index;
   }
   return -1;
-}//menu_dec_index()
+}//menu_exec_up()
 
 /* Reestabelece o valor de index_nav para index_active.
  * Usado quando se sai da navegação do menu com o botão STOP/ESC. */
@@ -119,17 +168,23 @@ void menu_restore_index(TMenu* menu) {
 }//menu_restore_index()
 */
 
+
+//<<<<<<<<<<<<<<<< rever esta função caso esteja em um menu de ação dentro de um submenu (talvez não tenha que retornar para o supermenu)
 /* Reestabelece o valor de index_nav para index_active.
- * Usado quando se sai da navega??o do menu com o bot?o STOP/ESC. */
-void menu_restore_index(TMenu* menu) {
-  menu->index_nav = menu->index_active;
-  //Se o item de menu tiver um pai, ent?o retorna para o menu pai.
-  if ( (menu->p_supermenu) != 0) {
-    menu_p_menu_ativo = menu->p_supermenu;
+ * Usado quando se sai da navegação do menu com o botão STOP/ESC. */
+void menu_exec_esc(TMenuRaiz* p_menu_raiz) {
+  TMenu *p_menu_atual    = p_menu_raiz->p_menu_atual;
+  //p_menu_raiz->index_nav = p_menu_atual->index_active;  //<<<<< nao precisa
+  TMenu *p_supermenu = p_menu_atual->p_supermenu; //ganha 4 words de programa.
+  //Se o item de menu tiver um pai, então retorna para o menu pai.
+  if ( p_supermenu != 0) {
+    p_menu_raiz->p_menu_atual = p_supermenu;
+    p_menu_raiz->index_nav    = p_supermenu->index_active;
+    //*pp_menu = p_supermenu;
   }
-  //Sen?o, est? no menu principal, permanecer nele.
+  //Senão, está no menu principal, permanecer nele.
   
-}//menu_restore_index()
+}//menu_exec_esc()
 
 /* Atualiza index_active para o valor de index_nav.
 * Usado quando se sai da navegação do menu confirmando com o botão START/ENTER.*/
@@ -140,29 +195,46 @@ void menu_confirma_index(TMenu* menu) {
 */
 
 /* Atualiza index_active para o valor de index_nav.
-* Usado quando se sai da navega??o do menu confirmando com o bot?o START/ENTER.*/
-void menu_confirma_index(TMenu* menu) {
+* Usado quando se sai da navegação do menu confirmando com o botão START/ENTER.*/
+TMenuItem* menu_exec_enter(TMenuRaiz* p_menu_raiz) {
+
   //Torna ativo o item de menu que está sendo navegado (mostrado).
-  menu->index_active = menu->index_nav;
-  //Se o item de menu for um submenu, entra no submenu.
-  if ( (menu->itens[menu->index_active].p_submenu) != 0) {
-    menu_p_menu_ativo = menu->itens[menu->index_active].p_submenu;
+  uint8_t index_active = p_menu_raiz->index_nav;
+  TMenu *p_menu_atual  = p_menu_raiz->p_menu_atual;
+  p_menu_atual->index_active     = index_active;
+  
+  //Pega o novo item de menu ativo.
+  TMenuItem *p_item_menu = &(p_menu_atual->p_itens[index_active]);
+  //Torna este o item de menu ativado.
+  p_menu_raiz->p_item_ativado = p_item_menu;
+
+  //Pega submenu e supermenu para usar nos IFs abaixo.
+  TMenu *p_submenu   = p_item_menu->p_submenu;
+  TMenu *p_supermenu = p_menu_atual->p_supermenu;
+
+  //Realiza a ação conforme o tipo do item de menu:
+  
+  //Se for um submenu, entra no submenu.
+  if ( p_item_menu->tipo == MENU_TIPO_ITEM_SUBMENU && p_submenu != 0) {
+    p_menu_raiz->p_menu_atual = p_submenu;
+    p_menu_raiz->index_nav    = p_submenu->index_active;
   }
-  //Se o item de menu não for um submenu e o campo retorno_pai == 1 então 
-  //retorna para o menu pai.
-  else if (menu->itens[menu->index_active].retorno_pai == 1) {
-    //Se o item de menu tiver um menu pai, retorna para o menu pai.
-    if (menu->p_supermenu != 0) {
-      //Retorna para o menu pai.
-      menu_p_menu_ativo = menu_p_menu_ativo->p_supermenu;
-    }
+  //Se for um item de configuração retorna para o menu pai. Testa se tem um menu pai.
+  else if ( p_item_menu->tipo == MENU_TIPO_ITEM_CFG && p_supermenu != 0) {
+    //Retorna para o menu pai.
+    p_menu_raiz->p_menu_atual = p_supermenu;
+    p_menu_raiz->index_nav    = p_supermenu->index_active;
   }
-}//menu_confirma_index()
+  else if ( p_item_menu->tipo == MENU_TIPO_ITEM_ACAO) {
+    //Nada a ser executado.
+  }
+  return p_item_menu;
+}//menu_exec_enter()
 
 /* Especifica que o item "pos" do menu_pai tem um p_submenu.
  */
 void menu_add_submenu(TMenu *p_supermenu, int pos, TMenu *p_submenu) {
-  p_supermenu->itens[pos].p_submenu = p_submenu;
+  p_supermenu->p_itens[pos].p_submenu = p_submenu;
   p_submenu->p_supermenu = p_supermenu;  
   //TMenuItem *i;
   //i = p_supermenu->itens;

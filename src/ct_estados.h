@@ -28,20 +28,19 @@ extern "C" {
   typedef enum {
         EST_ESTADO_NULL,
         EST_ESTADO_INICIAL,
-        EST_ESTADO_MENU_PRINCIPAL,
+        EST_ESTADO_TRATA_MENUS,
+        //EST_ESTADO_MENU_PRINCIPAL,
         EST_ESTADO_MONITORA,
         EST_ESTADO_MONITORA_GRAVA,
         EST_ESTADO_VER_AQUISICOES,
         EST_ESTADO_MOSTRA_MAX_MIN,
         EST_ESTADO_LIMPAR,
-        EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO, //Menu
-        EST_ESTADO_MENU_CONF_QUANT_SENSORES,  //Menu
+        //EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO, //Menu
+        //EST_ESTADO_MENU_CONF_QUANT_SENSORES,  //Menu
         EST_ESTADO_ENVIAR_DADOS,
                 
-        EST_ESTADO_MENU_CONFIGURACOES,        //Menu Configuracoes
-        EST_ESTADO_MENU_CONFIGURACOES_ITEM2,
-                
-        EST_ESTADO_TRATA_MENU
+        //EST_ESTADO_MENU_CONFIGURACOES,        //Menu Configuracoes
+        //EST_ESTADO_MENU_CONFIGURACOES_ITEM2,
   } TEstado;
 
 //===== Variaveis Públicas ===================================================

@@ -134,37 +134,37 @@ static uint8_t est_equipamento_inicializado = 0;
 //===== Declaração das Funções Privadas ======================================
 
 static void est_atualizar_menu(void);
-static void est_navega_menus(TBotao botao);
+static TMenuItem* est_navega_menus(TBotao botao);
 
 //Funções específicas de cada estado.
 static void est_testa_estado_null(TBotao botao);
 static void est_testa_estado_inicial(TBotao botao);
-//static void est_testa_estado_trata_menu(TBotao botao);
-static void est_testa_estado_menu_principal(TBotao botao);
+static void est_testa_estado_trata_menus(TBotao botao);
+//static void est_testa_estado_menu_principal(TBotao botao);
 static void est_testa_estado_monitora(TBotao botao);
 static void est_testa_estado_monitora_grava(TBotao botao);
 static void est_testa_estado_ver_aquisicoes(TBotao botao);
 static void est_testa_estado_mostra_max_min(TBotao botao);
 static void est_testa_estado_limpar(TBotao botao);
-static void est_testa_estado_menu_conf_tempo_aquisicao(TBotao botao);
-static void est_testa_estado_menu_conf_quant_sensores(TBotao botao);
+//static void est_testa_estado_menu_conf_tempo_aquisicao(TBotao botao);
+//static void est_testa_estado_menu_conf_quant_sensores(TBotao botao);
 static void est_testa_estado_enviar_dados(TBotao botao);
-static void est_testa_estado_configuracoes(TBotao botao);
-static void est_testa_estado_configuracoes_item1(TBotao botao);
+//static void est_testa_estado_configuracoes(TBotao botao);
+//static void est_testa_estado_configuracoes_item1(TBotao botao);
 
 static void est_entra_estado_inicial(void);
-static void est_entra_estado_trata_menu(void);
-static void est_entra_estado_menu_principal(void);
+static void est_entra_estado_trata_menus(void);
+//static void est_entra_estado_menu_principal(void);
 static void est_entra_estado_monitora(void);
 static void est_entra_estado_monitora_grava(void);
 static void est_entra_estado_mostra_max_min(void);
 static void est_entra_estado_ver_aquisicoes(void);
 static void est_entra_estado_limpar(void);
-static void est_entra_estado_cfg_tempo_aquisicao(void);
-static void est_entra_estado_cfg_quant_sensores(void);
+//static void est_entra_estado_cfg_tempo_aquisicao(void);
+//static void est_entra_estado_cfg_quant_sensores(void);
 static void est_entra_estado_enviar_dados(void);
-static void est_entra_estado_configuracoes(void);
-static void est_entra_estado_configuracoes_item2(void);
+//static void est_entra_estado_configuracoes(void);
+//static void est_entra_estado_configuracoes_item2(void);
 
 //============================================================================
 //===== Definição (implementação) das Funções Públicas =======================
@@ -205,13 +205,17 @@ void est_maquina(TBotao botao) {
              est_testa_estado_inicial(botao);
         break;//EST_INICIO
         
+        case EST_ESTADO_TRATA_MENUS:
+             est_testa_estado_trata_menus(botao);
+        break;//EST_NAVEGA_MENUS
+        
         //case EST_ESTADO_TRATA_MENU:
         //  est_testa_estado_trata_menu(botao);
         //  break;
 
-        case EST_ESTADO_MENU_PRINCIPAL:
-            est_testa_estado_menu_principal(botao);
-        break;//EST_MENU_PRINCIPAL:
+        //case EST_ESTADO_MENU_PRINCIPAL:
+        //    est_testa_estado_menu_principal(botao);
+        //break;//EST_MENU_PRINCIPAL:
 
         case EST_ESTADO_MONITORA:
             est_testa_estado_monitora(botao);
@@ -233,25 +237,25 @@ void est_maquina(TBotao botao) {
             est_testa_estado_limpar(botao);
         break; //EST_LIMPAR
 
-        case EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO:
-            est_testa_estado_menu_conf_tempo_aquisicao(botao);
-        break; //EST_MENU_CONF_TEMPO_AMOSTRA
+        //case EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO:
+        //    est_testa_estado_menu_conf_tempo_aquisicao(botao);
+        //break; //EST_MENU_CONF_TEMPO_AMOSTRA
 
-        case EST_ESTADO_MENU_CONF_QUANT_SENSORES:
-            est_testa_estado_menu_conf_quant_sensores(botao);
-        break; //EST_MENU_CONF_QUANT_SENSORES
+        //case EST_ESTADO_MENU_CONF_QUANT_SENSORES:
+        //    est_testa_estado_menu_conf_quant_sensores(botao);
+        //break; //EST_MENU_CONF_QUANT_SENSORES
         
         case EST_ESTADO_ENVIAR_DADOS:
             est_testa_estado_enviar_dados(botao);
         break; //EST_ENVIAR_DADOS
 
-        case EST_ESTADO_MENU_CONFIGURACOES:
-            est_testa_estado_configuracoes(botao);
-        break; //EST_CONFIGURACOES
+        //case EST_ESTADO_MENU_CONFIGURACOES:
+        //    est_testa_estado_configuracoes(botao);
+        //break; //EST_CONFIGURACOES
 
-        case EST_ESTADO_MENU_CONFIGURACOES_ITEM2:
-            est_testa_estado_configuracoes_item1(botao);
-        break; //EST_CONFIGURACOES_ITEM1
+        //case EST_ESTADO_MENU_CONFIGURACOES_ITEM2:
+        //    est_testa_estado_configuracoes_item1(botao);
+        //break; //EST_CONFIGURACOES_ITEM1
 
         default:
             break;
@@ -274,9 +278,13 @@ void est_maquina(TBotao botao) {
       //est_entra_estado_trata_menu();
       //break;
 
-      case EST_ESTADO_MENU_PRINCIPAL:
-        est_entra_estado_menu_principal();
+      case EST_ESTADO_TRATA_MENUS:
+        est_entra_estado_trata_menus();
         break;
+        
+      //case EST_ESTADO_MENU_PRINCIPAL:
+      //  est_entra_estado_menu_principal();
+      //  break;
         
       case EST_ESTADO_MONITORA:
         est_entra_estado_monitora();
@@ -298,25 +306,25 @@ void est_maquina(TBotao botao) {
         est_entra_estado_limpar();
         break; //EST_LIMPAR
 
-      case EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO:
-        est_entra_estado_cfg_tempo_aquisicao();
-        break;
+      //case EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO:
+      //  est_entra_estado_cfg_tempo_aquisicao();
+      //  break;
 
-      case EST_ESTADO_MENU_CONF_QUANT_SENSORES:
-        est_entra_estado_cfg_quant_sensores();
-        break;
+      //case EST_ESTADO_MENU_CONF_QUANT_SENSORES:
+      //  est_entra_estado_cfg_quant_sensores();
+      //  break;
         
       case EST_ESTADO_ENVIAR_DADOS:
         est_entra_estado_enviar_dados();
         break;
         
-      case EST_ESTADO_MENU_CONFIGURACOES:
-        est_entra_estado_configuracoes();
-        break; //EST_CONFIGURACOES
+      //case EST_ESTADO_MENU_CONFIGURACOES:
+      //  est_entra_estado_configuracoes();
+      //  break; //EST_CONFIGURACOES
 
-      case EST_ESTADO_MENU_CONFIGURACOES_ITEM2:
-        est_entra_estado_configuracoes_item2();
-        break; //EST_CONFIGURACOES_ITEM1
+      //case EST_ESTADO_MENU_CONFIGURACOES_ITEM2:
+      //  est_entra_estado_configuracoes_item2();
+      //  break; //EST_CONFIGURACOES_ITEM1
         
       default:
         break;
@@ -373,40 +381,45 @@ static void est_atualizar_menu(void) {
   const char* titulo;
   const char* texto;
   lcd_clear();
-  titulo = menu_p_menu_ativo->str_titulo;
+  titulo = serv_menu_raiz.p_menu_atual->str_titulo;
   lcd_puts(titulo); 
   lcd_goto(2,0);
-  texto = menu_get_text_nav(menu_p_menu_ativo);
+  texto = menu_get_text_nav(&serv_menu_raiz);
   lcd_puts(texto); 
 }// est_atualizar_menu()
 
-static void est_navega_menus(TBotao botao) {
+/*
+static TMenuItem* est_navega_menus(TBotao botao) {
   uint8_t index;
+  TMenuItem* p_menu_item = 0;
+  
   switch (botao) {
     
     case BTN_UP:
-      if (menu_dec_index(menu_p_menu_ativo) != -1) {
+      if (menu_exec_up(&serv_menu_raiz) != -1) {
         }
     break;
 
     case BTN_DOWN:
-      if ( menu_inc_index(menu_p_menu_ativo) != -1 ) {
+      if ( menu_exec_down(&serv_menu_raiz) != -1 ) {
         }
     break;
 
     case BTN_STOP:
-      menu_restore_index(menu_p_menu_ativo);
+      menu_exec_esc(&serv_menu_raiz);
         break;
 
     case BTN_START:
       //index = menu_get_index_nav(menu_p_menu_ativo);
-      menu_confirma_index(menu_p_menu_ativo);
+        p_menu_item = menu_exec_enter(&serv_menu_raiz);
         break;
       
     default:
       break;
   }//switch
+  return p_menu_item;
 }//est_navega_menus()
+*/
 
 //===========================================================================
 //================== Funções Testa_Estado... ================================
@@ -428,16 +441,132 @@ static void est_testa_estado_inicial(TBotao botao) {
   
   //Qualquer botão vai para o estado EST_ESTADO_MENU_PRINCIPAL.
   if (botao==BTN_START || botao==BTN_DOWN || botao==BTN_UP ) {
-    est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+    est_estado_novo = EST_ESTADO_TRATA_MENUS;
     //est_estado_novo = EST_ESTADO_TRATA_MENU; //<<<<<< fazer retirar
   }
   
 }//est_testa_estado_inicial()
 
+//===========================================================================
+//================== Funções Testa_Estado (Menus) ===========================
+//===========================================================================
+
+static void est_testa_estado_trata_menus(TBotao botao) {
+  uint8_t index;
+  TMenuItem* p_menu_item;
+  TMenuItemTipo tipo;
+  TServMenuCodigoAcaoExec acao_exec;
+  TServMenuCodigoAcaoCfg  acao_cfg;
+
+  switch (botao) {
+    case BTN_UP:
+      //est_navega_menus(botao);
+      menu_exec_up(&serv_menu_raiz);
+      est_estado_novo = EST_ESTADO_TRATA_MENUS;
+      break;
+    case BTN_DOWN:
+      //est_navega_menus(botao);
+      menu_exec_down(&serv_menu_raiz);
+      est_estado_novo = EST_ESTADO_TRATA_MENUS;
+      break;
+    case BTN_STOP:
+      //est_navega_menus(botao);
+      menu_exec_esc(&serv_menu_raiz);
+      est_estado_novo = EST_ESTADO_TRATA_MENUS;
+      break;
+      
+    case BTN_START:
+      
+      //p_menu_item = est_navega_menus(botao);
+      //p_menu_item =  menu_exec_enter(&serv_menu_raiz);
+      menu_exec_enter(&serv_menu_raiz);
+      p_menu_item = serv_menu_raiz.p_item_ativado;
+      tipo = p_menu_item->tipo;
+      
+      //---------------------------------------------------------------------
+      //------------------------ Trata Submenu ------------------------------
+      //---------------------------------------------------------------------
+      if (tipo == MENU_TIPO_ITEM_SUBMENU) {
+        est_estado_novo = EST_ESTADO_TRATA_MENUS;
+      }
+
+      //---------------------------------------------------------------------
+      //------------------------ Trata Ação Exec ----------------------------
+      //---------------------------------------------------------------------      
+      else if (tipo == MENU_TIPO_ITEM_ACAO) {
+        acao_exec = p_menu_item->acao;
+      
+        switch(acao_exec){
+          case SERV_MENU_ACAO_EXEC_MONITORA:
+            est_estado_novo = EST_ESTADO_MONITORA;
+            break;
+          
+          case SERV_MENU_ACAO_EXEC_MONITORA_GRAVA:
+            est_estado_novo = EST_ESTADO_MONITORA_GRAVA;
+            break;
+
+          case SERV_MENU_ACAO_EXEC_VER_AQUISICOES:
+            est_estado_novo = EST_ESTADO_VER_AQUISICOES;
+            break;
+
+          case SERV_MENU_ACAO_EXEC_MOSTRA_MAX_MIN:
+            est_estado_novo = EST_ESTADO_MOSTRA_MAX_MIN;
+            break;
+            
+          case SERV_MENU_ACAO_EXEC_LIMPAR:
+            est_estado_novo = EST_ESTADO_LIMPAR;
+            break;
+
+          case SERV_MENU_ACAO_EXEC_ENVIAR_DADOS:
+            est_estado_novo = EST_ESTADO_ENVIAR_DADOS;
+            break;
+          
+          default:
+            break;
+        }//switch(acao)
+        
+      }//else tipo == MENU_TIPO_ITEM_ACAO
+      
+      //---------------------------------------------------------------------
+      //------------------------ Executa Configuração -------------------------
+      //---------------------------------------------------------------------
+      else if (tipo == MENU_TIPO_ITEM_CFG) {
+        acao_cfg = p_menu_item->acao;
+        uint8_t i;
+        switch(acao_cfg){
+          case SERV_MENU_ACAO_CFG_QUANT_SENSORES:
+            i = (uint8_t) ((menu_get_value_item_ativado(&serv_menu_raiz)));
+            serv_adcon_set_quant_sensores_atual(i);
+            //serv_adcon_set_quant_sensores_atual((uint8_t)(p_menu_item->i_value));
+            est_estado_novo = EST_ESTADO_TRATA_MENUS;
+            break;
+          
+          case SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO:
+            serv_adcon_set_tempo_aquisicao_atual(p_menu_item->i_value);
+            est_estado_novo = EST_ESTADO_TRATA_MENUS;
+            break;
+
+          case SERV_MENU_ACAO_CFG_NULL:
+            est_estado_novo = EST_ESTADO_TRATA_MENUS;
+            
+          default:
+            break;
+          
+        }//switch(acao)
+      }
+      
+    case BTN_NULL:
+      break;
+    
+  }//switch(botao)
+  
+}//est_testa_estado_navega_menus
+
 /**
  * Funcao que trata as transições do estado EST_ESTADO_MENU_PRINCIPAL.
  * @param botao o botão que foi pressionado.
  */
+/*
 static void est_testa_estado_menu_principal(TBotao botao) {
   uint8_t index;
 
@@ -455,7 +584,7 @@ static void est_testa_estado_menu_principal(TBotao botao) {
       
     case BTN_START:
       //Pega o index do menu que está navegando pois a função est_navega_menus() irá mudar o menu.
-      index = menu_get_index_nav(menu_p_menu_ativo);
+      index = menu_get_index_nav(serv_menu_ativo);
       est_navega_menus(botao);
       switch (index) {
         case 0: //"Monitora"
@@ -480,13 +609,13 @@ static void est_testa_estado_menu_principal(TBotao botao) {
 
         case 5: //"Tempo Amostra"
           //Seta o item do sub-menu antes entrar no sub-menu (pois pode ter sido reconfigurado remotamente pela serial).
-          menu_set_value_indexes(menu_p_menu_ativo, adcon_cfg_tempo_aquisicao_atual);
+          menu_set_value_indexes(serv_menu_ativo, adcon_cfg_tempo_aquisicao_atual);
           est_estado_novo = EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO;
           break;
 
         case 6: //"Quant Sensores"
           //Seta o item do sub-menu antes entrar no sub-menu (pois pode ter sido reconfigurado remotamente pela serial).
-          menu_set_value_indexes(menu_p_menu_ativo, adcon_cfg_quant_sensores_atual);
+          menu_set_value_indexes(serv_menu_ativo, adcon_cfg_quant_sensores_atual);
           //menu_set_index(menu_p_menu_ativo, adcon_cfg_quant_sensores_atual-1);
           est_estado_novo = EST_ESTADO_MENU_CONF_QUANT_SENSORES;
           break;
@@ -509,13 +638,81 @@ static void est_testa_estado_menu_principal(TBotao botao) {
   } //switch (botao)
 
 }//est_testa_estado_menu_principal()
+*/
+
+/**
+ * Funcao que trata as transições do estado EST_MENU_CONF_TEMPO_AQUISICAO.
+ * @param botao o botão que foi pressionado.
+ */
+/*
+static void est_testa_estado_menu_conf_tempo_aquisicao(TBotao botao) {
+
+  switch (botao) {
+    case BTN_UP:
+        est_navega_menus(botao);
+        est_estado_novo = EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO;
+      break;
+    case BTN_DOWN:
+        est_navega_menus(botao);
+        est_estado_novo = EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO;
+      break;
+    case BTN_STOP:
+      est_navega_menus(botao);
+      est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+      break;
+    case BTN_START:
+      serv_adcon_set_tempo_aquisicao_atual(menu_get_value_nav(serv_menu_ativo));
+      est_navega_menus(botao); //tem que ser após serv_adcon_set...
+      est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+      break;
+    default:
+      break;
+  }//switch
+   
+}//est_testa_estado_menu_conf_tempo_amostra()
+*/
+
+/**
+ * Funcao que trata as transições do estado EST_MENU_CONF_QUANT_SENSORES.
+ * @param botao o botão que foi pressionado.
+ */
+/*
+static void est_testa_estado_menu_conf_quant_sensores(TBotao botao) {
+
+    switch (botao) {
+      case BTN_UP:
+        est_navega_menus(botao);
+        est_estado_novo = EST_ESTADO_MENU_CONF_QUANT_SENSORES;
+        break;
+      case BTN_DOWN:
+        est_navega_menus(botao);
+        est_estado_novo = EST_ESTADO_MENU_CONF_QUANT_SENSORES;
+        break;
+      case BTN_STOP:
+        est_navega_menus(botao);
+        est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+        break;
+      case BTN_START:
+        serv_adcon_set_quant_sensores_atual((uint8_t) (menu_get_value_nav(serv_menu_ativo)) );
+        est_navega_menus(botao);
+        est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+        break;
+      default:
+        break;
+    }//switch
+}//est_testa_estado_menu_conf_quant_sensores()
+*/
+
+//===========================================================================
+//================== Funções Testa_Estado (Ações) ===========================
+//===========================================================================
 
 /* Funcao que trata as transições do estado EST_ESTADO_MONITORA.
  * @param botao o botão que foi pressionado.
  */
 static void est_testa_estado_monitora(TBotao botao) {
   if (botao == BTN_STOP) {
-    est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+    est_estado_novo = EST_ESTADO_TRATA_MENUS;
   }
 }//est_testa_estado_monitora()
 
@@ -525,7 +722,7 @@ static void est_testa_estado_monitora(TBotao botao) {
  */
 static void est_testa_estado_monitora_grava(TBotao botao) {
   if (botao == BTN_STOP) {
-    est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+    est_estado_novo = EST_ESTADO_TRATA_MENUS;
   }
 }//est_testa_estado_monitora()
 
@@ -549,7 +746,7 @@ static void est_testa_estado_ver_aquisicoes(TBotao botao) {
       }
       break;
     case BTN_STOP:
-      est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+      est_estado_novo = EST_ESTADO_TRATA_MENUS;
       break;
     default:
       break;
@@ -562,68 +759,10 @@ static void est_testa_estado_ver_aquisicoes(TBotao botao) {
  */
 static void est_testa_estado_mostra_max_min(TBotao botao) {
   if (botao == BTN_STOP) {
-    est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+    est_estado_novo = EST_ESTADO_TRATA_MENUS;
   }
 }//est_testa_estado_mostra_max_min()
 
-/**
- * Funcao que trata as transições do estado EST_MENU_CONF_TEMPO_AQUISICAO.
- * @param botao o botão que foi pressionado.
- */
-static void est_testa_estado_menu_conf_tempo_aquisicao(TBotao botao) {
-
-  switch (botao) {
-    case BTN_UP:
-        est_navega_menus(botao);
-        est_estado_novo = EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO;
-      break;
-    case BTN_DOWN:
-        est_navega_menus(botao);
-        est_estado_novo = EST_ESTADO_MENU_CONF_TEMPO_AQUISICAO;
-      break;
-    case BTN_STOP:
-      est_navega_menus(botao);
-      est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
-      break;
-    case BTN_START:
-      serv_adcon_set_tempo_aquisicao_atual(menu_get_value_nav(menu_p_menu_ativo));
-      est_navega_menus(botao); //tem que ser após serv_adcon_set...
-      est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
-      break;
-    default:
-      break;
-  }//switch
-   
-}//est_testa_estado_menu_conf_tempo_amostra()
-
-/**
- * Funcao que trata as transições do estado EST_MENU_CONF_QUANT_SENSORES.
- * @param botao o botão que foi pressionado.
- */
-static void est_testa_estado_menu_conf_quant_sensores(TBotao botao) {
-
-    switch (botao) {
-      case BTN_UP:
-        est_navega_menus(botao);
-        est_estado_novo = EST_ESTADO_MENU_CONF_QUANT_SENSORES;
-        break;
-      case BTN_DOWN:
-        est_navega_menus(botao);
-        est_estado_novo = EST_ESTADO_MENU_CONF_QUANT_SENSORES;
-        break;
-      case BTN_STOP:
-        est_navega_menus(botao);
-        est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
-        break;
-      case BTN_START:
-        serv_adcon_set_quant_sensores_atual((uint8_t) (menu_get_value_nav(menu_p_menu_ativo)) );
-        est_navega_menus(botao);
-        est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
-        break;
-      default:
-        break;
-    }//switch
-}//est_testa_estado_menu_conf_quant_sensores()
 
 /**
  * Funcao que trata as transições do estado EST_MENU_LIMPAR.
@@ -631,7 +770,7 @@ static void est_testa_estado_menu_conf_quant_sensores(TBotao botao) {
  */
 static void est_testa_estado_limpar(TBotao botao) {
   if (botao == BTN_STOP) {
-    est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+    est_estado_novo = EST_ESTADO_TRATA_MENUS;
   }
 }//est_testa_estado_limpar())
 
@@ -641,7 +780,7 @@ static void est_testa_estado_limpar(TBotao botao) {
  */
 static void est_testa_estado_enviar_dados(TBotao botao) {
   if (botao == BTN_STOP) {
-    est_estado_novo = EST_ESTADO_MENU_PRINCIPAL;
+    est_estado_novo = EST_ESTADO_TRATA_MENUS;
   }
 }//est_testa_estado_enviar_dados()
 
@@ -650,9 +789,9 @@ static void est_testa_estado_enviar_dados(TBotao botao) {
  * Funcao que trata as transições do estado EST_ESTADO_CONFIGURACOES
  * @param botao o botão que foi pressionado.
  */
+/*
 static void est_testa_estado_configuracoes(TBotao botao) {
   uint8_t index;  
-/*
   switch (botao) {
     case BTN_UP:
       if (menu_dec_index(&menu_configuracoes) != -1) {
@@ -687,15 +826,16 @@ static void est_testa_estado_configuracoes(TBotao botao) {
     default:
       break;
   }//switch
-*/
 }//est_testa_estado_configuracoes()
+*/
 
 /**
  * Funcao que trata as transições do estado EST_ESTADO_CONFIGURACOES_ITEM1
  * @param botao o botão que foi pressionado.
  */
+/*
 static void est_testa_estado_configuracoes_item1(TBotao botao) {
-  /*
+
   switch (botao) {
     case BTN_UP:
       if (menu_dec_index(&menu_configuracoes_item1) != -1) {
@@ -719,8 +859,9 @@ static void est_testa_estado_configuracoes_item1(TBotao botao) {
     default:
       break;
   }//switch
-   */
+
 }//est_estado_configuracoes_item1()
+*/
 
 //===========================================================================
 //================== Funções Entra_Estado... ================================
@@ -777,11 +918,33 @@ static void est_entra_estado_inicial(void) {
 
 }//est_entra_estado_inicial()
 
+static void est_entra_estado_trata_menus(void) {
+  est_atualizar_menu();  
+}//est_entra_estado_trata_menu()
+
 /*
  */
+/*
 static void est_entra_estado_menu_principal(void) {
   est_atualizar_menu();
 }//est_entra_estado_menu_principal()
+*/
+
+/*
+ */
+/*
+static void est_entra_estado_cfg_tempo_aquisicao(void) {
+  est_atualizar_menu();
+}//est_entra_estado_cfg_tempo_aquisicao()
+*/
+
+/*
+ */
+/*
+static void est_entra_estado_cfg_quant_sensores(void) {
+  est_atualizar_menu();
+}//est_entra_estado_cfg_quant_sensores()
+*/
 
 /*
  */
@@ -829,17 +992,6 @@ static void est_entra_estado_limpar(void) {
   lcd_puts("Tudo Limpo.");
 }//est_entra_estado_limpar()
 
-/*
- */
-static void est_entra_estado_cfg_tempo_aquisicao(void) {
-  est_atualizar_menu();
-}//est_entra_estado_cfg_tempo_aquisicao()
-
-/*
- */
-static void est_entra_estado_cfg_quant_sensores(void) {
-  est_atualizar_menu();
-}//est_entra_estado_cfg_quant_sensores()
 
 /*
  */
@@ -849,16 +1001,16 @@ static void est_entra_estado_enviar_dados(void) {
 
 /*
  */
+/*
 static void est_entra_estado_configuracoes(void) {
   
 }//est_entra_estado_configuracoes()
+*/
 
+/*
 static void est_entra_estado_configuracoes_item2(void) {
   
 }//est_entra_estado_configuracoes_item2()
-
-void est_entra_estado_trata_menu(void) {
-  est_atualizar_menu();  
-}//est_entra_estado_trata_menu()
+*/
 
 //===== Final do Arquivo =====================================================
