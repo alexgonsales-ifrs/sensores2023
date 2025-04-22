@@ -81,7 +81,11 @@ void __interrupt() handler(void) {
   if (PIE1bits.RCIE) {
     if (PIR1bits.RCIF) {
       //hand_rcif = 1;
-      prot_rs232_executa();
+      
+      //<<<<<<<<<<<<<<<< Desabilitado em 22/04/2025 pois está acontecendo
+      //um erro estranho (aleatório) em determinados submenus.
+      //Talvez algum acesso concorrente à mesma área de memória.
+      //prot_rs232_executa();
       
       /*
       if (RCREG == 0x41) { //letra 'A'
@@ -116,18 +120,17 @@ void __interrupt() handler(void) {
 
       //Trata leitura sensores.
       else if (  (est_estado_atual==EST_ESTADO_MONITORA) ||  (est_estado_atual==EST_ESTADO_MONITORA_GRAVA)  ) {
+        uint16_t tempo;
         //Verifica no timer0 se já passou a contagem de tempo para efetuar uma amostra.
-        if (serv_adcon_testa_timer_tempo_aquisicao(static_count_t0)) {
+        tempo = serv_adcon_testa_timer_tempo_aquisicao(static_count_t0);
+        if (tempo) {
           //Ja passou a contagem do Timer0, então efetua uma amostra e zera a contagem.
           if (est_estado_atual == EST_ESTADO_MONITORA) {
-            //serv_adcon_aquisicao_print();
             serv_adcon_aquisicao();
             serv_adcon_print();
-
+            serv_dht22_amostra_e_print();
             //Não precisa (nem pode) desabilitar a interrupção global aqui
             //pois o próprio handler já desabilita automaticamente.
-            serv_dht22_amostra_e_print();
-
           } else if (est_estado_atual==EST_ESTADO_MONITORA_GRAVA ) {
             //Se o módulo serv_adcon está monitorando e gravando então
             if (serv_adcon_monitora_grava) {

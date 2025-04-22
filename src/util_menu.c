@@ -37,10 +37,11 @@
 //===== Definição (implementação) das Funções Públicas =======================
 //============================================================================
 
-extern void menu_raiz_init(TMenuRaiz* p_menu_raiz, TMenu* p_menu) {
-  p_menu_raiz->p_menu_raiz  = p_menu;
-  p_menu_raiz->p_menu_atual = p_menu;
-  p_menu_raiz->index_nav    = 0;
+void menu_raiz_init(TMenuRaiz* p_menu_raiz, TMenu* p_menu) {
+  p_menu_raiz->p_menu_raiz    = p_menu;
+  p_menu_raiz->p_menu_atual   = p_menu;
+  p_menu_raiz->index_nav      = 0;
+  p_menu_raiz->p_item_ativado = 0;
 }
 
 /* Inicializa um menu.
@@ -50,11 +51,11 @@ extern void menu_raiz_init(TMenuRaiz* p_menu_raiz, TMenu* p_menu) {
  * p_supermenu: ponteiro para o menu pai, caso este item seja um submenu.
  *  */
 void menu_init(TMenu* p_menu, const TMenuItem* p_itens, uint8_t quant_itens, TMenu *p_supermenu) {
-  p_menu->index_active   = 0;
-  //p_menu->index_nav      = 0;
-  p_menu->quant_itens    = quant_itens;
-  p_menu->p_itens = (TMenuItem*)(p_itens);
-  p_menu->p_supermenu = p_supermenu;
+  p_menu->index_active = 0;
+  //p_menu->index_nav  = 0;
+  p_menu->quant_itens  = quant_itens;
+  p_menu->p_itens      = (TMenuItem*)(p_itens);
+  p_menu->p_supermenu  = p_supermenu;
 }//menu_init(())
 
 
@@ -72,6 +73,20 @@ void menu_init(TMenu* p_menu, const TMenuItem* p_itens, uint8_t quant_itens, TMe
   return i;
 }//menu_get_value_active()
 */
+
+char* menu_atual_get_titulo(TMenuRaiz* p_menu_raiz) {
+  return p_menu_raiz->p_menu_atual->str_titulo;
+}
+
+uint8_t menu_get_tipo_item_menu_ativado(TMenuRaiz* p_menu_raiz){
+  TMenuItem*  p_menu_item = p_menu_raiz->p_item_ativado;
+  return p_menu_item->tipo;
+}
+
+uint8_t menu_get_acao_item_menu_ativado(TMenuRaiz* p_menu_raiz){
+  TMenuItem*  p_menu_item = p_menu_raiz->p_item_ativado;
+  return p_menu_item->acao;
+}
 
 /* Retorna o valor do último item de menu que foi ativado. */
 uint16_t menu_get_value_item_ativado(TMenuRaiz* p_menu_raiz) {
@@ -93,9 +108,18 @@ uint16_t menu_get_value_item_ativado(TMenuRaiz* p_menu_raiz) {
 
 /* Retorna o texto do item de menu que está navegando (mostrado). */
 const char* menu_get_text_nav(TMenuRaiz* p_menu_raiz) {
-  TMenu* p_menu = p_menu_raiz->p_menu_atual;
-  uint8_t index = p_menu_raiz->index_nav;
-  return p_menu->p_itens[index].str_text;
+  TMenu* p_menu;
+  p_menu = (p_menu_raiz->p_menu_atual);
+  uint8_t index;
+  index = (p_menu_raiz->index_nav);
+  TMenuItem* p_itens;
+  p_itens = (p_menu->p_itens);     //aqui está dando "invalid address".
+  //TMenuItem* p_item = &(p_menu->p_itens[index]);
+  TMenuItem* p_item;
+  p_item = (p_itens + index);
+  const char* str_text;
+  str_text = (p_item->str_text);
+  return str_text;
 }//menu_get_text_nav()
 
 /*
@@ -199,18 +223,22 @@ void menu_confirma_index(TMenu* menu) {
 TMenuItem* menu_exec_enter(TMenuRaiz* p_menu_raiz) {
 
   //Torna ativo o item de menu que está sendo navegado (mostrado).
-  uint8_t index_active = p_menu_raiz->index_nav;
-  TMenu *p_menu_atual  = p_menu_raiz->p_menu_atual;
+  volatile uint8_t index_active = p_menu_raiz->index_nav;
+  volatile TMenu *p_menu_atual  = p_menu_raiz->p_menu_atual;
   p_menu_atual->index_active     = index_active;
   
   //Pega o novo item de menu ativo.
-  TMenuItem *p_item_menu = &(p_menu_atual->p_itens[index_active]);
+  TMenuItem *p_item_menu1;
+  TMenuItem *p_item_menu;
+  //p_item_menu1 = &(p_menu_atual->p_itens[index_active]);
+  p_item_menu  = &(p_menu_atual->p_itens[0]);
+  p_item_menu  = p_item_menu + index_active;
   //Torna este o item de menu ativado.
   p_menu_raiz->p_item_ativado = p_item_menu;
 
   //Pega submenu e supermenu para usar nos IFs abaixo.
-  TMenu *p_submenu   = p_item_menu->p_submenu;
-  TMenu *p_supermenu = p_menu_atual->p_supermenu;
+  volatile TMenu *p_submenu   = p_item_menu->p_submenu;
+  volatile TMenu *p_supermenu = p_menu_atual->p_supermenu;
 
   //Realiza a ação conforme o tipo do item de menu:
   

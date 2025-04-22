@@ -58,10 +58,14 @@ void rs232_init(void) {
   CREN = 1; //Continuous Receive Enable bit. 1=Enables receiver.
   TX9 = 0;
   
-  INTCONbits.PEIE = 1; //Peripheral interrupt enable bit
   
-  PIE1bits.RCIE = 1;   //Receive interrupt enable bit. Habilita interrupção RX.
+  //<<<<<<<<<<<<<<<<< remover: habilitar novamente 15/04/2025
+  //INTCONbits.PEIE = 1; //Peripheral interrupt enable bit
+  //PIE1bits.RCIE = 1;   //Receive interrupt enable bit. Habilita interrupção RX.
+  //PIR1bits.RCIF = 0;  //Receive interrupt flag.
   
+  INTCONbits.PEIE = 0; //Peripheral interrupt enable bit
+  PIE1bits.RCIE = 0;   //Receive interrupt enable bit. Habilita interrupção RX.
   PIR1bits.RCIF = 0;  //Receive interrupt flag.
 }//rs232_init())
 

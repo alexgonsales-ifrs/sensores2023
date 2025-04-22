@@ -54,7 +54,7 @@ extern "C" {
 //===== Constantes Públicas ==================================================
 
 //===== Tipos Públicos =======================================================
-    
+
 typedef struct TMenuRaizStruct TMenuRaiz;
 typedef struct TMenuStruct     TMenu;
 typedef struct TMenuItemStruct TMenuItem;
@@ -120,11 +120,16 @@ struct TMenuRaizStruct{
 extern void menu_raiz_init(TMenuRaiz* p_menu_raiz, TMenu* p_menu);
 extern void menu_init(TMenu* p_menu, const TMenuItem* p_itens, uint8_t quant_itens, TMenu *p_supermenu);
 
+extern char*   menu_atual_get_titulo(TMenuRaiz* p_menu_raiz);
+extern uint8_t menu_get_tipo_item_menu_ativado(TMenuRaiz* p_menu_raiz);
+extern uint8_t menu_get_acao_item_menu_ativado(TMenuRaiz* p_menu_raiz);
+
+
 //extern uint8_t  menu_get_index_nav(TMenu* p_menu);
 extern const char*     menu_get_text_nav(TMenuRaiz* p_menu_raiz);
 //extern uint16_t menu_get_value_active(TMenuRaiz* p_menu_raiz);
 
-uint16_t menu_get_value_item_ativado(TMenuRaiz* p_menu_raiz);
+extern uint16_t menu_get_value_item_ativado(TMenuRaiz* p_menu_raiz);
    
 //extern uint16_t menu_get_value_nav(TMenu* p_menu);
 

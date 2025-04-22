@@ -67,8 +67,6 @@
 #include "base_botoes.h"
 #include "base_lcd.h"
 
-#include "ct_handler.h"
-
 //============================================================================
 //===== Definições Públicas ==================================================
 //============================================================================
@@ -190,8 +188,8 @@ int main(void) {
   timer0_init();
   timer1_init();
   
-  INTCONbits.GIE = 1; //Habilita interrupcoes globais.
-  INTCONbits.T0IE = 1;//Habilita interrupção Timer0.
+  INTCONbits.GIE  = 1; //Habilita interrupcoes globais.
+  //INTCONbits.T0IE = 1;//Habilita interrupção Timer0.
   
   //Chama est_maquina() para fazer inicializações.
   //Não pode chamar aqui pois está sendo chamada no interrupt handler e dessa forma o compilador duplica a função,

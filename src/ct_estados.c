@@ -381,7 +381,8 @@ static void est_atualizar_menu(void) {
   const char* titulo;
   const char* texto;
   lcd_clear();
-  titulo = serv_menu_raiz.p_menu_atual->str_titulo;
+  //titulo = serv_menu_raiz.p_menu_atual->str_titulo;
+  titulo = menu_atual_get_titulo(&serv_menu_raiz);
   lcd_puts(titulo); 
   lcd_goto(2,0);
   texto = menu_get_text_nav(&serv_menu_raiz);
@@ -480,8 +481,10 @@ static void est_testa_estado_trata_menus(TBotao botao) {
       //p_menu_item = est_navega_menus(botao);
       //p_menu_item =  menu_exec_enter(&serv_menu_raiz);
       menu_exec_enter(&serv_menu_raiz);
-      p_menu_item = serv_menu_raiz.p_item_ativado;
-      tipo = p_menu_item->tipo;
+      //p_menu_item = serv_menu_raiz.p_item_ativado;
+      //tipo = p_menu_item->tipo;
+      
+      tipo = menu_get_tipo_item_menu_ativado(&serv_menu_raiz);
       
       //---------------------------------------------------------------------
       //------------------------ Trata Submenu ------------------------------
@@ -494,7 +497,8 @@ static void est_testa_estado_trata_menus(TBotao botao) {
       //------------------------ Trata Ação Exec ----------------------------
       //---------------------------------------------------------------------      
       else if (tipo == MENU_TIPO_ITEM_ACAO) {
-        acao_exec = p_menu_item->acao;
+        //acao_exec = p_menu_item->acao;
+        acao_exec = menu_get_acao_item_menu_ativado(&serv_menu_raiz);
       
         switch(acao_exec){
           case SERV_MENU_ACAO_EXEC_MONITORA:
@@ -531,18 +535,22 @@ static void est_testa_estado_trata_menus(TBotao botao) {
       //------------------------ Executa Configuração -------------------------
       //---------------------------------------------------------------------
       else if (tipo == MENU_TIPO_ITEM_CFG) {
-        acao_cfg = p_menu_item->acao;
-        uint8_t i;
+        //acao_cfg = p_menu_item->acao;
+        acao_cfg = menu_get_acao_item_menu_ativado(&serv_menu_raiz);
+        
+        uint16_t valor;
         switch(acao_cfg){
           case SERV_MENU_ACAO_CFG_QUANT_SENSORES:
-            i = (uint8_t) ((menu_get_value_item_ativado(&serv_menu_raiz)));
-            serv_adcon_set_quant_sensores_atual(i);
+            valor = menu_get_value_item_ativado(&serv_menu_raiz);
+            serv_adcon_set_quant_sensores_atual((uint8_t)valor);
             //serv_adcon_set_quant_sensores_atual((uint8_t)(p_menu_item->i_value));
             est_estado_novo = EST_ESTADO_TRATA_MENUS;
             break;
           
           case SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO:
-            serv_adcon_set_tempo_aquisicao_atual(p_menu_item->i_value);
+            //serv_adcon_set_tempo_aquisicao_atual(p_menu_item->i_value);
+            valor = menu_get_value_item_ativado(&serv_menu_raiz);
+            serv_adcon_set_tempo_aquisicao_atual(valor);
             est_estado_novo = EST_ESTADO_TRATA_MENUS;
             break;
 
@@ -910,9 +918,49 @@ static void est_entra_estado_inicial(void) {
     //menu_set_value_indexes(&menu_cfg_quant_sensores, adcon_cfg_quant_sensores_atual);
     //menu_set_value_indexes(&menu_cfg_tempo_aquisicao,  adcon_cfg_tempo_aquisicao_atual);
     //menu_set_value_indexes(&menu_configuracoes,  1);
-  
+    
     lcd_goto(2, 0);
     lcd_puts("Pronto!         ");
+    
+
+/*    
+    TMenuItem* p_item_menu;
+    TMenu* p_menu;
+    char* s;
+    //serv_menu_raiz.index_nav = 6;
+    //menu_exec_enter(&serv_menu_raiz);
+    p_item_menu = &(serv_menu_raiz.p_menu_raiz->p_itens[6]);
+    p_menu = p_item_menu->p_submenu;
+    serv_menu_raiz.index_nav = 0;
+    serv_menu_raiz.p_item_ativado = p_item_menu;
+    serv_menu_raiz.p_menu_atual   = p_menu;
+*/    
+    
+    //lcd_clear();
+    //lcd_goto(1, 0);
+    //lcd_puts(p_item_menu->str_text);
+    //s = p_menu->p_itens->str_text;
+    //lcd_goto(2, 0);
+    //lcd_puts(s);
+    
+    //p_menu = p_item_menu->p_submenu;
+    //s = menu_get_text_nav(&serv_menu_raiz);
+    
+    //lcd_puts(p_menu->p_itens->str_text);
+    
+    //est_atualizar_menu();
+  
+    /*
+  const char* titulo;
+  const char* texto;
+  lcd_clear();
+  titulo = serv_menu_raiz.p_menu_atual->str_titulo;
+  lcd_puts(titulo); 
+  lcd_goto(2,0);
+  texto = menu_get_text_nav(&serv_menu_raiz);
+  lcd_puts(texto); 
+*/
+    
 
     est_equipamento_inicializado = 1;
 

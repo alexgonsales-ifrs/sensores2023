@@ -1,5 +1,20 @@
 
 =============================================================================
+20250422_v1.720b:
+- Desabilitada a interrupção da porta serial e a chamada a prot_rs232_executa() em ct_handler() pois estava dando erro aleatório ao se acessar algum submenu da aplicação.
+  Talvez seja acesso a alguma área inválida de memória, embora não faça sentido ter que retirar a chamada a prot_rs232_executa().
+- Criadas funções menu_atual_get_titulo(), menu_get_tipo_item_menu_ativado(), menu_get_acao_item_menu_ativado() no módulo util_menu.
+- Revisão geral e remoção dos acessos diretos aos campus das structs TMenu e TMenuItem.
+
+=============================================================================
+20250415v1.720a: com ERRO. Modificações no funcionamento do módulo util_menu. Modificações na máquina de estados: eliminação dos estados de configuração e criação de um EST_ESTADO_TRATA_MENUS. Ainda com erro ao mostrar o submenu "Qt Sensores", parece estar sobrescrevendo alguma posição de memória. Antes o erro era no submenu "Configs". Foram trocadas as posições dos menus e o erro desapareceu temporariamente. Após novas trocas nas posições dos menus o erro voltou para o submenu "Qt Sensores".
+
+=============================================================================
+20250408v1.717e: retirado init() do menu_configuracoes_itens2 de serv_menus.c, pois código não estava rodando no equipamento (embora funcionava no MPLabSim).
+util_menu.h e util_menu.c:adicionado str_titulo e retorno_pai nas structs.
+ct_estados.c: removida função est_testa_estado_trata_menu().est_atualizar_menu() imprime titulo do menu.
+
+=============================================================================
 20241215v1.717d: retornado pinos do LCD (D4 a D7) para valores anteriores pois o commit 20241206v1.717b estava com erro.
 
 =============================================================================
@@ -9,9 +24,6 @@
 20241110v1.717a: diversas modificações no sistema de menus e na máquina de estados.
 RAM free: 87 bytes.
 ROM free: 2016 words (14 bit).
-
-=============================================================================
-20241031v1.716c: ajustes leitura dht22.
 
 =============================================================================
 20241030v1.716a

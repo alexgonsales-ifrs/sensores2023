@@ -176,7 +176,7 @@ void lcd_puts(const char *str) {
         continue;
       }
       TXREG = *p_char;
-      p_char++;
+      p_char = p_char + 1;
     }
   #endif
 
@@ -198,7 +198,7 @@ void lcd_puts(const char *str) {
     #ifdef __DEBUG
       #ifdef _DEBUG_LCD_CMD_
         //Desloca 4 bits para a direita para enviar os 4 bits mais significativos do caractere.
-        cmd = *str >> 4;
+        cmd = (*str) >> 4;
         while (!TXIF) {
           continue;
         }
@@ -220,7 +220,7 @@ void lcd_puts(const char *str) {
       #endif
     #endif      
 
-    p_char++;
+    p_char = p_char + 1;
         
   }//while
   
