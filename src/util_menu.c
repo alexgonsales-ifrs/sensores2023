@@ -54,7 +54,7 @@ void menu_init(TMenu* p_menu, const TMenuItem* p_itens, uint8_t quant_itens, TMe
   p_menu->index_active = 0;
   //p_menu->index_nav  = 0;
   p_menu->quant_itens  = quant_itens;
-  p_menu->p_itens      = (TMenuItem*)(p_itens);
+  p_menu->p_itens      = p_itens;
   p_menu->p_supermenu  = p_supermenu;
 }//menu_init(())
 
@@ -262,8 +262,9 @@ TMenuItem* menu_exec_enter(TMenuRaiz* p_menu_raiz) {
 /* Especifica que o item "pos" do menu_pai tem um p_submenu.
  */
 void menu_add_submenu(TMenu *p_supermenu, int pos, TMenu *p_submenu) {
-  p_supermenu->p_itens[pos].p_submenu = p_submenu;
-  p_submenu->p_supermenu = p_supermenu;  
+  //p_supermenu->p_itens[pos].p_submenu = p_submenu;
+  //p_submenu->p_supermenu = p_supermenu;  
+  
   //TMenuItem *i;
   //i = p_supermenu->itens;
   //i++;

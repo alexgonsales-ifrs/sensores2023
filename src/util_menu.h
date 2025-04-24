@@ -79,7 +79,7 @@ struct TMenuRaizStruct{
     uint8_t     index_active; //Indice do item de menu ativo (selecionado).
     //uint8_t     index_nav;    //Indice do item de menu sendo navegado.
     uint8_t     quant_itens;  //Quantidade total de itens de menu (tamanho do vetor itens).
-    TMenuItem  *p_itens;        //Ponteiro para o vetor com os itens de menu.
+    const TMenuItem  *p_itens;        //Ponteiro para o vetor com os itens de menu.
     TMenu      *p_supermenu;  //Ponteiro para o menu pai (supermenu), para saber para onde retornar quando clicar ESC.
     const char *str_titulo;   //Titulo do Menu.
     
@@ -105,10 +105,10 @@ struct TMenuRaizStruct{
     const char    *str_text;
     TMenuItemTipo tipo; 
     uint8_t       acao;       //Se tipo==ITEM_MENU_ACAO então este campo contém o código da ação a ser executada.
-    union {
+    //union {
         uint16_t  i_value;    //Se tipo==ITEM_MENU_CFG então este campo contém o valor associado ao item de menu.
         TMenu    *p_submenu; //Se tipo==ITEM_MENU_SUBMENU então este campo aponta para esse submenu.
-    };
+    //};
   };
   
 //===== Variaveis Públicas ===================================================

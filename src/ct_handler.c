@@ -15,11 +15,15 @@
 #include "ct_handler.h"
 #include "versao.h"
 
+#include "base_botoes.h"  //<<<<< já incluido no header.
+
+/*
 #include "base_botoes.h"
 #include "ct_estados.h"
 #include "serv_adcon.h"
 #include "ct_prot_rs232.h"
 #include "serv_dht22.h"
+*/
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -29,7 +33,8 @@
 
 //===== Variaveis Públicas ===================================================
 
-//uint8_t hand_rcif;
+volatile uint8_t hand_flag;
+volatile TBotao  hand_botao_pressionado = BTN_NULL;
 
 //============================================================================
 //===== Definições e Declaraçoes Privadas ====================================
@@ -72,8 +77,8 @@
  * 
  */
 void __interrupt() handler(void) {
-  TBotao botao;
-  static uint16_t static_count_t0 = 0;
+  //TBotao botao;
+  //static uint16_t static_count_t0 = 0;
   
   //Testa para ver qual o tipo de interrupção que ocorreu:
 
@@ -104,6 +109,8 @@ void __interrupt() handler(void) {
   if (INTCONbits.T0IE) {
     if (INTCONbits.T0IF) {
 
+      /*
+       
       //Se recem ligou o equipamento, então chama est_maquina() para fazer inicializações.
       if (est_estado_atual == EST_ESTADO_NULL) {
         est_maquina(BTN_NULL);
@@ -153,6 +160,9 @@ void __interrupt() handler(void) {
       TMR0 = 39; //para dar overflow antes de 256 ints
       //T0IF tem que ser zerado em software.
       INTCONbits.T0IF = 0;
+      */
+      
+      hand_flag = 2;
       
     }//if (INTCONbits.T0IF)
   }//if (INTCONbits.T0IE) interrupção Timer0
@@ -163,12 +173,25 @@ void __interrupt() handler(void) {
 
   if (INTCONbits.RBIE) {
     if (INTCONbits.RBIF) {
-      botao = btns_testa();
+
+      //Considera apenas o pressionamento do botao,
+      //desconsiderando o "soltar" do botão.
+      TBotao btn = btns_testa();
+      if (btn != BTN_NULL) {
+        hand_flag = 1;
+        hand_botao_pressionado = btn;
+      }
+      PORTB = PORTB; //para poder limpar o RBIF.
+      INTCONbits.RBIF = 0;      
+      
+      /*
       if (botao != 0) {
         est_maquina(botao);
       }
       PORTB = PORTB; //para poder limpar o RBIF.
       INTCONbits.RBIF = 0;
+       */
+      
       }//if (INTCONbits.RBIF)
   }//if (INTCONbits.RBIE) - interrupção PortB.
   

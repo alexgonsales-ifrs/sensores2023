@@ -62,48 +62,48 @@ TMenuRaiz serv_menu_raiz;
   
   //Itens para o menu menu_principal: 
    static const TMenuItem menu_principal_itens[MENU_PRINCIPAL_TAM] = {
-      {"1)Monitora",      MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_MONITORA,       0 },
-      {"2)Monit/Grava",   MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_MONITORA_GRAVA, 0 },
-      {"3)Ver Todos",     MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_VER_AQUISICOES, 0 },
-      {"4)Max/Min",       MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_MOSTRA_MAX_MIN, 0 },
-      {"5)Limpar",        MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_LIMPAR,         0 },
-      {"6)Tempo Aquisi.", MENU_TIPO_ITEM_SUBMENU, 0,                                 (uint16_t)&menu_cfg_tempo_aquisicao},
-      {"7)Quant.Sens.",   MENU_TIPO_ITEM_SUBMENU, 0,                                 (uint16_t)&menu_cfg_quant_sensores},
-      {"8)Enviar Dados",  MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_ENVIAR_DADOS,   0},
-      {"9)Configura", MENU_TIPO_ITEM_SUBMENU, 0,                                  (uint16_t)&menu_configuracoes}  //não fechar virgula no último item
+      {"1)Monitora",      MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_MONITORA,       0,0 },
+      {"2)Monit/Grava",   MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_MONITORA_GRAVA, 0,0 },
+      {"3)Ver Todos",     MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_VER_AQUISICOES, 0,0 },
+      {"4)Max/Min",       MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_MOSTRA_MAX_MIN, 0,0 },
+      {"5)Limpar",        MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_LIMPAR,         0,0 },
+      {"6)Tempo Aquisi.", MENU_TIPO_ITEM_SUBMENU, 0,                                 0,&menu_cfg_tempo_aquisicao},
+      {"7)Quant.Sens.",   MENU_TIPO_ITEM_SUBMENU, 0,                                 0,&menu_cfg_quant_sensores},
+      {"8)Enviar Dados",  MENU_TIPO_ITEM_ACAO,    SERV_MENU_ACAO_EXEC_ENVIAR_DADOS,   0,0},
+      {"9)Configura", MENU_TIPO_ITEM_SUBMENU, 0,                                  0,&menu_configuracoes}  //não fechar virgula no último item
   };
 
   static const TMenuItem menu_cfg_tempo_aquisicao_itens[MENU_CFG_TEMPO_AQUISICAO_TAM] = {
       //{"0.1 seg", TEMPO_01_SEGUNDO,0},
       //{"0.5 seg", TEMPO_05_SEGUNDO,0},
-        {"1 seg xx",  MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_1_SEGUNDO},
-        {"10 seg xx", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_10_SEGUNDOS},
-        {"30 seg xx", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_30_SEGUNDOS},
-        {"1 min xx",  MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_1_MINUTO},
-        {"10 min xx", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_10_MINUTOS},
-        {"30 min xx", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_30_MINUTOS},
-        {"1 hora xx", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_1_HORA}  //não fechar virgula no último item
+        {"1 seg xx",  MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_1_SEGUNDO,0},
+        {"10 seg xx", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_10_SEGUNDOS,0},
+        {"30 seg xx", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_30_SEGUNDOS,0},
+        {"1 min xx",  MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_1_MINUTO,0},
+        {"10 min xx", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_10_MINUTOS,0},
+        {"30 min xx", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_30_MINUTOS,0},
+        {"1 hora xx", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_1_HORA,0}  //não fechar virgula no último item
   };
 
   //Itens para o menu menu_cfg_quant_sensores:
   static const TMenuItem menu_cfg_quant_sensores_itens[MENU_CFG_QUANT_SENSORES_TAM] = {
-      {"1111111", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 1},
-      {"22222", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 2},
-      {"3333333", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 3},
-      {"4444444", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 4},
-      {"55555555555", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 5},
-      {"666666666", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 6},
-      {"7777777", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 7},
-      {"88888888", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 8}  //não fechar virgula no último item
+      {"1111111", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 1,0},
+      {"22222", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 2,0},
+      {"3333333", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 3,0},
+      {"4444444", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 4,0},
+      {"55555555555", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 5,0},
+      {"666666666", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 6,0},
+      {"7777777", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 7,0},
+      {"88888888", MENU_TIPO_ITEM_CFG, SERV_MENU_ACAO_CFG_QUANT_SENSORES, 8,0}  //não fechar virgula no último item
   };
   
 //Itens para o menu menu_configuracoes:
   static const TMenuItem menu_configuracoes_itens[MENU_CONFIGURACOES_TAM] = {
-      {"Item 1", MENU_TIPO_ITEM_CFG,     SERV_MENU_ACAO_CFG_NULL, 1},
+      {"Item 1", MENU_TIPO_ITEM_CFG,     SERV_MENU_ACAO_CFG_NULL, 1,0},
       //{"Item 2", MENU_TIPO_ITEM_SUBMENU, 0,                  &menu_configuracoes_item2},
-      {"Item 3", MENU_TIPO_ITEM_CFG,     SERV_MENU_ACAO_CFG_NULL, 3},
-      {"Item 3", MENU_TIPO_ITEM_CFG,     SERV_MENU_ACAO_CFG_NULL, 3},
-      {"Item 4", MENU_TIPO_ITEM_CFG,     SERV_MENU_ACAO_CFG_NULL, 4}  //não fechar virgula no último item
+      {"Item 3", MENU_TIPO_ITEM_CFG,     SERV_MENU_ACAO_CFG_NULL, 3,0},
+      {"Item 3", MENU_TIPO_ITEM_CFG,     SERV_MENU_ACAO_CFG_NULL, 3,0},
+      {"Item 4", MENU_TIPO_ITEM_CFG,     SERV_MENU_ACAO_CFG_NULL, 4,0}  //não fechar virgula no último item
   };
   
   /*

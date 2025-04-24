@@ -66,6 +66,12 @@
 #include "base_timer.h" //timer0_init()
 #include "base_botoes.h"
 #include "base_lcd.h"
+#include "ct_handler.h"
+
+#include "ct_estados.h"
+#include "serv_adcon.h"
+#include "ct_prot_rs232.h"
+#include "serv_dht22.h"
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -217,7 +223,85 @@ int main(void) {
       //INTCONbits.GIE = 1; //Habilita interrupcoes globais.
       //__delay_us(20);
     #endif
+
+    //=======================================================================
+    if (hand_flag == 1) {
+      TBotao botao;
+      
+      if (hand_botao_pressionado != 0) {
+        est_maquina(hand_botao_pressionado);
+      }
+      PORTB = PORTB; //para poder limpar o RBIF.
+      INTCONbits.RBIF = 0;
+      hand_flag = 0;
+    }//hand_flag == 1;
+    
+    //=======================================================================
+    if (hand_flag == 2){
+      static uint16_t static_count_t0 = 0;
+      
+      //Se recem ligou o equipamento, então chama est_maquina() para fazer inicializações.
+      if (est_estado_atual == EST_ESTADO_NULL) {
+        est_maquina(BTN_NULL);
+      }
+      
+      #ifdef _HARDWARE_2013_
+      //Trata interface dos botões.
+      //Só vai funcionar se o Timer0 estiver ligado, não deveria ser assim.
+      TBotao botao = btns_testa_antigo();
+      if (botao != 0) {
+        est_maquina(botao);
+      }
+      #endif
+
+      //Trata leitura sensores.
+      else if (  (est_estado_atual==EST_ESTADO_MONITORA) ||  (est_estado_atual==EST_ESTADO_MONITORA_GRAVA)  ) {
+        uint16_t tempo;
+        //Verifica no timer0 se já passou a contagem de tempo para efetuar uma amostra.
+        tempo = serv_adcon_testa_timer_tempo_aquisicao(static_count_t0);
+        if (tempo) {
+          //Ja passou a contagem do Timer0, então efetua uma amostra e zera a contagem.
+          if (est_estado_atual == EST_ESTADO_MONITORA) {
+            serv_adcon_aquisicao();
+            serv_adcon_print();
+            serv_dht22_amostra_e_print();
+            //Não precisa (nem pode) desabilitar a interrupção global aqui
+            //pois o próprio handler já desabilita automaticamente.
+          } else if (est_estado_atual==EST_ESTADO_MONITORA_GRAVA ) {
+            //Se o módulo serv_adcon está monitorando e gravando então
+            if (serv_adcon_monitora_grava) {
+              serv_adcon_aquisicao_print_grava();
+            }
+            else {
+              //Módulo sinalizou que interrompeu a gravação, então deveria avisar máquina de estados e não atribuir diretamente, verificar<<<<<<<<<<<<<<<<<<
+              //<<<<<<<<<<<<<<<<<<<
+              //serv_adcon_monitora_grava = 0;  //<<<<<<<< função serv_adcon_aquisicao_print_grava() já fez isso. retirado em 2024-08-03 alexdg)
+            }
+          }
+          static_count_t0 = 0;
+        } 
+        else {
+          static_count_t0++;
+        }//else
+      }//if est_estado_atual
+
+      
+      TMR0 = 39; //para dar overflow antes de 256 ints
+      //T0IF tem que ser zerado em software.
+      INTCONbits.T0IF = 0;
+      
+      hand_flag = 0;
+
+    }//hand_flag == 2
+    
+    //=======================================================================
+    if (hand_flag == 99) {
+      //<<<<<<<<<<<<<<<<< remover, só para testar.
+        prot_rs232_executa();
+    }//hand_flag == 99
+  
   }//while (1))
+
   return (EXIT_SUCCESS);
   
   while(1);
