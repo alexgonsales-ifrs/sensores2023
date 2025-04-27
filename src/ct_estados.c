@@ -342,6 +342,18 @@ void est_maquina(TBotao botao) {
 //===== Definição (implementação) das Funções Privadas =======================
 //============================================================================
 
+static void est_atualizar_menu(void) {
+  const char* titulo;
+  const char* texto;
+  lcd_clear();
+  //titulo = serv_menu_raiz.p_menu_atual->str_titulo;
+  titulo = mnu_menu_atual_get_titulo(&serv_menu_raiz);
+  lcd_puts(titulo); 
+  lcd_goto(2,0);
+  texto = mnu_item_nav_get_text(&serv_menu_raiz);
+  lcd_puts(texto); 
+}// est_atualizar_menu()
+
 /*
 static void est_testa_estado_trata_menu(TBotao botao) {
 
@@ -376,18 +388,6 @@ static void est_testa_estado_trata_menu(TBotao botao) {
   
 }//est_testa_estado_trata_menu()
 */
-
-static void est_atualizar_menu(void) {
-  const char* titulo;
-  const char* texto;
-  lcd_clear();
-  //titulo = serv_menu_raiz.p_menu_atual->str_titulo;
-  titulo = menu_atual_get_titulo(&serv_menu_raiz);
-  lcd_puts(titulo); 
-  lcd_goto(2,0);
-  texto = menu_get_text_nav(&serv_menu_raiz);
-  lcd_puts(texto); 
-}// est_atualizar_menu()
 
 /*
 static TMenuItem* est_navega_menus(TBotao botao) {
@@ -452,123 +452,140 @@ static void est_testa_estado_inicial(TBotao botao) {
 //================== Funções Testa_Estado (Menus) ===========================
 //===========================================================================
 
-static void est_testa_estado_trata_menus(TBotao botao) {
-  uint8_t index;
-  TMenuItem* p_menu_item;
-  TMenuItemTipo tipo;
-  TServMenuCodigoAcaoExec acao_exec;
-  TServMenuCodigoAcaoCfg  acao_cfg;
+static void est_btn_enter_item_submenu(void) {
+  TMnuTipoMenu tipo_menu;
+  //Entra no submenu e verifica se é um submenu de configuração,
+  //se for o caso, então precisa ativar o item correto desse menu pois as variáveis globais de configuração podem
+  //ter sido modificadas assincronamente (por exemplo, por um comando da porta serial).
+  //Então o item ativo do menu deve refletir essa modificação.
+  mnu_exec_enter(&serv_menu_raiz);
+  tipo_menu = mnu_menu_atual_get_tipo(&serv_menu_raiz);
+  if (tipo_menu == MNU_TIPO_MENU_CFG_LISTA) {
+    //Pega o item navegado para saber se é uma ação de configuração e qual a ação.
+    uint8_t codigo_acao = mnu_item_nav_get_cod_acao(&serv_menu_raiz);
+    if (codigo_acao == SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO) {
+      mnu_menu_atual_set_item_ativo_from_value(&serv_menu_raiz, adcon_cfg_tempo_aquisicao_atual);
+    }
+    else if (codigo_acao == SERV_MENU_ACAO_CFG_QUANT_SENSORES) {
+      mnu_menu_atual_set_item_ativo_from_value(&serv_menu_raiz, adcon_cfg_quant_sensores_atual);
+    }
+  }//MNU_TIPO_MENU_CFG_LIST
+}//est_btn_enter_item_submenu())
 
+static void est_btn_enter_item_cfg(void) {
+  TServMenuCodigoAcaoCfg  acao_cfg;
+  uint16_t valor;
+  mnu_exec_enter(&serv_menu_raiz);
+  acao_cfg = mnu_item_executado_get_cod_acao(&serv_menu_raiz);
+  valor = mnu_item_executado_get_value(&serv_menu_raiz);
+
+  //Tem que executar ESC para deixar o submenu atual.
+  mnu_exec_esc(&serv_menu_raiz);
+
+  switch(acao_cfg){
+    case SERV_MENU_ACAO_CFG_QUANT_SENSORES:
+      serv_adcon_set_quant_sensores_atual((uint8_t)valor);
+      est_estado_novo = EST_ESTADO_TRATA_MENUS;
+      break;
+
+    case SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO:
+      serv_adcon_set_tempo_aquisicao_atual(valor);
+      est_estado_novo = EST_ESTADO_TRATA_MENUS;
+      break;
+
+    case SERV_MENU_ACAO_CFG_NULL:
+      est_estado_novo = EST_ESTADO_TRATA_MENUS;
+
+    default:
+      break;
+  }//switch(acao)
+}//est_btn_enter_item_cfg())
+
+static void est_btn_enter_item_acao(void) {
+  TServMenuCodigoAcaoExec acao_exec;
+  mnu_exec_enter(&serv_menu_raiz);
+  acao_exec = mnu_item_executado_get_cod_acao(&serv_menu_raiz);
+      
+  switch(acao_exec){
+    case SERV_MENU_ACAO_EXEC_MONITORA:
+      est_estado_novo = EST_ESTADO_MONITORA;
+      break;
+          
+    case SERV_MENU_ACAO_EXEC_MONITORA_GRAVA:
+      est_estado_novo = EST_ESTADO_MONITORA_GRAVA;
+      break;
+
+    case SERV_MENU_ACAO_EXEC_VER_AQUISICOES:
+      est_estado_novo = EST_ESTADO_VER_AQUISICOES;
+      break;
+
+    case SERV_MENU_ACAO_EXEC_MOSTRA_MAX_MIN:
+      est_estado_novo = EST_ESTADO_MOSTRA_MAX_MIN;
+      break;
+
+    case SERV_MENU_ACAO_EXEC_LIMPAR:
+      est_estado_novo = EST_ESTADO_LIMPAR;
+      break;
+
+    case SERV_MENU_ACAO_EXEC_ENVIAR_DADOS:
+      est_estado_novo = EST_ESTADO_ENVIAR_DADOS;
+      break;
+
+    default:
+      break;
+  }//switch(acao)
+}//est_btn_enter_item_acao())
+
+static void est_testa_estado_trata_menus(TBotao botao) {
+  uint8_t item_is_submenu;
+  TMnuTipoMenu tipo_menu;
+  
   switch (botao) {
+    
     case BTN_UP:
       //est_navega_menus(botao);
-      menu_exec_up(&serv_menu_raiz);
+      mnu_exec_up(&serv_menu_raiz);
       est_estado_novo = EST_ESTADO_TRATA_MENUS;
       break;
+      
     case BTN_DOWN:
       //est_navega_menus(botao);
-      menu_exec_down(&serv_menu_raiz);
+      mnu_exec_down(&serv_menu_raiz);
       est_estado_novo = EST_ESTADO_TRATA_MENUS;
       break;
+      
     case BTN_STOP:
       //est_navega_menus(botao);
-      menu_exec_esc(&serv_menu_raiz);
+      mnu_exec_esc(&serv_menu_raiz);
       est_estado_novo = EST_ESTADO_TRATA_MENUS;
       break;
       
     case BTN_START:
-      
-      //p_menu_item = est_navega_menus(botao);
-      //p_menu_item =  menu_exec_enter(&serv_menu_raiz);
-      menu_exec_enter(&serv_menu_raiz);
-      //p_menu_item = serv_menu_raiz.p_item_ativado;
-      //tipo = p_menu_item->tipo;
-      
-      tipo = menu_get_tipo_item_menu_ativado(&serv_menu_raiz);
-      
-      //---------------------------------------------------------------------
-      //------------------------ Trata Submenu ------------------------------
-      //---------------------------------------------------------------------
-      if (tipo == MENU_TIPO_ITEM_SUBMENU) {
+      //Verifica se o item de menu é um submenu.
+      item_is_submenu = mnu_item_nav_is_submenu(&serv_menu_raiz);
+      if (item_is_submenu) {
+        est_btn_enter_item_submenu();
         est_estado_novo = EST_ESTADO_TRATA_MENUS;
-      }
-
-      //---------------------------------------------------------------------
-      //------------------------ Trata Ação Exec ----------------------------
-      //---------------------------------------------------------------------      
-      else if (tipo == MENU_TIPO_ITEM_ACAO) {
-        //acao_exec = p_menu_item->acao;
-        acao_exec = menu_get_acao_item_menu_ativado(&serv_menu_raiz);
-      
-        switch(acao_exec){
-          case SERV_MENU_ACAO_EXEC_MONITORA:
-            est_estado_novo = EST_ESTADO_MONITORA;
-            break;
-          
-          case SERV_MENU_ACAO_EXEC_MONITORA_GRAVA:
-            est_estado_novo = EST_ESTADO_MONITORA_GRAVA;
-            break;
-
-          case SERV_MENU_ACAO_EXEC_VER_AQUISICOES:
-            est_estado_novo = EST_ESTADO_VER_AQUISICOES;
-            break;
-
-          case SERV_MENU_ACAO_EXEC_MOSTRA_MAX_MIN:
-            est_estado_novo = EST_ESTADO_MOSTRA_MAX_MIN;
-            break;
-            
-          case SERV_MENU_ACAO_EXEC_LIMPAR:
-            est_estado_novo = EST_ESTADO_LIMPAR;
-            break;
-
-          case SERV_MENU_ACAO_EXEC_ENVIAR_DADOS:
-            est_estado_novo = EST_ESTADO_ENVIAR_DADOS;
-            break;
-          
-          default:
-            break;
-        }//switch(acao)
-        
-      }//else tipo == MENU_TIPO_ITEM_ACAO
-      
-      //---------------------------------------------------------------------
-      //------------------------ Executa Configuração -------------------------
-      //---------------------------------------------------------------------
-      else if (tipo == MENU_TIPO_ITEM_CFG) {
-        //acao_cfg = p_menu_item->acao;
-        acao_cfg = menu_get_acao_item_menu_ativado(&serv_menu_raiz);
-        
-        uint16_t valor;
-        switch(acao_cfg){
-          case SERV_MENU_ACAO_CFG_QUANT_SENSORES:
-            valor = menu_get_value_item_ativado(&serv_menu_raiz);
-            serv_adcon_set_quant_sensores_atual((uint8_t)valor);
-            //serv_adcon_set_quant_sensores_atual((uint8_t)(p_menu_item->i_value));
-            est_estado_novo = EST_ESTADO_TRATA_MENUS;
-            break;
-          
-          case SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO:
-            //serv_adcon_set_tempo_aquisicao_atual(p_menu_item->i_value);
-            valor = menu_get_value_item_ativado(&serv_menu_raiz);
-            serv_adcon_set_tempo_aquisicao_atual(valor);
-            est_estado_novo = EST_ESTADO_TRATA_MENUS;
-            break;
-
-          case SERV_MENU_ACAO_CFG_NULL:
-            est_estado_novo = EST_ESTADO_TRATA_MENUS;
-            
-          default:
-            break;
-          
-        }//switch(acao)
-      }
+      }//item is submenu
+      else  { //Não é um submenu.
+        //tipo_menu = mnu_item_nav_get_tipo(&serv_menu_raiz);
+        tipo_menu = mnu_menu_atual_get_tipo(&serv_menu_raiz);
+        if (tipo_menu == MNU_TIPO_MENU_CFG_LISTA) {
+          //=============== Executa ação do item de configuração ============
+          est_btn_enter_item_cfg();
+        }//MNU_TIPO_MENU_CFG_LIST
+        else {
+          //=============== Executa ação do item ============================
+          est_btn_enter_item_acao();
+        }//else tipo_menu == MNU_TIPO_MENU_CFG_LIST
+      }//else item_is_submenu
       
     case BTN_NULL:
       break;
     
   }//switch(botao)
   
-}//est_testa_estado_navega_menus
+}//est_testa_estado_trata_menus
 
 /**
  * Funcao que trata as transições do estado EST_ESTADO_MENU_PRINCIPAL.
@@ -624,7 +641,6 @@ static void est_testa_estado_menu_principal(TBotao botao) {
         case 6: //"Quant Sensores"
           //Seta o item do sub-menu antes entrar no sub-menu (pois pode ter sido reconfigurado remotamente pela serial).
           menu_set_value_indexes(serv_menu_ativo, adcon_cfg_quant_sensores_atual);
-          //menu_set_index(menu_p_menu_ativo, adcon_cfg_quant_sensores_atual-1);
           est_estado_novo = EST_ESTADO_MENU_CONF_QUANT_SENSORES;
           break;
           

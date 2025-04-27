@@ -97,7 +97,7 @@ typedef enum {
   
 //===== Variaveis Públicas ===================================================
 //extern TMenu    *serv_menu_p_menu_ativo; //ponteiro para o menu ativo.
-extern TMenuRaiz serv_menu_raiz;
+extern TMenuSystem serv_menu_raiz;
 
 //===== Funcoes Públicas =====================================================
   

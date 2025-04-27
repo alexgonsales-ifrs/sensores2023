@@ -20,13 +20,20 @@ extern "C" {
 //============================================================================
 // Definições e declarações públicas do módulo.
 
+//typedef enum {HAND_FLAG_NULL, HAND_FLAG_BOTAO, HAND_FLAG_TIMER0, HAND_FLAG_RS232} THandFlag;
+
 //===== Constantes Públicas ==================================================
     
 //===== Tipos Públicos =======================================================
     
 //===== Variaveis Públicas ===================================================
 
-extern volatile uint8_t hand_flag;
+//extern volatile THandFlag hand_flag;
+    
+extern volatile uint8_t hand_flag_botao;
+extern volatile uint8_t hand_flag_timer0;
+extern volatile uint8_t hand_flag_rs232;
+
 extern volatile TBotao  hand_botao_pressionado;
 
 //===== Funcoes Públicas =====================================================

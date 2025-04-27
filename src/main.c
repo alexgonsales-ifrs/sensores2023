@@ -195,7 +195,7 @@ int main(void) {
   timer1_init();
   
   INTCONbits.GIE  = 1; //Habilita interrupcoes globais.
-  //INTCONbits.T0IE = 1;//Habilita interrupção Timer0.
+  INTCONbits.T0IE = 1;//Habilita interrupção Timer0.
   
   //Chama est_maquina() para fazer inicializações.
   //Não pode chamar aqui pois está sendo chamada no interrupt handler e dessa forma o compilador duplica a função,
@@ -225,7 +225,7 @@ int main(void) {
     #endif
 
     //=======================================================================
-    if (hand_flag == 1) {
+    if (hand_flag_botao) {
       TBotao botao;
       
       if (hand_botao_pressionado != 0) {
@@ -233,11 +233,12 @@ int main(void) {
       }
       PORTB = PORTB; //para poder limpar o RBIF.
       INTCONbits.RBIF = 0;
-      hand_flag = 0;
+      hand_flag_botao = 0;
     }//hand_flag == 1;
     
     //=======================================================================
-    if (hand_flag == 2){
+    if (hand_flag_timer0){
+
       static uint16_t static_count_t0 = 0;
       
       //Se recem ligou o equipamento, então chama est_maquina() para fazer inicializações.
@@ -290,14 +291,14 @@ int main(void) {
       //T0IF tem que ser zerado em software.
       INTCONbits.T0IF = 0;
       
-      hand_flag = 0;
+      hand_flag_timer0 = 0;
 
     }//hand_flag == 2
     
     //=======================================================================
-    if (hand_flag == 99) {
+    if (hand_flag_rs232) {
       //<<<<<<<<<<<<<<<<< remover, só para testar.
-        prot_rs232_executa();
+        //prot_rs232_executa();
     }//hand_flag == 99
   
   }//while (1))

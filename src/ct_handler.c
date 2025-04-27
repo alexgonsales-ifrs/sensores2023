@@ -17,13 +17,11 @@
 
 #include "base_botoes.h"  //<<<<< já incluido no header.
 
-/*
 #include "base_botoes.h"
 #include "ct_estados.h"
 #include "serv_adcon.h"
 #include "ct_prot_rs232.h"
 #include "serv_dht22.h"
-*/
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -33,7 +31,12 @@
 
 //===== Variaveis Públicas ===================================================
 
-volatile uint8_t hand_flag;
+//volatile THandFlag hand_flag;
+
+volatile uint8_t hand_flag_botao  = 0;
+volatile uint8_t hand_flag_timer0 = 0;
+volatile uint8_t hand_flag_rs232  = 0;
+
 volatile TBotao  hand_botao_pressionado = BTN_NULL;
 
 //============================================================================
@@ -108,9 +111,9 @@ void __interrupt() handler(void) {
   //================== Testa interrupção do Timer0 ========================
   if (INTCONbits.T0IE) {
     if (INTCONbits.T0IF) {
-
       /*
-       
+      static uint16_t static_count_t0 = 0;
+      
       //Se recem ligou o equipamento, então chama est_maquina() para fazer inicializações.
       if (est_estado_atual == EST_ESTADO_NULL) {
         est_maquina(BTN_NULL);
@@ -156,13 +159,14 @@ void __interrupt() handler(void) {
         }//else
       }//if est_estado_atual
 
-      
+    */  
       TMR0 = 39; //para dar overflow antes de 256 ints
       //T0IF tem que ser zerado em software.
       INTCONbits.T0IF = 0;
-      */
       
-      hand_flag = 2;
+      
+      //hand_flag = HAND_FLAG_TIMER0;
+      hand_flag_timer0 = 1;
       
     }//if (INTCONbits.T0IF)
   }//if (INTCONbits.T0IE) interrupção Timer0
@@ -178,7 +182,8 @@ void __interrupt() handler(void) {
       //desconsiderando o "soltar" do botão.
       TBotao btn = btns_testa();
       if (btn != BTN_NULL) {
-        hand_flag = 1;
+        //hand_flag = HAND_FLAG_BOTAO;
+        hand_flag_botao = 1;
         hand_botao_pressionado = btn;
       }
       PORTB = PORTB; //para poder limpar o RBIF.
