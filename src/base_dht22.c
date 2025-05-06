@@ -2,14 +2,22 @@
  * File:   base_dht22.c
  * Author: alexdg
  * Comments:
- * 
  * Revision history: 
+ * Revisado em 2025-05-05 (alexdg).
+ * 
+ * DHT22 transmite 40 bits:
+ * 8 bits parte inteira da umidade.
+ * 8 bits parte decimal da umidade.
+ * 8 bits parte inteira da temperatura.
+ * 8 bits parte decimal da temperatura.
+ * 8 bits de checksum.
  *
  ****************************************************************************/
 
 //===== Includes =============================================================
 //#include <xc.h>
 #include "base_dht22.h"
+#include "xtal.h" //delay_ms())
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -18,13 +26,15 @@
 //===== Constantes Públicas ==================================================
 
 //===== Variáveis Públicas ===================================================
-//DHT22 transmite 40 bits
-//8 bits parte inteira da umidade.
-//8 bits parte decimal da umidade.
-//8 bits parte inteira da temperatura.
-//8 bits parte decimal da temperatura.
-//8 bits de checksum.
+
+//Contém o valor da umidade lida pelo sensor.
+//High Byte (8 bits): parte inteira da umidade.
+//Low  Byte (8 bits): parte decimal da umidade.
 uint16_t base_dht22_amostra_umidade;
+
+//Contém o valor da temperatura lida pelo sensor.
+//High Byte (8 bits): parte inteira da temperatura.
+//Low  Byte (8 bits): parte decimal da temperatura.
 uint16_t base_dht22_amostra_temperatura;
 
 //============================================================================
@@ -47,8 +57,8 @@ static char base_dht22_le_byte(unsigned char * dht_data);
 //============================================================================
 
 /****************************************************************************
-* Faz uma amostra e armazena nas variáveis base_dht22_amostra_umidade e 
-* base_dht22_amostra_temperatura.
+* Faz uma amostra e armazena nas variáveis públicas 
+* base_dht22_amostra_umidade e base_dht22_amostra_temperatura.
  ***************************************************************************/
 char base_dht22_amostra(void) {
   unsigned char low_byte;

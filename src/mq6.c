@@ -84,7 +84,10 @@ void mq_mostra(uint16_t t_int, uint8_t i) {
     uint16_t ppm;
     double yk;
 
-    /*formula: (y/k)^(1/n)=x */
+    /*formula: (y/k)^(1/n)=x
+     * ppm = yk ^ (1/n)
+     * ppm = (r0 / t *k) ^ (1/n)
+     *  */
     yk = (mq_gl_r0 / (t_int * K));
     ppm = (uint16_t)pow(yk, INV_N);
     /*

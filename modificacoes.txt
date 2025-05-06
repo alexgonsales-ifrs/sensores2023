@@ -1,4 +1,13 @@
 
+20250506_v1.722: diversas modificações.
+- base_eeprom: mudança de big endian para little endian.
+- Mudança na forma das interrupções: retirada lógica do ct_handler e passado para o main().
+- Mudança na máquina de estados.
+- ct_handler
+- ct_estados
+- adcon
+- main
+
 =============================================================================
 20250422_v1.720b:
 - Desabilitada a interrupção da porta serial e a chamada a prot_rs232_executa() em ct_handler() pois estava dando erro aleatório ao se acessar algum submenu da aplicação.

@@ -15,14 +15,6 @@
 #include "ct_handler.h"
 #include "versao.h"
 
-#include "base_botoes.h"  //<<<<< já incluido no header.
-
-#include "base_botoes.h"
-#include "ct_estados.h"
-#include "serv_adcon.h"
-#include "ct_prot_rs232.h"
-#include "serv_dht22.h"
-
 //============================================================================
 //===== Definições Públicas ==================================================
 //============================================================================
@@ -31,13 +23,9 @@
 
 //===== Variaveis Públicas ===================================================
 
-//volatile THandFlag hand_flag;
-
 volatile uint8_t hand_flag_botao  = 0;
 volatile uint8_t hand_flag_timer0 = 0;
 volatile uint8_t hand_flag_rs232  = 0;
-
-volatile TBotao  hand_botao_pressionado = BTN_NULL;
 
 //============================================================================
 //===== Definições e Declaraçoes Privadas ====================================
@@ -111,63 +99,16 @@ void __interrupt() handler(void) {
   //================== Testa interrupção do Timer0 ========================
   if (INTCONbits.T0IE) {
     if (INTCONbits.T0IF) {
-      /*
-      static uint16_t static_count_t0 = 0;
-      
-      //Se recem ligou o equipamento, então chama est_maquina() para fazer inicializações.
-      if (est_estado_atual == EST_ESTADO_NULL) {
-        est_maquina(BTN_NULL);
-      }
-      
-      #ifdef _HARDWARE_2013_
-      //Trata interface dos botões.
-      //Só vai funcionar se o Timer0 estiver ligado, não deveria ser assim.
-      TBotao botao = btns_testa_antigo();
-      if (botao != 0) {
-        est_maquina(botao);
-      }
-      #endif
-
-      //Trata leitura sensores.
-      else if (  (est_estado_atual==EST_ESTADO_MONITORA) ||  (est_estado_atual==EST_ESTADO_MONITORA_GRAVA)  ) {
-        uint16_t tempo;
-        //Verifica no timer0 se já passou a contagem de tempo para efetuar uma amostra.
-        tempo = serv_adcon_testa_timer_tempo_aquisicao(static_count_t0);
-        if (tempo) {
-          //Ja passou a contagem do Timer0, então efetua uma amostra e zera a contagem.
-          if (est_estado_atual == EST_ESTADO_MONITORA) {
-            serv_adcon_aquisicao();
-            serv_adcon_print();
-            serv_dht22_amostra_e_print();
-            //Não precisa (nem pode) desabilitar a interrupção global aqui
-            //pois o próprio handler já desabilita automaticamente.
-          } else if (est_estado_atual==EST_ESTADO_MONITORA_GRAVA ) {
-            //Se o módulo serv_adcon está monitorando e gravando então
-            if (serv_adcon_monitora_grava) {
-              serv_adcon_aquisicao_print_grava();
-            }
-            else {
-              //Módulo sinalizou que interrompeu a gravação, então deveria avisar máquina de estados e não atribuir diretamente, verificar<<<<<<<<<<<<<<<<<<
-              //<<<<<<<<<<<<<<<<<<<
-              //serv_adcon_monitora_grava = 0;  //<<<<<<<< função serv_adcon_aquisicao_print_grava() já fez isso. retirado em 2024-08-03 alexdg)
-            }
-          }
-          static_count_t0 = 0;
-        } 
-        else {
-          static_count_t0++;
-        }//else
-      }//if est_estado_atual
-
-    */  
-      TMR0 = 39; //para dar overflow antes de 256 ints
-      //T0IF tem que ser zerado em software.
-      INTCONbits.T0IF = 0;
-      
-      
-      //hand_flag = HAND_FLAG_TIMER0;
+      //Liga a flag para indicar para o main() a interrupção que ocorreu.
       hand_flag_timer0 = 1;
-      
+
+      TMR0 = 39;           //Tem que recarrecar o valor no TMR0.
+      INTCONbits.T0IF = 0; //Tem que zerar T0IF em software AQUI.
+
+      //Por questão de exatidão do timer, talvez seja necessário desabilitar T0IE
+      //e só reabilitar depois que a função foi tratada no main().
+      //Se isso for feito, não esquecer de fazer TMR0=39 lá também.
+      //INTCONbits.T0IE = 0;
     }//if (INTCONbits.T0IF)
   }//if (INTCONbits.T0IE) interrupção Timer0
   
@@ -177,27 +118,12 @@ void __interrupt() handler(void) {
 
   if (INTCONbits.RBIE) {
     if (INTCONbits.RBIF) {
-
-      //Considera apenas o pressionamento do botao,
-      //desconsiderando o "soltar" do botão.
-      TBotao btn = btns_testa();
-      if (btn != BTN_NULL) {
-        //hand_flag = HAND_FLAG_BOTAO;
-        hand_flag_botao = 1;
-        hand_botao_pressionado = btn;
-      }
-      PORTB = PORTB; //para poder limpar o RBIF.
-      INTCONbits.RBIF = 0;      
+      //Liga a flag para indicar para o main() a interrupção que ocorreu.
+      hand_flag_botao = 1;
       
-      /*
-      if (botao != 0) {
-        est_maquina(botao);
-      }
-      PORTB = PORTB; //para poder limpar o RBIF.
-      INTCONbits.RBIF = 0;
-       */
-      
-      }//if (INTCONbits.RBIF)
+      PORTB = PORTB;       //para poder limpar o RBIF.
+      INTCONbits.RBIF = 0; //Tem que zerar RBIF em software AQUI.
+    }//if (INTCONbits.RBIF)
   }//if (INTCONbits.RBIE) - interrupção PortB.
   
   #endif //_HARDWARE_2016_

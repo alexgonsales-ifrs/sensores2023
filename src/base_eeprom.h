@@ -24,24 +24,29 @@ extern "C" {
  * Estes são os endereços da EEPROM onde ficam armazendas essas informações.
  * Algumas informações usam apenas 1 byte e outras usam 2 bytes.
  * Nos 16 primeiros bytes (0x00 a 0x0F) ficam as configurações e 
- * a partir do endereço 16 (0x10) ficarão as leituras/amostras armazenadas.
+ * a partir do endereço 16 (0x10) ficarão as amostras armazenadas.
  * 
- * Para valores de 16 bits (2 bytes) está sendo utilizada a convenção Big Endian:
- * - byte mais significativo gravado na posição mais baixa de memória.
- * - byte menos significativo gravado na posição mais alta de memória.
-*/ 
+ * Para valores de 16 bits (2 bytes) está sendo utilizada a convenção Little Endian:
+ * - byte menos significativo gravado na posição mais baixa de memória.
+ * - byte mais significativo gravado na posição mais alta de memória.
+ */ 
     
 //===== Constantes Públicas ==================================================
     
 #define EEPROM_END_QTDE_SENSORES_ATUAL       0x00    //1 byte: quantidade de sensores atual.
-//#define EEPROM_END_QTDE_SENSORES_AMOSTRADOS  0x01    //1 byte: quantidade de sensores utilizados no ultima sessão de monitoramento.
-#define EEPROM_END_TEMPO_AMOSTRAGEM          0x02    //2 bytes: tempo entre amostras.
+#define EEPROM_END_QTDE_SENSORES_AMOSTRADOS  0x01    //1 byte: quantidade de sensores utilizados ao gravar amostras na EEMPROM.
+#define EEPROM_END_TEMPO_AQUISICAO           0x02    //2 bytes: tempo entre aquisições.
 #define EEPROM_END_LEITURA_MIN               0x04    //2 bytes: valor da menor leitura armazenada.
 #define EEPROM_END_LEITURA_MAX               0x06    //2 bytes: valor da maior leitura armazenada.
-#define EEPROM_END_QTDE_LEITURAS             0x08    //1 byte: quantidade de leituras atualmente armazenadas.
+#define EEPROM_END_QTDE_AMOSTRAS             0x08    //1 byte: quantidade de amostras atualmente armazenadas.
+//0x09
+//0x0A
+//0x0B
 #define EEPROM_END_CHAVE_INICIALIZACAO       0x0c    //1 byte: chave de inicialização (explicação mais abaixo).
+//0x0D
+//0x0E
+//0x0F
 //Até o endereço 0x0F está reservado para parâmetros de configurações.
-    
 #define EEPROM_END_INICIO_AMOSTRAS           0x10    //1 byte: endereço inicial da EEPROM onde são armazenadas as amostras.
 
 //A constante abaixo é o valor que será gravado na posição EEPROM_END_CHAVE_INICIALIZACAO

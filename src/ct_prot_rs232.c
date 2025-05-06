@@ -61,7 +61,7 @@ void prot_rs232_executa(void) {
   
   //Comando Enviar Dados (comando antigo)?
   if (rx == 0x41) { //letra 'A'
-    serv_adcon_envia_rs232_amostras_gravadas_eeprom();
+    serv_adcon_rs232_envia_amostras_gravadas_eeprom();
   }//if 'A'
 
   //Comando Monitora?
@@ -118,7 +118,7 @@ void prot_rs232_executa(void) {
          */
 
       //Entra no estado Monitora.
-      serv_adcon_monitora_grava = 1;
+      serv_adcon_bol_monitora_grava = 1;
       est_estado_atual = EST_ESTADO_MONITORA;
       //Habilita monitora.
       INTCONbits.T0IE = 1;
@@ -184,7 +184,7 @@ void prot_rs232_executa(void) {
         rs232_envia_string(tmp);
 
         //Envia leituras armazenadas na EEPROM.
-        serv_adcon_envia_rs232_amostras_gravadas_eeprom();
+        serv_adcon_rs232_envia_amostras_gravadas_eeprom();
     }//if estado_diferente_monitora
     else {
       //Envia "E=1".

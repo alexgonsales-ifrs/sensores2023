@@ -64,14 +64,9 @@
 #include "main.h"
 #include "xtal.h"
 #include "base_timer.h" //timer0_init()
-#include "base_botoes.h"
-#include "base_lcd.h"
-#include "ct_handler.h"
 
+#include "ct_handler.h"
 #include "ct_estados.h"
-#include "serv_adcon.h"
-#include "ct_prot_rs232.h"
-#include "serv_dht22.h"
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -123,7 +118,7 @@ int main(void) {
     //RA1=AN1 (entrada)
     //RA2=AN2 (entrada)
     //RA3=AN3 (entrada)
-    //RA4=Sensor7_Aquec (saída)
+    //RA4=Sensor8_Aquec (saída)
     //RA5=AN4  (entrada)
     //RA6=OSC2 (entrada)
     //RA7=OSC1 (entrada)
@@ -194,15 +189,9 @@ int main(void) {
   timer0_init();
   timer1_init();
   
+  INTCONbits.T0IE = 1; //Habilita interrupção Timer0.
   INTCONbits.GIE  = 1; //Habilita interrupcoes globais.
-  INTCONbits.T0IE = 1;//Habilita interrupção Timer0.
   
-  //Chama est_maquina() para fazer inicializações.
-  //Não pode chamar aqui pois está sendo chamada no interrupt handler e dessa forma o compilador duplica a função,
-  //resultando na seguinte mensagem de erro:
-  //advisory: (1510) non-reentrant function "nome da funcao" appears in multiple call graphs and has been duplicated by the compiler.
-  //est_maquina(BTN_NULL);
-    
   while (1) {
     #ifdef _HARDWARE_2013_
       //Aqui deveria ser implementada a leitura dos botões.
@@ -226,80 +215,28 @@ int main(void) {
 
     //=======================================================================
     if (hand_flag_botao) {
-      TBotao botao;
-      
-      if (hand_botao_pressionado != 0) {
-        est_maquina(hand_botao_pressionado);
+      TBotao btn = btns_testa();
+      //Considera apenas o pressionamento do botao,
+      //desconsiderando o "soltar" do botão.
+      if (btn != BTN_NULL) {
+        est_evento_botao(btn);
+        //Para indicar que interrupção foi tratada.
+        hand_flag_botao = 0;
       }
-      PORTB = PORTB; //para poder limpar o RBIF.
-      INTCONbits.RBIF = 0;
-      hand_flag_botao = 0;
-    }//hand_flag == 1;
+    }//if (hand_flag_botao)
     
     //=======================================================================
     if (hand_flag_timer0){
-
-      static uint16_t static_count_t0 = 0;
-      
-      //Se recem ligou o equipamento, então chama est_maquina() para fazer inicializações.
-      if (est_estado_atual == EST_ESTADO_NULL) {
-        est_maquina(BTN_NULL);
-      }
-      
-      #ifdef _HARDWARE_2013_
-      //Trata interface dos botões.
-      //Só vai funcionar se o Timer0 estiver ligado, não deveria ser assim.
-      TBotao botao = btns_testa_antigo();
-      if (botao != 0) {
-        est_maquina(botao);
-      }
-      #endif
-
-      //Trata leitura sensores.
-      else if (  (est_estado_atual==EST_ESTADO_MONITORA) ||  (est_estado_atual==EST_ESTADO_MONITORA_GRAVA)  ) {
-        uint16_t tempo;
-        //Verifica no timer0 se já passou a contagem de tempo para efetuar uma amostra.
-        tempo = serv_adcon_testa_timer_tempo_aquisicao(static_count_t0);
-        if (tempo) {
-          //Ja passou a contagem do Timer0, então efetua uma amostra e zera a contagem.
-          if (est_estado_atual == EST_ESTADO_MONITORA) {
-            serv_adcon_aquisicao();
-            serv_adcon_print();
-            serv_dht22_amostra_e_print();
-            //Não precisa (nem pode) desabilitar a interrupção global aqui
-            //pois o próprio handler já desabilita automaticamente.
-          } else if (est_estado_atual==EST_ESTADO_MONITORA_GRAVA ) {
-            //Se o módulo serv_adcon está monitorando e gravando então
-            if (serv_adcon_monitora_grava) {
-              serv_adcon_aquisicao_print_grava();
-            }
-            else {
-              //Módulo sinalizou que interrompeu a gravação, então deveria avisar máquina de estados e não atribuir diretamente, verificar<<<<<<<<<<<<<<<<<<
-              //<<<<<<<<<<<<<<<<<<<
-              //serv_adcon_monitora_grava = 0;  //<<<<<<<< função serv_adcon_aquisicao_print_grava() já fez isso. retirado em 2024-08-03 alexdg)
-            }
-          }
-          static_count_t0 = 0;
-        } 
-        else {
-          static_count_t0++;
-        }//else
-      }//if est_estado_atual
-
-      
-      TMR0 = 39; //para dar overflow antes de 256 ints
-      //T0IF tem que ser zerado em software.
-      INTCONbits.T0IF = 0;
-      
+      est_evento_timer0();
+      //Para indicar que interrupção foi tratada.
       hand_flag_timer0 = 0;
-
-    }//hand_flag == 2
+    }//if (hand_flag_timer0)
     
     //=======================================================================
     if (hand_flag_rs232) {
       //<<<<<<<<<<<<<<<<< remover, só para testar.
         //prot_rs232_executa();
-    }//hand_flag == 99
+    }//if (hand_flag_rs232)
   
   }//while (1))
 

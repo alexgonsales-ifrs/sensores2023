@@ -1,8 +1,10 @@
 /* 
  * File:   base_dht22.h
  * Author: alexdg
- *
  * Created on 28 de Outubro de 2024, 08:54
+ * Revision history: 
+ * Revisado em 2025-05-05 (alexdg).
+ * 
  */
 
 #ifndef BASE_DHT22_H
@@ -14,7 +16,6 @@ extern "C" {
 
 //===== Includes =============================================================
 #include <xc.h>   //TRISB4
-#include "xtal.h" //delay_ms())
     
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -32,11 +33,18 @@ extern "C" {
 
 //===== Variaveis Públicas ===================================================
 
+//Contém o valor da umidade lida pelo sensor.
+//High Byte (8 bits): parte inteira da umidade.
+//Low  Byte (8 bits): parte decimal da umidade.
 extern uint16_t base_dht22_amostra_umidade;
+
+//Contém o valor da temperatura lida pelo sensor.
+//High Byte (8 bits): parte inteira da temperatura.
+//Low  Byte (8 bits): parte decimal da temperatura.
 extern uint16_t base_dht22_amostra_temperatura;
 
 //===== Funcoes Públicas =====================================================
-char base_dht22_amostra(void);
+extern char base_dht22_amostra(void);
 
 #ifdef	__cplusplus
 }

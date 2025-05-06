@@ -2,6 +2,8 @@
  * File:   base_adcon.h
  * Author: alexdg
  * Comments:
+ * Revision history: 
+ * Revisado em 2025-05-05 (alexdg).
  *
  * Definições importantes para este contexto:
  * 
@@ -18,11 +20,7 @@
  * Sessão de monitoramento: corresponde a uma sessão onde são realizadas várias aquisições, 
  * todas com o mesmo intervalo de tempo (tempo entre aquisções), conforme configuração escolhida pelo usuário.
  * 
- * Revision history: 
- *
  ****************************************************************************/
-
-//teste alex commmit
 
 #ifndef BASE_ADCON_H
 #define	BASE_ADCON_H
@@ -45,10 +43,10 @@ extern "C" {
 
   //Quantidade máxima possível de sensores.
   #if defined(_HARDWARE_2013_)
-    #define ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS 4
+    #define ADCON_QUANT_MAX_SENSORES 4
   #elif defined(_HARDWARE_2016_)
     //6 sensores MQ.
-    #define ADCON_CFG_QUANT_MAX_SENSORES_ANALOGICOS 8
+    #define ADCON_QUANT_MAX_SENSORES 9
   #endif
 
   //1 sensor digital DHT22 que contará como 2 sensores (temperatura e umidade).
@@ -63,10 +61,6 @@ extern "C" {
   //Quantidade máxima de aquisições = QUANT_MAX_AMOSTRAS / QUANT_SENSORES
   #define ADCON_QTD_MAX_AMOSTRAS              120 
 
-  //É a quantidade de sensores que estava configurada a última vez que
-  //foi feito um monitoramento.
-  //extern uint8_t cfg_quant_sensores_amostrados;
-
   // Valores de selecao do tempo entre aquisições:
   #define     ADCON_CFG_TEMPO_AQUISICAO_1_SEGUNDO     18
   #define     ADCON_CFG_TEMPO_AQUISICAO_10_SEGUNDOS   180
@@ -78,6 +72,8 @@ extern "C" {
 
 //===== Tipos ================================================================
 
+typedef enum  {SENS_LM35, SENS_DHT22, SENS_MQ, SENS_MQ7} TAdconModeloSensor;
+
 //===== Variáveis ============================================================
 
 //Matém o valor da mínima amostra ocorrida. É inicializada com ADCON_VALOR_MAXIMO_AMOSTRA.
@@ -87,27 +83,34 @@ extern uint16_t adcon_amostra_min;
 extern uint16_t adcon_amostra_max;
 
 //Mantém a quantidade de amostras que foram gravadas na EEPROM.
+//Obs.: quantidade de amostras = quantidade de aquisições * quantidade de sensores.
 extern uint8_t  adcon_quant_amostras_gravadas;
 
-//Temo entre aquisições atualmente configurado.
+//Tempo entre aquisições atualmente configurado.
 extern uint16_t adcon_cfg_tempo_aquisicao_atual;
 
 //Quantidade de sensores atualmente configurada.
 extern uint8_t adcon_cfg_quant_sensores_atual;
 
+//Quantidade de sensores da última sessão MONITORA_GRAVA.
+//Isso é importante pois, após ter sido efetuada a gração de uma aquisição na EEPROM,
+//não deve ser permitido iniciar outra sessão MONITORA_GRAVA se adcon_cfg_quant_sensores_atual foi modificado,
+//pois neste caso, a quantidade de amostras relativas a uma aquisição ficariam inconsistentes em relação à quantidade de sensores já aquisitados.
+extern uint8_t adcon_quant_sensores_aquisitados;
+
 //===== Funções ==============================================================
 
-/*
- * Funcao que faz a amostragem de um sensor, gerando o valor da amostra.
- * Essa amostragem consiste em efetuar várias leituras na porta analógica,
- * conforme indicado pela constante ADCON_QUANT_LEITURAS_PARA_MEDIA_AMOSTRA e
+/* Faz a amostragem de um sensor, gerando o valor da amostra.
+ * Se for um sensor analógico, essa amostragem consiste em efetuar várias leituras na porta analógica,
+ * conforme indicado pela constante ADCON_QUANT_LEITURAS_MEDIA_AMOSTRA e
  * efetuar a média dos valores dessas leituras, resultando no valor
  * da amostra do sensor.
- * @param num_sensor número do sensor a ser amostrado (0 a 3).
- * @return valor valor amostrado do sensor (média das leituras).
- */
+ * @param num_sensor número do sensor a ser amostrado (começa em zero).
+ * @return valor valor absoluto (binário) amostrado do sensor (média das leituras se for um sensor analógico). */
 extern uint16_t adcon_amostra_sensor(uint8_t num_sensor);
 
+/* Converte o valor de 10 bits do conversor AD para o valor a ser mostrado no display.
+ * Essa conversão depende do tipo de sensor que está sendo utilizado. */
 extern void adcon_binario_para_valor(uint16_t binario, char* p_str_valor);
     
 #ifdef	__cplusplus
