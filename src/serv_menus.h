@@ -39,8 +39,8 @@
  *       Item 3
  *       Item 4
  * 
- *///
-//
+ */
+
 #ifndef SERV_MENUS_H
 #define	SERV_MENUS_H
 
@@ -66,11 +66,12 @@
   #if defined (_HARDWARE_2013_)
     #define MENU_CFG_QUANT_SENSORES_TAM  4 // tamanho do menu.
   #elif defined (_HARDWARE_2016_)
-    #define MENU_PRINCIPAL_TAM  9 // tamanho do menu principal
+    #define MENU_PRINCIPAL_TAM  7 // tamanho do menu principal
     #define MENU_CFG_TEMPO_AQUISICAO_TAM 7// tamanho do menu.
     #define MENU_CFG_QUANT_SENSORES_TAM  8 // tamanho do menu.
     #define MENU_CONFIGURACOES_TAM       4 //
     #define MENU_CONFIGURACOES_ITEM2_TAM 3 //
+    #define SUBMENU_CONFIGURACOES_MONIT_TAM 2 
   #endif
 
 

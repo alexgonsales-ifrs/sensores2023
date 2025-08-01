@@ -47,26 +47,26 @@ TMenuSystem serv_menu_raiz;
   static const TMenuItem menu_cfg_tempo_aquisicao_itens[];
   static const TMenuItem menu_cfg_quant_sensores_itens[];
   static const TMenuItem menu_configuracoes_itens[];
+  static const TMenuItem submenu_configuracoes_monit_itens[];
   
                                           //tipo       , index_active,       quant_itens,             pv_itens,                              p_supermenu,  str_titulo  
   static TMenu menu_principal           = {MNU_TIPO_MENU_GERAL,     0,MENU_PRINCIPAL_TAM,           &(menu_principal_itens[0]),                      NULL, "Principal"   };
   static TMenu menu_cfg_tempo_aquisicao = {MNU_TIPO_MENU_CFG_LISTA, 0,MENU_CFG_TEMPO_AQUISICAO_TAM, &(menu_cfg_tempo_aquisicao_itens[0]), &menu_principal, "Tempo Aquis."};
   static TMenu menu_cfg_quant_sensores  = {MNU_TIPO_MENU_CFG_LISTA, 0,MENU_CFG_QUANT_SENSORES_TAM,  &(menu_cfg_quant_sensores_itens[0]),  &menu_principal, "Quant. Sens."};
   static TMenu menu_configuracoes       = {MNU_TIPO_MENU_CFG_LISTA, 0,MENU_CONFIGURACOES_TAM,       &(menu_configuracoes_itens[0]),       &menu_principal, "Config."     };
-    
-  //Itens para o menu menu_principal: 
+  static TMenu submenu_configuracoes_monit    = {MNU_TIPO_MENU_CFG_LISTA, 0,SUBMENU_CONFIGURACOES_MONIT_TAM, &(submenu_configuracoes_monit_itens[0]), &menu_configuracoes}; 
+  
+  //Itens para o menu menu_principal
    static const TMenuItem menu_principal_itens[MENU_PRINCIPAL_TAM] = {
       {"1)Monitora",          SERV_MENU_ACAO_EXEC_MONITORA,       0, 0 },
       {"2)Monit/Grava",       SERV_MENU_ACAO_EXEC_MONITORA_GRAVA, 0, 0 },
       {"3)Ver Todos",         SERV_MENU_ACAO_EXEC_VER_AQUISICOES, 0, 0 },
       {"4)Max/Min",           SERV_MENU_ACAO_EXEC_MOSTRA_MAX_MIN, 0, 0 },
       {"5)Limpar",            SERV_MENU_ACAO_EXEC_LIMPAR,         0, 0 },
-      {"6)Tempo Aquisi.",     0,                                  0, &menu_cfg_tempo_aquisicao},
-      {"7)Quant.Sens.",       0,                                  0, &menu_cfg_quant_sensores},
-      {"8)Enviar Dados",      SERV_MENU_ACAO_EXEC_ENVIAR_DADOS,   0, 0},
-      {"9)Configura",         0,                                  0, &menu_configuracoes}  //não fechar virgula no último item
+      {"6)Enviar Dados",      SERV_MENU_ACAO_EXEC_ENVIAR_DADOS,   0, 0},
+      {"7)Configura",            SERV_MENU_ACAO_CFG_NULL,           0, &menu_configuracoes}  //não fechar virgula no último item
   };
-
+   
   //Itens para o menu_cfg_tempo_aquisicao. 
   static const TMenuItem menu_cfg_tempo_aquisicao_itens[MENU_CFG_TEMPO_AQUISICAO_TAM] = {
       //{"0.1 seg", TEMPO_01_SEGUNDO,0},
@@ -80,7 +80,7 @@ TMenuSystem serv_menu_raiz;
         {"1 hora",  SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, ADCON_CFG_TEMPO_AQUISICAO_1_HORA,     0}  //não fechar virgula no último item
   };
 
-  //Itens para o menu menu_cfg_quant_sensores:
+  //Itens para o menu menu_cfg_quant_sensores
   static const TMenuItem menu_cfg_quant_sensores_itens[MENU_CFG_QUANT_SENSORES_TAM] = {
       {"1", SERV_MENU_ACAO_CFG_QUANT_SENSORES, 1,0},
       {"2",   SERV_MENU_ACAO_CFG_QUANT_SENSORES, 2,0},
@@ -92,13 +92,18 @@ TMenuSystem serv_menu_raiz;
       {"8", SERV_MENU_ACAO_CFG_QUANT_SENSORES, 8,0}  //não fechar virgula no último item
   };
   
-  //Itens para o menu menu_configuracoes:
+  // Itens para o submenu submenu_configuracoes_monit
+  static const TMenuItem submenu_configuracoes_monit_itens[SUBMENU_CONFIGURACOES_MONIT_TAM] = {
+      {"1)Tempo Aquisi.", SERV_MENU_ACAO_CFG_NULL, 0, &menu_cfg_tempo_aquisicao},
+      {"2)Quant. Sens.", SERV_MENU_ACAO_CFG_NULL, 0, &menu_cfg_quant_sensores}
+  };
+  
+  //Itens para o menu menu_configuracoes
   static const TMenuItem menu_configuracoes_itens[MENU_CONFIGURACOES_TAM] = {
-      {"Item 1",       SERV_MENU_ACAO_CFG_NULL, 1,0},
-      //{"Item 2",  0,                  &menu_configuracoes_item2},
-      {"Item 3",       SERV_MENU_ACAO_CFG_NULL, 3,0},
-      {"Item 3",       SERV_MENU_ACAO_CFG_NULL, 3,0},
-      {"Item 4",       SERV_MENU_ACAO_CFG_NULL, 4,0}  //não fechar virgula no último item
+      {"1)Monit.", SERV_MENU_ACAO_CFG_NULL, 0, &submenu_configuracoes_monit},
+      {"2)Portas",       SERV_MENU_ACAO_CFG_NULL, 3,0},
+      {"3)Serial",       SERV_MENU_ACAO_CFG_NULL, 3,0},
+      {"4)Display",       SERV_MENU_ACAO_CFG_NULL, 4,0}  //não fechar virgula no último item
   };
   
   //Ocupou 73 words de memória de programa (2025-04-06).
