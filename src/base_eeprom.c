@@ -46,7 +46,8 @@ uint16_t eeprom_le_word(uint8_t end) {
     //Le o byte menos significativo (primeiro byte).
     temp_int = eeprom_read(end);
     //Le o byte mais significativo (segundo byte))
-    temp_int = temp_int + (eeprom_read(end+1)<<8);
+    //temp_int = temp_int + (eeprom_read(end+1)<<8);
+    temp_int = temp_int + (uint16_t)(eeprom_read(end+1)<<8);
     return temp_int;
 }//eeprom_le_word()
 

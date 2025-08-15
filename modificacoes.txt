@@ -1,4 +1,17 @@
 
+2025-08-15_v1.723: não foi testado.
+serv_menu.c: Menu "Config->Monit" estava sem título (mostrava lixo).
+Modificações nos nomes das variáveis e na ordem das declarações.
+
+util_menu.h:
+Modificações em nomes.
+Removidos os tipos TMenuSystemStruct, TMenuStruct e TMenuItemStruct.
+Redeclarados os tipos TMenuSystem, TMenu e TMenuItem utilizando declaração antecipada.
+
+ct_estados.c: ajustes de nomes de variáveis para refletir a mudança em em util_menu.h.
+base_eeprom.c: type cast.
+
+=============================================================================
 20250506_v1.722: diversas modificações.
 - base_eeprom: mudança de big endian para little endian.
 - Mudança na forma das interrupções: retirada lógica do ct_handler e passado para o main().

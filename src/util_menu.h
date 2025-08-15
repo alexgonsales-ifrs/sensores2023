@@ -31,18 +31,19 @@ extern "C" {
 
 //Tipos de Menus/Submenus:
 typedef enum {
-  MNU_TIPO_MENU_GERAL,     //Menu pode conter itens de submenu e itens de funcionalidade (embora não deveria conter itens de configuração).
-  MNU_TIPO_MENU_CFG_LISTA, //Menu deve conter apenas itens de configuração.
-  MNU_TIPO_MENU_CFG_FAIXA, //Não utilizado ainda.
+  MNU_TIPO_GERAL, //Menu pode conter itens de submenu e itens de funcionalidade (embora não deveria conter itens de configuração).
+  MNU_TIPO_LISTA, //Menu deve conter apenas itens de configuração.
+  MNU_TIPO_FAIXA, //Não utilizado ainda.
 } TMnuTipoMenu;
 
-typedef struct TMenuSystemStruct TMenuSystem;
-typedef struct TMenuStruct       TMenu;
-typedef struct TMenuItemStruct   TMenuItem;
+//Declaração antecipada para não dar erro nas definições das structs abaixo.
+typedef struct TMenuSystem TMenuSystem;
+typedef struct TMenu       TMenu;
+typedef struct TMenuItem   TMenuItem;
 
 /* TMenuSistemStruct representa o ponto de entrada do sistema de menus implementado pela biblioteca.
  */
-struct TMenuSystemStruct {
+struct TMenuSystem {
   TMenu      *p_menu_raiz;      //Menu raíz (ponto de entrada) da estrutura de menus.
   TMenu      *p_menu_atual;     //Menu atual que está sendo navegado.
   TMenuItem  *p_item_executado; //Ponteiro para o item de menu mais recente que foi executado.
@@ -52,7 +53,7 @@ struct TMenuSystemStruct {
 /* TMenu representa um menu com seus itens (TMenuItem) e as variáveis de controle
  * para navegação pelos itens.
  */
-struct TMenuStruct {
+struct TMenu {
   const TMnuTipoMenu  tipo;         //Especifica o tipo de Menu (vide TMnuTipoMenu).
   uint8_t             index_active; //Indice do item de menu ativo.
   uint8_t             quant_itens;  //Quantidade total de itens de menu (tamanho do vetor pv_itens).
@@ -60,10 +61,10 @@ struct TMenuStruct {
   const TMenu        *p_supermenu;  //Ponteiro para o menu pai (supermenu).
   const char         *str_titulo;   //Titulo do Menu.
 };
-  
+
 /* TMenuItem representa um item de Menu. 
  */
-struct TMenuItemStruct {
+struct TMenuItem {
   const char*         str_text;  //Texto do item de menu.
   const uint8_t       cod_acao;  //Código que representa a ação que deverá ser executada quando o item de menu for executado.
   const uint16_t      i_value;   //Valor auxiliar para a ação a ser executada.

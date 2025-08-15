@@ -64,17 +64,18 @@
 
   //Quantidade de itens do menu Quantidade de Sensores.
   #if defined (_HARDWARE_2013_)
-    #define MENU_CFG_QUANT_SENSORES_TAM  4 // tamanho do menu.
+    #define MENU_CFG_QT_SENS_TAM  4 // tamanho do menu.
   #elif defined (_HARDWARE_2016_)
-    #define MENU_PRINCIPAL_TAM  7 // tamanho do menu principal
-    #define MENU_CFG_TEMPO_AQUISICAO_TAM 7// tamanho do menu.
-    #define MENU_CFG_QUANT_SENSORES_TAM  8 // tamanho do menu.
-    #define MENU_CONFIGURACOES_TAM       4 //
+    #define MENU_PRINCIPAL_TAM    7 // tamanho do menu principal
+    #define MENU_CFG_TP_AQUIS_TAM 7 // tamanho do menu.
+    #define MENU_CFG_QT_SENS_TAM  8 // tamanho do menu.
+    #define MENU_CFG_TAM          4 //
+    #define MENU_CFG_MONIT_TAM    2 
+
     #define MENU_CONFIGURACOES_ITEM2_TAM 3 //
-    #define SUBMENU_CONFIGURACOES_MONIT_TAM 2 
   #endif
 
-
+//Códigos de ação para cada item de menu de ação do sistema de menus.
 typedef enum {
         SERV_MENU_ACAO_EXEC_NULL,
         SERV_MENU_ACAO_EXEC_MONITORA,
@@ -86,6 +87,7 @@ typedef enum {
         //Não colocar vírgula no último item.
         } TServMenuCodigoAcaoExec;
 
+//Códigos de ação para cada item de menu de configuração do sistema de menus.
 typedef enum {
         SERV_MENU_ACAO_CFG_NULL,
         SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO, 
@@ -97,12 +99,13 @@ typedef enum {
 
   
 //===== Variaveis Públicas ===================================================
-//extern TMenu    *serv_menu_p_menu_ativo; //ponteiro para o menu ativo.
+
+//Variável que mantém o ponto de entrada para a estrutura de menus.
 extern TMenuSystem serv_menu_raiz;
 
 //===== Funcoes Públicas =====================================================
   
-  extern void serv_menu_princ_inicializa(void);
+extern void serv_menu_princ_inicializa(void);
   
 #ifdef	__cplusplus
 }

@@ -229,13 +229,13 @@ TMenuItem* mnu_exec_enter(TMenuSystem* p_menu_system) {
   //Se for um item de configuração retorna para o menu pai. Testa se tem um menu pai.
   //else if ( p_item_menu->tipo == MENU_TIPO_ITEM_CFG && p_supermenu != 0) {
   //else if ( tipo == MENU_TIPO_ITEM_CFG && p_supermenu != 0) {
-  else if ( p_menu_atual->tipo == MNU_TIPO_MENU_CFG_LISTA && p_supermenu != 0) {
+  else if ( p_menu_atual->tipo == MNU_TIPO_LISTA && p_supermenu != 0) {
     //Retorna para o menu pai.
     //p_menu_raiz->p_menu_atual = (TMenu*)p_supermenu;
     //p_menu_raiz->index_nav    = p_supermenu->index_active;
   }
   //else if ( p_item_menu->tipo == MENU_TIPO_ITEM_ACAO) {
-  else if ( p_menu_atual->tipo == MNU_TIPO_MENU_GERAL) {
+  else if ( p_menu_atual->tipo == MNU_TIPO_GERAL) {
     //Nada a ser executado.
   }
   return p_item_menu;

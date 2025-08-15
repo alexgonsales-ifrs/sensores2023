@@ -426,7 +426,7 @@ static void est_testa_estado_trata_menus(TBotao botao) {
       else  { //Não é um submenu.
         //tipo_menu = mnu_item_nav_get_tipo(&serv_menu_raiz);
         tipo_menu = mnu_menu_atual_get_tipo(&serv_menu_raiz);
-        if (tipo_menu == MNU_TIPO_MENU_CFG_LISTA) {
+        if (tipo_menu == MNU_TIPO_LISTA) {
           //=============== Executa ação do item de configuração ============
           est_btn_enter_item_cfg();
           est_estado_novo = EST_ESTADO_TRATA_MENUS;
@@ -456,7 +456,7 @@ static void est_btn_enter_item_submenu(void) {
   //Então o item ativo do menu deve refletir essa modificação.
   mnu_exec_enter(&serv_menu_raiz);
   tipo_menu = mnu_menu_atual_get_tipo(&serv_menu_raiz);
-  if (tipo_menu == MNU_TIPO_MENU_CFG_LISTA) {
+  if (tipo_menu == MNU_TIPO_LISTA) {
     //Pega o item navegado para saber se é uma ação de configuração e qual a ação.
     uint8_t codigo_acao = mnu_item_nav_get_cod_acao(&serv_menu_raiz);
     if (codigo_acao == SERV_MENU_ACAO_CFG_TEMPO_AQUISICAO) {
