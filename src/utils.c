@@ -1,19 +1,13 @@
 /*****************************************************************************
- * File:   serv_dht22.c
- * Author: alexdg
+ * File:   utils.c
+ * Author: 
  * Comments:
  * 
  * Revision history: 
- * 2024-10-30
  *
  ****************************************************************************/
 
 //===== Includes =============================================================
-#include "serv_dht22.h"
-//#include <stdio.h> //sprintf
-//#include <string.h>  //strcat
-#include "base_dht22.h"
-#include "base_lcd.h"
 #include "utils.h"
 
 //============================================================================
@@ -40,36 +34,40 @@
 //===== Definição (implementação) das Funções Públicas =======================
 //============================================================================
 
-/****************************************************************************
-* Faz leitura do DHT22 e mostra no LCD.
- ***************************************************************************/
-void serv_dht22_amostra_e_print(void) {
-  //if (base_dht22_amostra()) {
-
-  if (base_dht22_amostra())
-    serv_dht22_print();
-
-}//serv_dht22_amostra_e_print()
-
-/****************************************************************************
-* Mostra no LCD os valores de temperatura e umidade.
- ***************************************************************************/
-void serv_dht22_print(void) {
-  char temp_str[17] = {0};
+void util_uint16_to_str(uint16_t binario, char* p_str_valor) {
   
-  temp_str[0] = 't';
-  util_uint16_to_str(base_dht22_amostra_temperatura, &temp_str[1]);
-  //sprintf(temp_str, "t%7d", base_dht22_amostra_temperatura);
-  lcd_goto(1, 8);
-  lcd_puts(temp_str);
+  p_str_valor[2] = (binario % 10) + 0x30; //0x30 = 48 = código ASCII do caractere zero.
+  binario = binario / 10; 
+  p_str_valor[1] = (binario % 10) + 0x30; 
+  binario = binario / 10;
+  p_str_valor[0] = (binario % 10) + 0x30; 
+  p_str_valor[3] = 0; //final string
+    
+}//util_uint16_to_str()
 
-  temp_str[0] = 'u';
-  util_uint16_to_str(base_dht22_amostra_umidade, &temp_str[1]);
-  //sprintf(temp_str, "u%7d", base_dht22_amostra_umidade);
-  lcd_goto(2, 8);
-  lcd_puts(temp_str);
-
-}//serv_dht22_print()
+void util_uint8_to_strhex(uint8_t binario, char* p_str_valor) {
+  uint8_t b;
+  //Pega o nible menos significativo e coloca em p_str_valor[1].
+  b = (binario & 0x0F);
+  if (b >= 0 && b <= 9) {
+    p_str_valor[1] = b + 0x30; //0x30= código ASCII do caractere 0 (zero).
+  }
+  else { //b>9 E b<15)
+    p_str_valor[1] = b + 0x41; //0x41 = código ASCII do caractere A.
+  }
+  
+  //Pega o nible mais significativo e coloca em p_str_valor[0].
+  b = (binario & 0xF0) >> 4;
+  if (b >= 0 && b <= 9) {
+    p_str_valor[0] = b + 0x30; //0x30= código ASCII do caractere 0 (zero).
+  }
+  else { //b>9 E b<15)
+    p_str_valor[0] = b + 0x41; //0x41 = código ASCII do caractere A.
+  }
+  
+  p_str_valor[2] = 0; //final string.
+  
+}//util_uint8_to_strhex()
 
 //============================================================================
 //===== Definição (implementação) das Funções Privadas =======================

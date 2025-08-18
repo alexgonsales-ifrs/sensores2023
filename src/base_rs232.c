@@ -11,11 +11,12 @@
 
 #include <xc.h>
 #include <stdint.h>
-#include <stdio.h>
+//#include <stdio.h>
 
 #include "base_rs232.h"
 #include "versao.h"
 #include "xtal.h"
+#include "utils.h"
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -48,24 +49,42 @@ void rs232_init(void) {
     BRG16 = 0;
   #endif
   
-  BRGH = 0;
-  SPBRG = 25; //2400 BPS
-
-  //Configuração:
-  SYNC = 0; //Assíncrona.
-  SPEN = 1; //Serial Port Enable: configures RX/DT and TX/CK pins as serial port pins.
-  TXEN = 1; //Transmit enabled.
-  CREN = 1; //Continuous Receive Enable bit. 1=Enables receiver.
-  TX9 = 0;
+  //Baud Generator
+  BAUDCTLbits.BRG16 = 0; //0=disable 16-bit baud generator (uses 8-bit baud generator).
+  TXSTAbits.BRGH    = 0; //0=low speed.
+  SPBRG             = 25; //Valor para resultar em baud rate 2400Hz para FOSC = 4MHz.
+  //SPBRGH          = 0; //Utilizado somente para 16-bit baud rate generator.
   
+  //Calcula baud rate para as configurações acima:
+  //Baud Rate = FOSC / (64 * (SPBRGH:SPBRG + 1))
+  //baud rate =   4M / (64 * (0:25         + 1))
+  //baud rate =   4M / (64 * (  25         + 1))
+  //baud rate =   4M / (64 *    26             )
+  //baud rate =   4M / (1664)
+  //baud rate =   2404Hz
+
+//Configuração:
+  //SYNC = 0; //Assíncrona.
+  //SPEN = 1; //Serial Port Enable: configures RX/DT and TX/CK pins as serial port pins.
+  //TXEN = 1; //Transmit enabled.
+  //CREN = 1; //Continuous Receive Enable bit. 1=Enables receiver.
+  //TX9 = 0;
+  
+  TXSTAbits.SYNC = 0; //Assíncrona.
+  TXSTAbits.TXEN = 1; //Transmit enabled.
+  TXSTAbits.TX9  = 0;
+  
+  RCSTAbits.SPEN = 1; //Serial Port Enable: configures RX/DT and TX/CK pins as serial port pins.
+  RCSTAbits.CREN = 1; //Continuous Receive Enable bit. 1=Enables receiver.
   
   //<<<<<<<<<<<<<<<<< remover: habilitar novamente 15/04/2025
   //INTCONbits.PEIE = 1; //Peripheral interrupt enable bit
   //PIE1bits.RCIE = 1;   //Receive interrupt enable bit. Habilita interrupção RX.
   //PIR1bits.RCIF = 0;  //Receive interrupt flag.
   
-  INTCONbits.PEIE = 0; //Peripheral interrupt enable bit
-  PIE1bits.RCIE = 0;   //Receive interrupt enable bit. Habilita interrupção RX.
+  //Passado para a funcao main().
+  //INTCONbits.PEIE = 1; //Peripheral interrupt enable bit
+  //PIE1bits.RCIE = 1;   //Receive interrupt enable bit. Habilita interrupção RX.
   PIR1bits.RCIF = 0;  //Receive interrupt flag.
 }//rs232_init())
 
@@ -87,7 +106,12 @@ void rs232_envia_byte(uint8_t dado) {
 void rs232_envia_byte_hexa(uint8_t dado) {
   char byte_hexa[4];
   char* p_byte_hexa;
-  sprintf(byte_hexa, "%02X", dado);
+  
+  util_uint8_to_strhex(dado, byte_hexa);
+  byte_hexa[2] = 'X';
+  byte_hexa[3] = 0; //final string.
+  
+  //sprintf(byte_hexa, "%02X", dado);
   p_byte_hexa = &byte_hexa[0];
   while (*p_byte_hexa) {
     TXREG = *p_byte_hexa;

@@ -11,7 +11,7 @@
 //#include <eeprom_routines.h>  //eeprom_write()
 #include <xc.h>
 #include <stdlib.h>    //div_t
-#include <stdio.h>     //sprintf
+//#include <stdio.h>     //sprintf
 #include <string.h>     //strcat
 
 #include "serv_adcon.h"
@@ -20,6 +20,7 @@
 #include "base_eeprom.h"
 #include "base_lcd.h"
 #include "base_rs232.h"
+#include "utils.h"
 
 //Indica se está em uma sessão de monitora_grava.
 //Quando a EEPROM estiver cheia, esta variável será colocada em zero (0),
@@ -497,7 +498,9 @@ uint8_t serv_adcon_rs232_envia_amostras_gravadas_eeprom(void) {
 */
   
   lcd_clear();
-  sprintf(str_linha, "%d b env.", i);
+  util_uint16_to_str(i, str_linha);
+  strcat(str_linha, " b env.\n");
+  //sprintf(str_linha, "%d b env.", i);
   lcd_puts(str_linha);
 
   return i;

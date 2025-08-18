@@ -67,6 +67,7 @@
 
 #include "ct_handler.h"
 #include "ct_estados.h"
+#include "ct_prot_rs232.h"
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -189,8 +190,13 @@ int main(void) {
   timer0_init();
   timer1_init();
   
+  PIE1bits.RCIE   = 1; //Receive interrupt enable bit. Habilita interrupção RX da UART. Necessita que PEIE=1.
+  INTCONbits.PEIE = 1; //Peripheral interrupt enable bit (habilita todas interrupções não-mascaradas de periféricos: UART, ADCON, Timer1, etc...)
+    
   INTCONbits.T0IE = 1; //Habilita interrupção Timer0.
-  INTCONbits.GIE  = 1; //Habilita interrupcoes globais.
+  
+  //
+  INTCONbits.GIE  = 1; //Habilita todas as interrupcoes não-mascaradas.
   
   while (1) {
     #ifdef _HARDWARE_2013_
@@ -234,8 +240,12 @@ int main(void) {
     
     //=======================================================================
     if (hand_flag_rs232) {
-      //<<<<<<<<<<<<<<<<< remover, só para testar.
-        //prot_rs232_executa();
+      prot_rs232_executa();
+      //Para indicar que interrupção foi tratada.
+      hand_flag_rs232 = 0;
+      
+      //Habilita novamente a interrupção pois o handler desabilitou.
+      PIE1bits.RCIE = 1;
     }//if (hand_flag_rs232)
   
   }//while (1))

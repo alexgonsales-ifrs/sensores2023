@@ -1,4 +1,13 @@
 
+2025-08-17_v1.724: Diversas otimizações, nem tudo foi testado.
+Removida utilização da função sprintf(), pois ocupava 593 words de programa.
+Criado módulo utils e fuções util_uint16_to_str() e util_uint8_to_strhex().
+Ajustados módulos base_adcon, base_rs232, mq6, serv_adcon, serv_dht22.
+Ajustado módulo ct_handler para responder interrupção da porta serial.
+Ajustado módulo ct_prot_rs232 para responder ao comando AMON.
+Ajustado main().
+
+=============================================================================
 2025-08-15_v1.723: não foi testado.
 serv_menu.c: Menu "Config->Monit" estava sem título (mostrava lixo).
 Modificações nos nomes das variáveis e na ordem das declarações.

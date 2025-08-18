@@ -56,6 +56,7 @@
 #include "base_adcon.h"
 #include "xtal.h"
 #include "versao.h"
+#include "utils.h"
 
 #ifdef _MQ_
 #include "mq6.h"
@@ -206,7 +207,16 @@ uint16_t adcon_amostra_sensor(uint8_t num_sensor) {
 /* Converte o valor de 10 bits do conversor AD para o valor a ser mostrado no display.
  * Essa conversão depende do tipo de sensor que está sendo utilizado. */
 void adcon_binario_para_valor(uint16_t binario, char* p_str_valor) {
-  sprintf(p_str_valor, "%4d", binario);
+  //sprintf(p_str_valor, "%4d", binario);
+  
+  util_uint16_to_str(binario, p_str_valor);
+  /*p_str_valor[2] = (binario % 10) + 0x30; //0x30 = 48 = código ASCII do caractere zero.
+  binario = binario / 10; 
+  p_str_valor[1] = (binario % 10) + 0x30; 
+  binario = binario / 10;
+  p_str_valor[0] = (binario % 10) + 0x30; 
+  p_str_valor[3] = 0; //final string
+    */
   
   //sprintf(p_str_valor, "%d.%d", binario / 10, binario % 10);
   

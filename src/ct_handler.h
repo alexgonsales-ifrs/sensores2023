@@ -29,6 +29,9 @@ extern volatile uint8_t hand_flag_botao;
 extern volatile uint8_t hand_flag_timer0;
 extern volatile uint8_t hand_flag_rs232;
 
+extern volatile uint8_t hand_vbuffer_rs232[];
+extern volatile uint8_t hand_qt_buffer_rs232;
+
 //===== Funcoes Públicas =====================================================
 
 //============================================================================

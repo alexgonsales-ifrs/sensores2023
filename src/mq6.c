@@ -10,7 +10,8 @@
 //===== Includes =============================================================
 
 #include <stdint.h>
-#include <stdio.h>
+//#include <stdio.h>
+#include <string.h>
 #include <math.h>
 #include <xc.h>
 
@@ -19,6 +20,7 @@
 #include "mq6.h"
 #include "versao.h"
 #include "xtal.h"
+#include "utils.h"
 
 //============================================================================
 //===== Definições Públicas ==================================================
@@ -95,7 +97,11 @@ void mq_mostra(uint16_t t_int, uint8_t i) {
      */
     //sprintf(temp_str, "ppm=%u", ppm);
     lcd_clear();
-    sprintf(temp_str, "ppm=%u", t_int);
+    
+    strcpy(temp_str, "ppm=");
+    util_uint16_to_str(t_int, &temp_str[4]);
+    //sprintf(temp_str, "ppm=%u", t_int);
+    
     lcd_goto_sensor(i);
     //lcd_goto(LCD_POSICAO[i].linha, LCD_POSICAO[i].coluna); 
     lcd_puts(temp_str);
