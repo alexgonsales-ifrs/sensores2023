@@ -27,7 +27,7 @@ extern "C" {
     
 //===== Funcoes Públicas =====================================================
     
-extern void prot_rs232_executa(void);
+extern void prot_rs232_executa(const char *p_str_comando);
 
 #ifdef	__cplusplus
 }

@@ -1,4 +1,9 @@
 
+2025-08-18_v1.725: Ajustes pontuais na implementação do protocolo rs232.
+Módulos ct_prot_rs232, ct_handler, main.
+
+=============================================================================
+
 2025-08-17_v1.724: Diversas otimizações, nem tudo foi testado.
 Removida utilização da função sprintf(), pois ocupava 593 words de programa.
 Criado módulo utils e fuções util_uint16_to_str() e util_uint8_to_strhex().

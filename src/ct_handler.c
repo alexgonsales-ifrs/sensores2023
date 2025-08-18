@@ -72,8 +72,15 @@ volatile uint8_t hand_qt_buffer_rs232=0;
  * 
  * No caso da interrupção da porta serial, o bit PIR1bits.RCIF não deve ser atualizado
  * 
- * Os comandos recebidos pela porta serial devem terminar com um ponto (".") e 
- * não devem conter nenhum caractere de final de linha (CR LF).
+ * Os comandos recebidos pela porta serial devem terminar com o caractere <LF> (0x0A).
+ * Os demais caracteres de controle, abaixo de 32 (0x20), serão desconsiderados (descartados).
+ * A variável hand_vbuffer_rs232[] conterá a string (comando) recebida pela serial,
+ * sem o caractere <LF> e terminada com o caractere nulo (\0).
+ * 
+ * Todas as strings que o equipamento envia pela serial também são finalizados
+ * com um final de linha (\n).
+ * 
+ * Nota: \n e <LF> são equivalentes.
  * 
  */
 void __interrupt() handler(void) {
@@ -82,36 +89,41 @@ void __interrupt() handler(void) {
   //==================== Testa interrupção Porta Serial ===============
   if (PIE1bits.RCIE) {
     if (PIR1bits.RCIF) {
+      uint8_t c; //c é o caractere (byte) lido da porta serial.
+      //Faz a leitura do byte (RCREG) que está na porta serial, assim, a flag RCIF será zerada.
+      c = RCREG;
+      
       //Se houver espaço no buffer então
       if (hand_qt_buffer_rs232 < HAND_TAM_BUFFER_RS232) {
-        //Le o caractere da porta serial e adiciona no buffer.
-        uint8_t c;
-        //Faz a leitura do byte (RCREG) que está na porta serial, assim, a flag RCIF será zerada.
-        c = RCREG;        
-        //Adiciona o byte no buffer (caracteres abaixo de 32 serão desconsiderados).
-        if (c >= 32) {
-          hand_vbuffer_rs232[hand_qt_buffer_rs232] = c;
-          hand_qt_buffer_rs232++;
-          //Testa final de linha recebido na serial.
-          if (c == '.') {
+        //Se chegou o caractere LF então finaliza a string (comando).
+        if (c == 0x0A) {
             //Liga a flag para indicar para o main() tratar a linha recebida.
             hand_flag_rs232 = 1;
             //Desabilita interrupção RX até que o buffer seja tratado no main().
             //Será habilitado novamente no main(), após tratar o dado.
             PIE1bits.RCIE = 0;
-          }//c=='.'
+            //Coloca um caractere nulo (\0) no buffer para indicar final de string.
+            hand_vbuffer_rs232[hand_qt_buffer_rs232] = '\0';
+            hand_qt_buffer_rs232++;
+        }//LF
+        else if (c >= 32) {
+          //É um caractere a partir de 0x20 (32), então
+          //adiciona o caractere no buffer (caracteres abaixo de 32, com exceção do LF, são desconsiderados).
+          //Observe que o caractere LF já foi tratado no if anterior.
+          hand_vbuffer_rs232[hand_qt_buffer_rs232] = c;
+          hand_qt_buffer_rs232++;
         }//c>=32
       }//hand_qt_buffer_rs232< HAND_TAM_BUFFER_RS232
-      else { 
+      else { //Não tem espaço no buffer 
         //Buffer overflow, então limpa o buffer, desconsiderando o que foi recebido.
         hand_qt_buffer_rs232 = 0;
       }
-      
-      //RCIF é read-only. É zerada automaticamente quando se le o RCREG.
+      //RCIF é read-only, sendo zerada automaticamente quando se le o RCREG.
       //Portanto, não pode fazer a linha abaixo:
       //PIR1bits.RCIF = 0;
-    }
-  }//if (PIE1bits.RCIE) - interrupção Porta Serial.
+      
+    }//if (PIR1bits.RCIF)
+  }//if (PIE1bits.RCIE) 
 
   //================== Testa interrupção do Timer0 ========================
   if (INTCONbits.T0IE) {

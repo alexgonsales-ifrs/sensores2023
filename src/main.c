@@ -240,10 +240,11 @@ int main(void) {
     
     //=======================================================================
     if (hand_flag_rs232) {
-      prot_rs232_executa();
-      //Para indicar que interrupção foi tratada.
+      prot_rs232_executa(&hand_vbuffer_rs232[0]);
+      //limpa o buffer da serial.
+      hand_qt_buffer_rs232 = 0;
+      //Indica que a interrupção foi tratada.
       hand_flag_rs232 = 0;
-      
       //Habilita novamente a interrupção pois o handler desabilitou.
       PIE1bits.RCIE = 1;
     }//if (hand_flag_rs232)

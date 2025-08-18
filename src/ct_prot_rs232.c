@@ -20,7 +20,7 @@
 #include "base_adcon.h"
 #include "serv_adcon.h"
 
-#include "ct_handler.h"
+//#include "ct_handler.h"
 #include "utils.h"
 
 
@@ -50,68 +50,42 @@
 
 /**
  * prot_rs232_executa()
- * Esta função é responsável por ler o comando que foi colocado no buffer da serial,
- * variável hand_vbuffer_rs232, e executar a ação do comando.
- * Após executar a ação o buffer é limpo e a variável hand_qt_buffer_rs232 é zerada.
+ * Esta função é responsável interpretar e executar o comando do protocolo
+ * da rs232.
+ * @param p_nome_comando
  */
-void prot_rs232_executa(void) {
+void prot_rs232_executa(const char *p_str_comando) {
   char tmp[10];
   //Melhorar esta lógica para funcionar em qualquer ESTADO.
   uint8_t estado_diferente_monitora;
   estado_diferente_monitora =  (est_estado_atual != EST_ESTADO_MONITORA &&
                                 est_estado_atual != EST_ESTADO_MONITORA_GRAVA &&
                                 est_estado_atual != EST_ESTADO_ENVIAR_DADOS);
+
+  //Remover rx depois que não for mais necessário.
   uint8_t rx;
-  
-  //Le o primeiro caractere do buffer.
-  //rx = RCREG;
-  //rx = hand_vbuffer_rs232[0];
   rx = 0;
   
-  //Copia os 4 primeiros caracteres do buffer e considera-os como o nome do comando.
-  char v_nome_comando[5];
-  //313 ram
-  //6750 rom
-  for (int i=0; i<5; i++) {
-    v_nome_comando[i] = hand_vbuffer_rs232[i];
-  }
-  v_nome_comando[4] = 0x00; //final string.
-  //311 ram
-  //6780 rom
-  //strncpy(&v_nome_comando, hand_vbuffer_rs232, 4);
-
-  //Verifica qual o comando recebido:
-  
-  //Comando AMON
-  
-  //313 ram
-  //7539 rom
-  //if (rx) {
-  
-  //318 ram
-  //7558 rom 7558-7539= 19
-  //if (v_nome_comando[0]=='A' && v_nome_comando[1]=='M' && v_nome_comando[2]=='O' && v_nome_comando[3]=='N') {
-  
-  //Comando AMON
-  //318 ram
-  //7645 rom
-  if(strcmp(v_nome_comando, "AMON") == 0) {
-  //if(strncmp(v_nome_comando, "AMON", 4) == 0 ) {
+  //================ Comando AMON =============================
+  //Compara os 4 primeiros caracters do comando:
+  if(strncmp(p_str_comando, "AMON", 4) == 0) {
     if (estado_diferente_monitora) {
       rs232_envia_string("OKK:AMON\n");
-      
-      //7558-7521 = 37 words
-      //Envia a quantidade de sensores configurados.
-      //sprintf(tmp, "QSE=%d\n", adcon_cfg_quant_sensores_atual);
+      //Monta a string QSE=x\n
+      //onde x é a quantidade de sensores.
       strcpy(tmp, "QSE=");
+      //Coloca o valor a partir da posição 4 do vetor tmp[].
       util_uint16_to_str(adcon_cfg_quant_sensores_atual, &tmp[4]);
+      //Adiciona um final de linha \n.
       strcat(tmp, "\n"); //13 words de ROM
+      //Envia a string pela serial.
       rs232_envia_string(tmp);
       
       //Envia o tempo entre aquisições.
       //sprintf(tmp, "TAQ=%d\n", adcon_cfg_tempo_aquisicao_atual);
       strcpy(tmp, "TAQ=");
       util_uint16_to_str(adcon_cfg_tempo_aquisicao_atual, &tmp[4]);
+      strcat(tmp, "\n");
       rs232_envia_string(tmp);
       
       //Envia END
@@ -120,16 +94,14 @@ void prot_rs232_executa(void) {
       //Entra no estado Monitora.
       serv_adcon_bol_monitora_grava = 1;
       est_estado_atual = EST_ESTADO_MONITORA;
-      //Habilita monitora.
-      INTCONbits.T0IE = 1;
+      INTCONbits.T0IE = 1; //Habilita monitora.
     }//if estado_diferente_monitora
     else {
       //Envia mensagem de erro.
       rs232_envia_string("ERR:AMON monitorando\n");
     }
     
-    //limpa o buffer da serial.
-    hand_qt_buffer_rs232 = 0;
+    
   }//if 'AMON'
 
   //Monitora e Grava
@@ -140,7 +112,7 @@ void prot_rs232_executa(void) {
   //318 ram
   //7645 rom 7645-7669= 24
   //else if (rx == 'C') {
-  else if(strcmp(v_nome_comando, "AMOG") == 0 ) {
+  else if(strcmp(p_str_comando, "AMOG") == 0 ) {
     if (estado_diferente_monitora) {
         rs232_envia_string("Z\n");
         
@@ -299,8 +271,6 @@ void prot_rs232_executa(void) {
   else {
     //Envia mensagem de erro.
     rs232_envia_string("ERR" "aa");
-    //Limpa buffer.
-    hand_qt_buffer_rs232 = 0;
   }
   
 }//prot_rs232_executa()
