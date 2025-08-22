@@ -55,10 +55,10 @@ TMenuSystem serv_menu_raiz;
   
   //Menus/submenus:                 tipo,index_active,quant_itens,             pv_itens,                    p_supermenu,     str_titulo
   static TMenu menu_principal    = {MNU_TIPO_GERAL, 0,MENU_PRINCIPAL_TAM,    &(menu_principal_itens[0]),    NULL,            "Principal"   };
-  static TMenu menu_cfg_tp_aquis = {MNU_TIPO_LISTA, 0,MENU_CFG_TP_AQUIS_TAM, &(menu_cfg_tp_aquis_itens[0]), &menu_principal, "Tempo Aquis."};
-  static TMenu menu_cfg_qt_sens  = {MNU_TIPO_LISTA, 0,MENU_CFG_QT_SENS_TAM,  &(menu_cfg_qt_sens_itens[0]),  &menu_principal, "Quant. Sens."};
   static TMenu menu_cfg          = {MNU_TIPO_LISTA, 0,MENU_CFG_TAM,          &(menu_cfg_itens[0]),          &menu_principal, "Config."     };
   static TMenu menu_cfg_monit    = {MNU_TIPO_LISTA, 0,MENU_CFG_MONIT_TAM,    &(menu_cfg_monit_itens[0]),    &menu_cfg,       "Monit."      }; 
+  static TMenu menu_cfg_qt_sens  = {MNU_TIPO_LISTA, 0,MENU_CFG_QT_SENS_TAM,  &(menu_cfg_qt_sens_itens[0]),  &menu_cfg_monit, "Quant. Sens."};
+  static TMenu menu_cfg_tp_aquis = {MNU_TIPO_LISTA, 0,MENU_CFG_TP_AQUIS_TAM, &(menu_cfg_tp_aquis_itens[0]), &menu_cfg_monit, "Tempo Aquis."};
   
   //Itens para o menu menu_principal
    static const TMenuItem menu_principal_itens[MENU_PRINCIPAL_TAM] = {

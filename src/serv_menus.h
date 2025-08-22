@@ -4,40 +4,24 @@
  *
  * Created on 30 de Dezembro de 2013, 23:59
  * 
- * Este arquivo define a estrutura de menus da aplicação:
+ * Este módulo define a seguinte estrutura de menus da aplicação:
  * 
  * Principal
- *   {"1)Monitora",      0},
- *   {"2)Monit/Grava",   1},
- *   {"3)Ver Todos",     2},
- *   {"4)Max/Min",       3},
- *   {"5)Limpar",        4},
- *   {"6)Tempo Aquisi.",  5},
- *     "1 seg",  ADCON_CFG_TEMPO_AQUISICAO_1_SEGUNDO,
- *     "10 seg", ADCON_CFG_TEMPO_AQUISICAO_10_SEGUNDOS,
- *     "30 seg", ADCON_CFG_TEMPO_AQUISICAO_30_SEGUNDOS,
- *     "1 min",  ADCON_CFG_TEMPO_AQUISICAO_1_MINUTO,
- *     "10 min", ADCON_CFG_TEMPO_AQUISICAO_10_MINUTOS,
- *     "30 min", ADCON_CFG_TEMPO_AQUISICAO_30_MINUTOS,
- *     "1 hora", ADCON_CFG_TEMPO_AQUISICAO_1_HORA  //não fechar virgula no último item
- *   {"7)Quant.Sens.",   6},                 
- *         "1", 1,
- *         "2", 2,
- *         "3", 3,
- *         "4", 4,
- *         "5", 5,
- *         "6", 6,
- *         "7", 7,
- *         "8", 8  //não fechar virgula no último item
- *   {"8)Enviar Dados",  7}   //não fechar virgula no último item
- *   {"9)Configuracoes
- *       Item 1
- *         Item1 1
- *         Item1 2
- *         Item1 3
- *       Item 2
- *       Item 3
- *       Item 4
+ *   1)Monitora
+ *   2)Monit/Grava
+ *   3)Ver Todos
+ *   4)Max/Min
+ *   5)Limpar
+ *   6)Enviar Dados
+ *   7)Configura
+ *     1)Monit.
+ *       1)Tempo Aquisi.
+ *         1 seg, 10 seg, 30 seg, 1 min, 10 min, 30 min, 1 hora
+ *       2)Quant. Sens.
+ *         1, 2, 3, 4, 5, 6, 7, 8
+ *     2)Portas
+ *     3)Serial
+ *     4)Display
  * 
  */
 
